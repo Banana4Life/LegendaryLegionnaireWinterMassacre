@@ -26,7 +26,7 @@ public class Level
         this.spawnQueue.add(e);
     }
 
-    public void update(float delta) {
+    public void render(DrawContext ctx, float delta) {
         // spawn queued
         this.entities.addAll(this.spawnQueue);
         this.spawnQueue.clear();
@@ -42,7 +42,7 @@ public class Level
 
         // draw living
         for (final Entity e : this.entities) {
-            e.draw(delta);
+            e.draw(ctx);
         }
     }
 }

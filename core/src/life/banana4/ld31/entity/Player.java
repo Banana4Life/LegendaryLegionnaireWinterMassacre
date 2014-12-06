@@ -1,5 +1,7 @@
 package life.banana4.ld31.entity;
 
+import life.banana4.ld31.DrawContext;
+
 public class Player extends MovingEntity
 {
     public Player()
@@ -14,7 +16,7 @@ public class Player extends MovingEntity
     }
 
     @Override
-    public void draw(float delta)
+    public void draw(DrawContext ctx)
     {
 
     }

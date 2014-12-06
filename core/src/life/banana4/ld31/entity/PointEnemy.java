@@ -1,5 +1,7 @@
 package life.banana4.ld31.entity;
 
+import life.banana4.ld31.DrawContext;
+
 public class PointEnemy extends Enemy
 {
     public PointEnemy()
@@ -14,7 +16,7 @@ public class PointEnemy extends Enemy
     }
 
     @Override
-    public void draw(float delta)
+    public void draw(DrawContext ctx)
     {
 
     }

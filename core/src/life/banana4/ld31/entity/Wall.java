@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 
 public class Wall extends Entity
@@ -16,7 +17,7 @@ public class Wall extends Entity
     }
 
     @Override
-    public void draw(float delta)
+    public void draw(DrawContext ctx)
     {
 
     }
