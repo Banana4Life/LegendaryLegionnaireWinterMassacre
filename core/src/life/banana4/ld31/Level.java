@@ -2,6 +2,7 @@ package life.banana4.ld31;
 
 import java.util.ArrayList;
 import java.util.List;
+import life.banana4.ld31.ai.TiledGraph;
 
 public class Level
 {
@@ -14,6 +15,7 @@ public class Level
         this.entities = new ArrayList<>();
         this.spawnQueue = new ArrayList<>();
         this.removalQueue = new ArrayList<>();
+        new TiledGraph().init();
     }
 
     void remove(Entity entity)

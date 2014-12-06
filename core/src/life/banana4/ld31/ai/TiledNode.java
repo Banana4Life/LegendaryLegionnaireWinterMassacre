@@ -6,7 +6,8 @@ import com.badlogic.gdx.utils.Array;
 
 public class TiledNode implements IndexedNode<TiledNode>
 {
-    public enum Type {
+    public enum Type
+    {
         TILE_EMPTY,
         TILE_FLOOR,
         TILE_WALL
@@ -17,9 +18,9 @@ public class TiledNode implements IndexedNode<TiledNode>
 
     public final Type type;
 
-    protected Array<Connection<TiledNode>> connections;
+    protected Array<Connection<TiledNode>> connections = new Array<>(4);
 
-    public TiledNode(int x, int y, Type type, Array<Connection<TiledNode>> connections)
+    public TiledNode(int x, int y, Type type)
     {
         this.x = x;
         this.y = y;
@@ -36,6 +37,6 @@ public class TiledNode implements IndexedNode<TiledNode>
     @Override
     public int getIndex()
     {
-        return x * sizeY + y;
+        return x * TiledGraph.SIZE_Y + y;
     }
 }
