@@ -5,7 +5,8 @@ public final class Intention
     private final Type type;
     private final Object argument;
 
-    public Intention(Type type) {
+    public Intention(Type type)
+    {
         this(type, null);
     }
 

@@ -16,7 +16,6 @@ import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.collision.Collider;
 import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
-import life.banana4.ld31.input.Intention.Type;
 import life.banana4.ld31.input.IntentionDetector;
 import life.banana4.ld31.input.KeyboardIntentionDetector;
 
@@ -53,7 +52,7 @@ public class Level
         IndexedAStarPathFinder<TiledNode> pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
         TiledSmoothableGraphPath path = new TiledSmoothableGraphPath();
 
-        pathFinder.searchNodePath(tiledGraph.getNode(12, 5), tiledGraph.getNode(16,19), heuristic, path);
+        pathFinder.searchNodePath(tiledGraph.getNode(12, 5), tiledGraph.getNode(16, 19), heuristic, path);
 
         for (TiledNode tiledNode : path)
         {
@@ -143,11 +142,13 @@ public class Level
         }
     }
 
-    private static Set<Intention> scanIntentions() {
+    private static Set<Intention> scanIntentions()
+    {
         for (final IntentionDetector detector : INTENTION_DETECTORS)
         {
             Set<Intention> intentions = detector.detect();
-            if (!intentions.isEmpty()) {
+            if (!intentions.isEmpty())
+            {
                 return intentions;
             }
         }

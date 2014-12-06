@@ -26,12 +26,14 @@ public class ControllerIntentionDetector implements IntentionDetector
     public Set<Intention> detect()
     {
         Array<Controller> controllers = Controllers.getControllers();
-        if (controllers.size == 0) {
+        if (controllers.size == 0)
+        {
             return NO_INTENTIONS;
         }
 
         Controller mc = controllers.first();
-        if (!mc.getName().toLowerCase().contains("xbox") || !mc.getName().contains("360")) {
+        if (!mc.getName().toLowerCase().contains("xbox") || !mc.getName().contains("360"))
+        {
             return NO_INTENTIONS;
         }
 
@@ -39,7 +41,8 @@ public class ControllerIntentionDetector implements IntentionDetector
 
         for (final Entry<Integer, Intention> entry : this.buttons.entrySet())
         {
-            if (mc.getButton(entry.getKey())) {
+            if (mc.getButton(entry.getKey()))
+            {
                 intentions.add(entry.getValue());
             }
         }
@@ -47,17 +50,21 @@ public class ControllerIntentionDetector implements IntentionDetector
         float leftX = mc.getAxis(XBox360Pad.AXIS_LEFT_X);
         float leftY = mc.getAxis(XBox360Pad.AXIS_LEFT_Y);
 
-        if (leftX > 0) {
+        if (leftX > 0)
+        {
             intentions.add(new Intention(Type.MOVE_RIGHT, abs(leftX)));
         }
-        if (leftX < 0) {
+        if (leftX < 0)
+        {
             intentions.add(new Intention(Type.MOVE_LEFT, abs(leftX)));
         }
 
-        if (leftY > 0) {
+        if (leftY > 0)
+        {
             intentions.add(new Intention(Type.MOVE_DOWN, abs(leftY)));
         }
-        if (leftY < 0) {
+        if (leftY < 0)
+        {
             intentions.add(new Intention(Type.MOVE_UP, abs(leftY)));
         }
 
