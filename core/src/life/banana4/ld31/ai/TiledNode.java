@@ -25,7 +25,6 @@ public class TiledNode implements IndexedNode<TiledNode>
         this.x = x;
         this.y = y;
         this.type = type;
-        this.connections = connections;
     }
 
     @Override

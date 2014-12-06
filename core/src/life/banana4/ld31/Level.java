@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import com.badlogic.gdx.ai.pfa.PathSmoother;
+import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.ai.TiledGraph;
+import life.banana4.ld31.ai.TiledManhattenDistance;
+import life.banana4.ld31.ai.TiledNode;
+import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
+import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.collision.Collider;
 
 public class Level
@@ -14,12 +21,37 @@ public class Level
     private final List<Entity> spawnQueue;
     private final List<Entity> removalQueue;
 
+    private final TiledGraph tiledGraph;
+    private final TiledManhattenDistance heuristic = new TiledManhattenDistance();
+    private final PathSmoother<TiledNode, Vector2> smoother;
+
+
     public Level()
     {
         this.entities = new ArrayList<>();
         this.spawnQueue = new ArrayList<>();
         this.removalQueue = new ArrayList<>();
-        new TiledGraph().init();
+
+        tiledGraph = new TiledGraph().init();
+        smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
+
+        System.out.println("Running tests...");
+        IndexedAStarPathFinder<TiledNode> pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
+        TiledSmoothableGraphPath path = new TiledSmoothableGraphPath();
+
+        pathFinder.searchNodePath(tiledGraph.getNode(12, 5), tiledGraph.getNode(16,19), heuristic, path);
+
+        for (TiledNode tiledNode : path)
+        {
+            System.out.println(tiledNode.x + ":" + tiledNode.y);
+        }
+
+        smoother.smoothPath(path);
+        System.out.println("smoothed");
+        for (TiledNode tiledNode : path)
+        {
+            System.out.println(tiledNode.x + ":" + tiledNode.y);
+        }
     }
 
     void remove(Entity entity)

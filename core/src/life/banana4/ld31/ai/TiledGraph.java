@@ -10,26 +10,26 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
     public static int SIZE_Y = 50;
     public static int SIZE_X = 20;
 
-    public void init()
+    public TiledGraph init()
     {
-        for (int x = 0; x <= SIZE_X; x++)
+        for (int x = 0; x < SIZE_X; x++)
         {
-            for (int y = 0; y <= SIZE_Y; y++)
+            for (int y = 0; y < SIZE_Y; y++)
             {
                 TiledNode node;
-                if (x == 0 || y == 0 || x == SIZE_X || y == SIZE_Y)
+                if (x == 0 || y == 0 || x == SIZE_X - 1 || y == SIZE_Y - 1)
                 {
-                    System.out.print("W");
+                    //System.out.print("W");
                     node = new TiledNode(x, y, Type.TILE_WALL);
                 }
                 else
                 {
-                    System.out.print(" ");
+                    //System.out.print(" ");
                     node = new TiledNode(x, y, TILE_FLOOR);
                 }
                 nodes.add(node);
             }
-            System.out.println();
+//            System.out.println();
         }
         for (int x = 0; x < SIZE_X; x++)
         {
@@ -55,15 +55,23 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
                 }
             }
         }
+
+
+
+        return this;
     }
 
     private void addConnection(TiledNode node, int x, int y)
     {
-        TiledNode target = getNode(node.x + x, node.y + y);
-        switch (target.type)
+        if (node.type == TILE_FLOOR)
         {
-            case TILE_FLOOR:
-                node.getConnections().add(new TiledConnection(this, node, target));
+            TiledNode target = getNode(node.x + x, node.y + y);
+            switch (target.type)
+            {
+                case TILE_FLOOR:
+                    //System.out.println(node.x + ":" + node.y + "->" + target.x + ":" + target.y + "|" + x + ":" +y);
+                    node.getConnections().add(new TiledConnection(this, node, target));
+            }
         }
     }
 
