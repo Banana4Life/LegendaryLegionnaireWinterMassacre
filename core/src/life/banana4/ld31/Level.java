@@ -21,18 +21,21 @@ public class Level
         this.removalQueue.add(entity);
     }
 
-    public void addEntity(Entity e) {
+    public void addEntity(Entity e)
+    {
         e.setLevel(this);
         this.spawnQueue.add(e);
     }
 
-    public void render(DrawContext ctx, float delta) {
+    public void render(DrawContext ctx, float delta)
+    {
         // spawn queued
         this.entities.addAll(this.spawnQueue);
         this.spawnQueue.clear();
 
         // update living
-        for (final Entity e : this.entities) {
+        for (final Entity e : this.entities)
+        {
             e.update(delta);
         }
 
@@ -41,8 +44,14 @@ public class Level
         this.removalQueue.clear();
 
         // draw living
-        for (final Entity e : this.entities) {
+        for (final Entity e : this.entities)
+        {
             e.draw(ctx);
         }
+    }
+
+    private void detectCollitions()
+    {
+
     }
 }
