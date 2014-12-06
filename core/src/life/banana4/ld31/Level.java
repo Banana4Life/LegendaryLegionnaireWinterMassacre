@@ -60,6 +60,7 @@ public class Level
     Ld31 game;
 
     private boolean debug = true; // TODO debug
+    private Random random = new Random();
 
     public Level(int width, int height, TiledGraph tiledGraph)
     {
@@ -115,7 +116,6 @@ public class Level
         }
         if (enemyCount < 4)
         {
-            Random random = new Random();
             float rX, rY;
             int spawns = 0;
             Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
@@ -311,5 +311,10 @@ public class Level
     public Ld31 getGame()
     {
         return this.game;
+    }
+
+    public Random getRandom()
+    {
+        return random;
     }
 }

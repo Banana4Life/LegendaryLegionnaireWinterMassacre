@@ -110,7 +110,7 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
                     {
                         break;
                     }
-                    Random random = new Random();
+                    Random random = this.getLevel().getRandom();
                     dir.setAngle(getRotation() - (random.nextInt(8) + 13));
                     shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
                     dir.setAngle(getRotation() - (random.nextInt(8) + 5));
