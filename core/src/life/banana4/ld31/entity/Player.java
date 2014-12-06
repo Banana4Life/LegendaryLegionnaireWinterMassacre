@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import life.banana4.ld31.DrawContext;
@@ -10,7 +11,6 @@ public class Player extends MovingEntity
 {
     public static final float SPEED = 100;
     public static final float MINIMUM_MOVE_MUL = 0.05f;
-    private float radius = 20;
 
     public Player()
     {
@@ -26,10 +26,10 @@ public class Player extends MovingEntity
     @Override
     public void draw(DrawContext ctx)
     {
-        ShapeRenderer r = ctx.getShapeRenderer();
-        r.begin(ShapeType.Filled);
-        r.circle(getX(), getY(), radius);
-        r.end();
+        SpriteBatch batch = ctx.getSpriteBatch();
+        batch.begin();
+        batch.draw(ctx.resources.textures.torso, getX(), getY(), 0, 0, 128, 128, 1, 1, getRotation(), 0, 0, 128, 128, false, false);
+        batch.end();
     }
 
     @Override
@@ -65,10 +65,10 @@ public class Player extends MovingEntity
             switch (t)
             {
                 case PRIMARY_ATTACK:
-                    radius += 15 * delta;
+                    //radius += 15 * delta;
                     break;
                 case SECONDARY_ATTACK:
-                    radius -= 15 * delta;
+                    //radius -= 15 * delta;
                     break;
             }
         }

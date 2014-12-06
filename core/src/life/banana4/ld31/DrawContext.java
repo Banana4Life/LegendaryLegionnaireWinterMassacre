@@ -9,14 +9,16 @@ public class DrawContext
     private final SpriteBatch spriteBatch;
     private final ShapeRenderer shapeRenderer;
     public final OrthographicCamera camera;
+    public final Ld31Resources resources;
 
-    public DrawContext(OrthographicCamera camera, SpriteBatch spriteBatch, ShapeRenderer shapeRenderer)
+    public DrawContext(OrthographicCamera camera, SpriteBatch spriteBatch, ShapeRenderer shapeRenderer, Ld31Resources resources)
     {
         this.camera = camera;
         this.spriteBatch = spriteBatch;
         this.spriteBatch.setProjectionMatrix(camera.combined);
         this.shapeRenderer = shapeRenderer;
         this.spriteBatch.setProjectionMatrix(camera.combined);
+        this.resources = resources;
     }
 
     public SpriteBatch getSpriteBatch()

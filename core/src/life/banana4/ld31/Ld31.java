@@ -22,7 +22,7 @@ public class Ld31 extends ApplicationAdapter
         this.level = ld31Resources.levels.level1;
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(true);
-        this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer());
+        this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), ld31Resources);
     }
 
     @Override

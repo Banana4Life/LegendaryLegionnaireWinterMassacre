@@ -11,6 +11,7 @@ public abstract class Entity
     private Level level;
     private float x;
     private float y;
+    private float rotation = 0;
     private final float width;
     private final float height;
 
@@ -51,6 +52,11 @@ public abstract class Entity
     public float getY()
     {
         return y;
+    }
+
+    public float getRotation()
+    {
+        return rotation;
     }
 
     public float getWidth()
