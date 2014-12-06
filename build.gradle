@@ -24,6 +24,14 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://repo.cubeisland.de/" }
+    }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+        }
     }
 }
 
@@ -47,6 +55,8 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        compile group: "life.banana4.util", name: "resourcebags", version: "0.0.1-SNAPSHOT", changing: true
+        compile "de.cubeisland.engine:reflect:2.0.4"
     }
 }
 
