@@ -36,10 +36,11 @@ public abstract class Entity
         getLevel().remove(this);
     }
 
-    public void move(float x, float y)
+    public Entity move(float x, float y)
     {
         this.x += x;
         this.y += y;
+        return this;
     }
 
     public float getX()

@@ -1,7 +1,9 @@
 package life.banana4.ld31.ai;
 
 import com.badlogic.gdx.ai.pfa.indexed.DefaultIndexedGraph;
+import life.banana4.ld31.Level;
 import life.banana4.ld31.ai.TiledNode.Type;
+import life.banana4.ld31.entity.Wall;
 
 import static life.banana4.ld31.ai.TiledNode.Type.TILE_FLOOR;
 
@@ -10,7 +12,7 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
     public static int SIZE_Y = 50;
     public static int SIZE_X = 20;
 
-    public TiledGraph init()
+    public TiledGraph init(Level level)
     {
         for (int x = 0; x < SIZE_X; x++)
         {
@@ -21,6 +23,7 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
                 {
                     //System.out.print("W");
                     node = new TiledNode(x, y, Type.TILE_WALL);
+                    level.addEntity(new Wall(1, 1).move(x, y));
                 }
                 else
                 {
@@ -55,8 +58,6 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
                 }
             }
         }
-
-
 
         return this;
     }

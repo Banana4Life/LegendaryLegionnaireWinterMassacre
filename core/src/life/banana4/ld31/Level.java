@@ -45,7 +45,7 @@ public class Level
         this.spawnQueue = new ArrayList<>();
         this.removalQueue = new ArrayList<>();
 
-        tiledGraph = new TiledGraph().init();
+        tiledGraph = new TiledGraph().init(this);
         smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
 
         System.out.println("Running tests...");
