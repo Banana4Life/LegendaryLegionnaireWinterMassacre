@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
@@ -15,7 +14,7 @@ import life.banana4.ld31.input.Intention.Type;
 public class Player extends MovingEntity
 {
     public static final float SPEED = 100;
-    public static final float MINIMUM_MOVE_MUL = 0.05f;
+    public static final float MINIMUM_MOVE_MUL = 0.06f;
 
     public Player()
     {
@@ -39,11 +38,9 @@ public class Player extends MovingEntity
         ShapeRenderer r = ctx.getShapeRenderer();
         r.begin(ShapeType.Line);
         r.setColor(Color.CYAN);
-        Vector2 line = new Vector2(100, 0).setAngle(getRotation() - 90f).scl(100);
+        Vector2 line = new Vector2(100, 0).setAngle(getRotation()).scl(100);
         r.line(getX(), getY(), getX() + line.x, getY() + line.y);
         r.end();
-
-        System.out.println(getRotation());
     }
 
     @Override

@@ -1,9 +1,7 @@
 package life.banana4.ld31.input;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -104,8 +102,17 @@ public class GlobalInputProcessor implements AllThemInputProcessor
     }
 
     @Override
-    public boolean axisMoved(Controller controller, int axisCode, float value)
+    public boolean axisMoved(Controller c, int axisCode, float value)
     {
+        if (Math.abs(value) < Player.MINIMUM_MOVE_MUL)
+        {
+            return false;
+        }
+        if (axisCode == XBox360Pad.AXIS_RIGHT_X || axisCode == XBox360Pad.AXIS_RIGHT_Y)
+        {
+            Vector2 vec = new Vector2(c.getAxis(XBox360Pad.AXIS_RIGHT_X), c.getAxis(XBox360Pad.AXIS_RIGHT_Y));
+            game.getLevel().getPlayer().setRotation(vec.angle());
+        }
         System.out.println(axisCode + " moved -> " + value);
         return true;
     }

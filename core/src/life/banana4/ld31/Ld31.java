@@ -2,6 +2,7 @@ package life.banana4.ld31;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,7 +26,9 @@ public class Ld31 extends ApplicationAdapter
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(true);
         this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), ld31Resources);
-        Gdx.input.setInputProcessor(new InputMultiplexer(new GlobalInputProcessor(this, camera)));
+        InputMultiplexer inputMul = new InputMultiplexer(new GlobalInputProcessor(this, camera));
+        Gdx.input.setInputProcessor(inputMul);
+        Controllers.addListener(inputMul);
     }
 
     @Override
