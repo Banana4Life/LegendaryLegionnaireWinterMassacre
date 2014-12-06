@@ -25,8 +25,6 @@ public class Player extends MovingEntity
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
-        Vector3 pos = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-        setRotation(new Vector2(pos.x - getX(), pos.y - getY()).angle());
     }
 
     @Override
@@ -34,7 +32,8 @@ public class Player extends MovingEntity
     {
         SpriteBatch batch = ctx.getSpriteBatch();
         batch.begin();
-        batch.draw(ctx.resources.textures.torso, getX(), getY(), 0, 0, 128, 128, 1, 1, getRotation(), 0, 0, 128, 128, false, false);
+        batch.draw(ctx.resources.textures.torso, getX(), getY(), 0, 0, 128, 128, 1, 1, getRotation(), 0, 0, 128, 128,
+                   false, false);
         batch.end();
 
         ShapeRenderer r = ctx.getShapeRenderer();
@@ -43,7 +42,6 @@ public class Player extends MovingEntity
         Vector2 line = new Vector2(100, 0).setAngle(getRotation() - 90f).scl(100);
         r.line(getX(), getY(), getX() + line.x, getY() + line.y);
         r.end();
-
 
         System.out.println(getRotation());
     }

@@ -11,7 +11,8 @@ public class DrawContext
     public final OrthographicCamera camera;
     public final Ld31Resources resources;
 
-    public DrawContext(OrthographicCamera camera, SpriteBatch spriteBatch, ShapeRenderer shapeRenderer, Ld31Resources resources)
+    public DrawContext(OrthographicCamera camera, SpriteBatch spriteBatch, ShapeRenderer shapeRenderer,
+                       Ld31Resources resources)
     {
         this.camera = camera;
         this.spriteBatch = spriteBatch;

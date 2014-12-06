@@ -1,7 +1,9 @@
 package life.banana4.ld31.input;
 
 import java.util.LinkedList;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.PovDirection;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * This class is a custom input multiplexer that replaces the multiplexer.
@@ -11,17 +13,17 @@ import com.badlogic.gdx.InputProcessor;
  *
  * @author Phillip Schichtel
  */
-public class InputMultiplexer implements InputProcessor
+public class InputMultiplexer implements AllThemInputProcessor
 {
-    private final LinkedList<InputProcessor> processors = new LinkedList<>();
-    private final InputProcessor fallback;
+    private final LinkedList<AllThemInputProcessor> processors = new LinkedList<>();
+    private final AllThemInputProcessor fallback;
 
     public InputMultiplexer()
     {
         this(null);
     }
 
-    public InputMultiplexer(InputProcessor fallback)
+    public InputMultiplexer(AllThemInputProcessor fallback)
     {
         this.fallback = fallback;
     }
@@ -33,7 +35,7 @@ public class InputMultiplexer implements InputProcessor
      *
      * @return fluent interface
      */
-    public InputMultiplexer append(InputProcessor processor)
+    public AllThemInputProcessor append(AllThemInputProcessor processor)
     {
         this.processors.addLast(processor);
         return this;
@@ -46,7 +48,7 @@ public class InputMultiplexer implements InputProcessor
      *
      * @return fluent interface
      */
-    public InputMultiplexer prepend(InputProcessor processor)
+    public AllThemInputProcessor prepend(AllThemInputProcessor processor)
     {
         this.processors.addLast(processor);
         return this;
@@ -59,7 +61,7 @@ public class InputMultiplexer implements InputProcessor
      *
      * @return fluent interface
      */
-    public InputMultiplexer remove(InputProcessor processor)
+    public AllThemInputProcessor remove(AllThemInputProcessor processor)
     {
         this.processors.remove(processor);
         return this;
@@ -68,7 +70,7 @@ public class InputMultiplexer implements InputProcessor
     @Override
     public boolean keyDown(int keycode)
     {
-        for (InputProcessor processor : processors)
+        for (AllThemInputProcessor processor : processors)
         {
             if (processor.keyDown(keycode))
             {
@@ -81,7 +83,7 @@ public class InputMultiplexer implements InputProcessor
     @Override
     public boolean keyUp(int keycode)
     {
-        for (InputProcessor processor : processors)
+        for (AllThemInputProcessor processor : processors)
         {
             if (processor.keyUp(keycode))
             {
@@ -94,7 +96,7 @@ public class InputMultiplexer implements InputProcessor
     @Override
     public boolean keyTyped(char character)
     {
-        for (InputProcessor processor : processors)
+        for (AllThemInputProcessor processor : processors)
         {
             if (processor.keyTyped(character))
             {
@@ -107,7 +109,7 @@ public class InputMultiplexer implements InputProcessor
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        for (InputProcessor processor : processors)
+        for (AllThemInputProcessor processor : processors)
         {
             if (processor.touchDown(screenX, screenY, pointer, button))
             {
@@ -120,7 +122,7 @@ public class InputMultiplexer implements InputProcessor
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
-        for (InputProcessor processor : processors)
+        for (AllThemInputProcessor processor : processors)
         {
             if (processor.touchUp(screenX, screenY, pointer, button))
             {
@@ -133,7 +135,7 @@ public class InputMultiplexer implements InputProcessor
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {
-        for (InputProcessor processor : processors)
+        for (AllThemInputProcessor processor : processors)
         {
             if (processor.touchDragged(screenX, screenY, pointer))
             {
@@ -146,7 +148,7 @@ public class InputMultiplexer implements InputProcessor
     @Override
     public boolean mouseMoved(int screenX, int screenY)
     {
-        for (InputProcessor processor : processors)
+        for (AllThemInputProcessor processor : processors)
         {
             if (processor.mouseMoved(screenX, screenY))
             {
@@ -159,7 +161,7 @@ public class InputMultiplexer implements InputProcessor
     @Override
     public boolean scrolled(int amount)
     {
-        for (InputProcessor processor : processors)
+        for (AllThemInputProcessor processor : processors)
         {
             if (processor.scrolled(amount))
             {
@@ -167,5 +169,114 @@ public class InputMultiplexer implements InputProcessor
             }
         }
         return this.fallback != null && this.fallback.scrolled(amount);
+    }
+
+    @Override
+    public void connected(Controller controller)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            processor.connected(controller);
+        }
+    }
+
+    @Override
+    public void disconnected(Controller controller)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            processor.disconnected(controller);
+        }
+    }
+
+    @Override
+    public boolean buttonDown(Controller controller, int buttonCode)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            if (processor.buttonDown(controller, buttonCode))
+            {
+                return true;
+            }
+        }
+        return this.fallback != null && this.fallback.buttonDown(controller, buttonCode);
+    }
+
+    @Override
+    public boolean buttonUp(Controller controller, int buttonCode)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            if (processor.buttonUp(controller, buttonCode))
+            {
+                return true;
+            }
+        }
+        return this.fallback != null && this.fallback.buttonUp(controller, buttonCode);
+    }
+
+    @Override
+    public boolean axisMoved(Controller controller, int axisCode, float value)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            if (processor.axisMoved(controller, axisCode, value))
+            {
+                return true;
+            }
+        }
+        return this.fallback != null && this.fallback.axisMoved(controller, axisCode, value);
+    }
+
+    @Override
+    public boolean povMoved(Controller controller, int povCode, PovDirection value)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            if (processor.povMoved(controller, povCode, value))
+            {
+                return true;
+            }
+        }
+        return this.fallback != null && this.fallback.povMoved(controller, povCode, value);
+    }
+
+    @Override
+    public boolean xSliderMoved(Controller controller, int sliderCode, boolean value)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            if (processor.xSliderMoved(controller, sliderCode, value))
+            {
+                return true;
+            }
+        }
+        return this.fallback != null && this.fallback.xSliderMoved(controller, sliderCode, value);
+    }
+
+    @Override
+    public boolean ySliderMoved(Controller controller, int sliderCode, boolean value)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            if (processor.ySliderMoved(controller, sliderCode, value))
+            {
+                return true;
+            }
+        }
+        return this.fallback != null && this.fallback.ySliderMoved(controller, sliderCode, value);
+    }
+
+    @Override
+    public boolean accelerometerMoved(Controller controller, int accelerometerCode, Vector3 value)
+    {
+        for (AllThemInputProcessor processor : processors)
+        {
+            if (processor.accelerometerMoved(controller, accelerometerCode, value))
+            {
+                return true;
+            }
+        }
+        return this.fallback != null && this.fallback.accelerometerMoved(controller, accelerometerCode, value);
     }
 }

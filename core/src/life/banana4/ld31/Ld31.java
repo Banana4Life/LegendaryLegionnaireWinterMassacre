@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import life.banana4.ld31.input.GlobalInputProcessor;
+import life.banana4.ld31.input.InputMultiplexer;
 
 public class Ld31 extends ApplicationAdapter
 {
@@ -23,6 +25,7 @@ public class Ld31 extends ApplicationAdapter
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(true);
         this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), ld31Resources);
+        Gdx.input.setInputProcessor(new InputMultiplexer(new GlobalInputProcessor(this, camera)));
     }
 
     @Override
@@ -33,8 +36,8 @@ public class Ld31 extends ApplicationAdapter
         this.level.render(drawContext, Gdx.graphics.getDeltaTime());
     }
 
-    public Ld31Resources getLd31Resources()
+    public Level getLevel()
     {
-        return ld31Resources;
+        return level;
     }
 }
