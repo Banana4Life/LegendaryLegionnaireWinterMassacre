@@ -28,8 +28,7 @@ public class TiledRaycastCollisionDetector implements RaycastCollisionDetector<V
                 {
                     for (int j2 = 0; j2 <= 1; j2++)
                     {
-                        if (collides0(ray.start.x + i1, ray.start.y + j1,
-                                      ray.end.x + i2, ray.end.y + j2))
+                        if (collides0(ray.start.x + i1, ray.start.y + j1, ray.end.x + i2, ray.end.y + j2))
                         {
                             return true;
                         }

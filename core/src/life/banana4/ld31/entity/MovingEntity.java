@@ -30,4 +30,18 @@ public abstract class MovingEntity extends Entity
     {
         this.move(vx * delta, vy * delta);
     }
+
+    public Projectile shoot(Projectile p, float x, float y)
+    {
+        getLevel().addEntity(p);
+        p.move(getX(), getY());
+        p.setVelocity(x, y);
+        return p;
+    }
+
+    public Projectile shoot(Projectile p, float x, float y, float speed)
+    {
+        float len = (float)Math.sqrt(x * x + y * y);
+        return shoot(p, (x / len) * speed, (y / len) * speed);
+    }
 }

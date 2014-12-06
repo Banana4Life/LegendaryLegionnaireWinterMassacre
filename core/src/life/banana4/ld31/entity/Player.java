@@ -1,6 +1,5 @@
 package life.banana4.ld31.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,8 +32,8 @@ public class Player extends MovingEntity
         batch.begin();
 
         Vector2 offset = new Vector2(-64, -64).rotate(getRotation() + 90);
-        batch.draw(ctx.resources.textures.torso, getX() + offset.x, getY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 90, 0, 0, 128, 128,
-                   false, false);
+        batch.draw(ctx.resources.textures.torso, getX() + offset.x, getY() + offset.y, 0, 0, 128, 128, 1, 1,
+                   getRotation() + 90, 0, 0, 128, 128, false, false);
         batch.end();
 
         ShapeRenderer r = ctx.getShapeRenderer();
@@ -75,10 +74,11 @@ public class Player extends MovingEntity
         }
         else
         {
+            Vector2 dir = new Vector2(1, 0).setAngle(getRotation());
             switch (t)
             {
                 case PRIMARY_ATTACK:
-                    //radius += 15 * delta;
+                    shoot(new Projectile(3, 3), dir.x, dir.y, 500);
                     break;
                 case SECONDARY_ATTACK:
                     //radius -= 15 * delta;

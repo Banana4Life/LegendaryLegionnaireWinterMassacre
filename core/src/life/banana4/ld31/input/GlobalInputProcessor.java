@@ -113,7 +113,6 @@ public class GlobalInputProcessor implements AllThemInputProcessor
             Vector2 vec = new Vector2(c.getAxis(XBox360Pad.AXIS_RIGHT_X), c.getAxis(XBox360Pad.AXIS_RIGHT_Y));
             game.getLevel().getPlayer().setRotation(vec.angle());
         }
-        System.out.println(axisCode + " moved -> " + value);
         return true;
     }
 

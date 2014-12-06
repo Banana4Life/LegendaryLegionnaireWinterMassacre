@@ -2,9 +2,6 @@ package life.banana4.ld31.input;
 
 import com.badlogic.gdx.controllers.PovDirection;
 
-/**
-* Created by Phillip on 06.12.2014.
-*/
 public class XBox360Pad
 {
     public static final int BUTTON_X = 2;

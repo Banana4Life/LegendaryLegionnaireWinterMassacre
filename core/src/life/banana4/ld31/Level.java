@@ -73,10 +73,10 @@ public class Level
         addEntity(player).move(550, 300);
 
         Random random = new Random();
-        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2, (random.nextInt(height - 2) + 1)
-            * TILE_WIDTH - TILE_WIDTH_2));
-        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2, (random.nextInt(height - 2) + 1)
-            * TILE_WIDTH - TILE_WIDTH_2));
+        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2, (random.nextInt(
+            height - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2));
+        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2, (random.nextInt(
+            height - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2));
     }
 
     public Player getPlayer()
