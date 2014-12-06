@@ -1,5 +1,7 @@
 package life.banana4.ld31.entity;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -22,14 +24,23 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     public static final float MINIMUM_MOVE_MUL = 0.06f;
     private boolean isMouseControlled = false;
 
+    Map<Type, Float> waits = new HashMap<>();
+
     public Player()
     {
         super(20, 20);
+        waits.put(Type.PRIMARY_ATTACK, 0f);
+        waits.put(Type.SECONDARY_ATTACK, 0f);
+        waits.put(Type.TERTIARY_ATTACK, 0f);
     }
 
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
+        for (Type type : waits.keySet())
+        {
+            waits.put(type, waits.get(type) + delta);
+        }
     }
 
     @Override
@@ -87,24 +98,43 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
             switch (t)
             {
                 case PRIMARY_ATTACK:
+                    if (waits.get(t) <= 1f)
+                    {
+                        break;
+                    }
                     shoot(new Projectile(this, 3, 3), dir.x, dir.y, 600);
+                    waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
+                    if (waits.get(t) <= 2f)
+                    {
+                        break;
+                    }
                     Random random = new Random();
+                    dir.setAngle(getRotation() - (random.nextInt(8) + 13));
+                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
                     dir.setAngle(getRotation() - (random.nextInt(8) + 5));
-                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 200);
+                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
                     dir.setAngle(getRotation() + (random.nextInt(11) - 5));
-                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 200);
+                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
                     dir.setAngle(getRotation() + (random.nextInt(8) + 5));
-                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 200);
+                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
+                    dir.setAngle(getRotation() + (random.nextInt(8) + 13));
+                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
+                    waits.put(t, 0f);
                     //radius -= 15 * delta;
                     break;
                 case TERTIARY_ATTACK:
-                    for (float i = 0; i < 360 * 2; i += 3)
+                    if (waits.get(t) <= 10f)
+                    {
+                        break;
+                    }
+                    for (float i = 0; i < 360 ; i += 5)
                     {
                         dir.setAngle(getRotation() + i);
-                        shoot(new Projectile(this, 3, 3), dir.x, dir.y, 500);
+                        shoot(new Projectile(this, 5, 5), dir.x, dir.y, 500);
                     }
+                    waits.put(t, 0f);
                     break;
             }
         }

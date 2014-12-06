@@ -113,13 +113,23 @@ public class Level
                 enemyCount++;
             }
         }
-        if (enemyCount < 2)
+        if (enemyCount < 4)
         {
             Random random = new Random();
-            addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2,
-                                            (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2));
-            addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2,
-                                            (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2));
+            float rX, rY;
+            int spawns = 0;
+            Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
+            do
+            {
+                rX = (random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
+                rY = (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
+                if (playerV.dst2(rX, rY) > 200 * 200)
+                {
+                    addEntity(new PointEnemy().move(rX, rY));
+                    spawns++;
+                }
+            }
+            while (spawns < 4);
         }
 
         drawLevel(ctx);

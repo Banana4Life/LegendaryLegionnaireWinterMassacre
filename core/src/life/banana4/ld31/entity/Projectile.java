@@ -36,7 +36,7 @@ public class Projectile extends MovingEntity implements CollisionSource
         if (shooter instanceof Player)
         {
             r.setColor(Color.BLUE);
-            r.circle(getMidX(), getMidY(), 2);
+            r.circle(getMidX(), getMidY(), getWidth());
         }
         else
         {

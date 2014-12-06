@@ -18,7 +18,7 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
 {
     private static final float SPEED = 75;
     private static final float ATTACK_RANGE = 300;
-    private static final float SHOT_DELAY = 0.15f;
+    private static final float SHOT_DELAY = 0.65f;
 
     private TiledSmoothableGraphPath path = new TiledSmoothableGraphPath();
     private float waitedFor = 0;
