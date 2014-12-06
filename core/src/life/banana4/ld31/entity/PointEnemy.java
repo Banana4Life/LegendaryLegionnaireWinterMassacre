@@ -29,14 +29,25 @@ public class PointEnemy extends Enemy
     {
         super.update(camera, delta);
         this.getLevel().calculatePath(path, this);
-        if (path.getCount() < 2)
+        if (path.getCount() == 0)
         {
             this.setVelocity(0, 0);
             return;
         }
-        TiledNode tiledNode = path.get(1);
-        float x = tiledNode.x * TILE_WIDTH + TILE_WIDTH_2 - this.getMidX();
-        float y = tiledNode.y * TILE_WIDTH + TILE_WIDTH_2 - this.getMidY();
+
+        float x;
+        float y;
+        if (path.getCount() <= 2)
+        {
+            x = this.getLevel().getPlayer().getMidX() - this.getMidX();
+            y = this.getLevel().getPlayer().getMidY() - this.getMidY();
+        }
+        else
+        {
+            TiledNode tiledNode = path.get(1);
+            x= tiledNode.x * TILE_WIDTH + TILE_WIDTH_2 - this.getMidX();
+            y = tiledNode.y * TILE_WIDTH + TILE_WIDTH_2 - this.getMidY();
+        }
         double length = Math.sqrt(x * x + y * y);
         x /= length;
         y /= length;
@@ -47,7 +58,7 @@ public class PointEnemy extends Enemy
         float dx = p.getX() - getX();
         float dy = p.getY() - getY();
         waitedFor += delta;
-        if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY)
+        if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY && path.getCount() == 2)
         {
             shoot(new Projectile(3, 3), dx, dy, 200);
             waitedFor = 0;
@@ -62,6 +73,7 @@ public class PointEnemy extends Enemy
         shapeRenderer.setColor(Color.PINK);
         shapeRenderer.circle(this.getX(), this.getY(), 10);
 
+        /*
         if (this.path.getCount() > 1)
         {
             TiledNode last = path.get(0);
@@ -76,6 +88,7 @@ public class PointEnemy extends Enemy
             shapeRenderer.box(last.getTileX() + TILE_WIDTH_4, last.getTileY() + TILE_WIDTH_4, 0, TILE_WIDTH_2,
                               TILE_WIDTH_2, 0);
         }
+        */
         shapeRenderer.end();
     }
 }
