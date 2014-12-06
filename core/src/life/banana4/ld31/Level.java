@@ -35,6 +35,7 @@ public class Level
     private final List<Entity> entities;
     private final List<Entity> spawnQueue;
     private final List<Entity> removalQueue;
+    private final List<FloorTile> floor;
     private static final List<IntentionDetector> INTENTION_DETECTORS = new ArrayList<>();
 
     static
@@ -55,6 +56,7 @@ public class Level
         this.entities = new ArrayList<>();
         this.spawnQueue = new ArrayList<>();
         this.removalQueue = new ArrayList<>();
+        this.floor = new ArrayList<>();
 
         this.tiledGraph = new TiledGraph().init(this);
         this.smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
@@ -102,6 +104,11 @@ public class Level
         // remove dead
         this.entities.removeAll(this.removalQueue);
         this.removalQueue.clear();
+
+        //draw floor
+        for (final FloorTile t : this.floor) {
+            t.draw(ctx);
+        }
 
         // draw living
         for (final Entity e : this.entities)

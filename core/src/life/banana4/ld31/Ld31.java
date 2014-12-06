@@ -14,6 +14,8 @@ public class Ld31 extends ApplicationAdapter
     private Level level;
     private DrawContext drawContext;
 
+    private Ld31Resources ld31Resources;
+
     @Override
     public void create()
     {
@@ -30,5 +32,9 @@ public class Ld31 extends ApplicationAdapter
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.level.render(drawContext, Gdx.graphics.getDeltaTime());
+    }
+
+    public Ld31Resources getLd31Resources() {
+        return ld31Resources;
     }
 }
