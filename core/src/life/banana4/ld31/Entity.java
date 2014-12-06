@@ -3,6 +3,7 @@ package life.banana4.ld31;
 import java.util.concurrent.atomic.AtomicInteger;
 import com.badlogic.gdx.math.Rectangle;
 import life.banana4.ld31.input.Intention;
+import life.banana4.ld31.input.Intention.Type;
 
 public abstract class Entity
 {

@@ -16,6 +16,7 @@ import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.collision.Collider;
 import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
+import life.banana4.ld31.input.Intention.Type;
 import life.banana4.ld31.input.IntentionDetector;
 import life.banana4.ld31.input.KeyboardIntentionDetector;
 

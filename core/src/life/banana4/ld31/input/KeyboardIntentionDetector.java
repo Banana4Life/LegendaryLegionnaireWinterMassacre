@@ -8,6 +8,7 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
+import life.banana4.ld31.input.Intention.Type;
 
 public class KeyboardIntentionDetector implements IntentionDetector
 {
@@ -15,13 +16,13 @@ public class KeyboardIntentionDetector implements IntentionDetector
     private final Map<Integer, Intention> buttons = new HashMap<>();
 
     {
-        keys.put(Keys.W, Intention.MOVE_UP);
-        keys.put(Keys.S, Intention.MOVE_DOWN);
-        keys.put(Keys.A, Intention.MOVE_LEFT);
-        keys.put(Keys.D, Intention.MOVE_RIGHT);
+        keys.put(Keys.W, new Intention(Type.MOVE_UP));
+        keys.put(Keys.S, new Intention(Type.MOVE_DOWN));
+        keys.put(Keys.A, new Intention(Type.MOVE_LEFT));
+        keys.put(Keys.D, new Intention(Type.MOVE_RIGHT));
 
-        buttons.put(Buttons.LEFT, Intention.PRIMARY_ATTACK);
-        buttons.put(Buttons.RIGHT, Intention.SECONDARY_ATTACK);
+        buttons.put(Buttons.LEFT, new Intention(Type.PRIMARY_ATTACK));
+        buttons.put(Buttons.RIGHT, new Intention(Type.SECONDARY_ATTACK));
     }
 
     @Override
