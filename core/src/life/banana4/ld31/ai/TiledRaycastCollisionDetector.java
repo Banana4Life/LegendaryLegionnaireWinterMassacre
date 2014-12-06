@@ -4,7 +4,8 @@ import com.badlogic.gdx.ai.utils.Collision;
 import com.badlogic.gdx.ai.utils.Ray;
 import com.badlogic.gdx.ai.utils.RaycastCollisionDetector;
 import com.badlogic.gdx.math.Vector2;
-import life.banana4.ld31.ai.TiledNode.Type;
+
+import static life.banana4.ld31.util.TileType.FLOOR;
 
 public class TiledRaycastCollisionDetector implements RaycastCollisionDetector<Vector2>
 {
@@ -56,7 +57,7 @@ public class TiledRaycastCollisionDetector implements RaycastCollisionDetector<V
         for (int x = x0; x <= x1; x++)
         {
             TiledNode tile = steep ? worldMap.getNode(y, x) : worldMap.getNode(x, y);
-            if (tile.type != Type.TILE_FLOOR)
+            if (tile.type != FLOOR)
             {
                 return true; // We've hit a wall
             }

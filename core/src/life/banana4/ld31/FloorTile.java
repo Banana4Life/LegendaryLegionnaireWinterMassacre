@@ -1,5 +1,6 @@
 package life.banana4.ld31;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,8 +13,9 @@ public class FloorTile extends TextureRegion
         return position;
     }
 
-    public FloorTile draw(DrawContext ctx) {
-        ctx.spriteBatch.draw(this, position.x, position.y);
+    public FloorTile draw(SpriteBatch spriteBatch)
+    {
+        spriteBatch.draw(this, position.x, position.y);
 
         return this;
     }

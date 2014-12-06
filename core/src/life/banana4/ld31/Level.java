@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.PathSmoother;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
@@ -50,15 +51,22 @@ public class Level
     private final IndexedAStarPathFinder<TiledNode> pathFinder;
     private final Player player;
 
+    private final int width;
+    private final int height;
+    private final int tileWidth;
 
-    public Level()
+    public Level(int width, int height, int tileWidth, TiledGraph tiledGraph)
     {
+        this.width = width;
+        this.height = height;
+        this.tileWidth = tileWidth;
+
         this.entities = new ArrayList<>();
         this.spawnQueue = new ArrayList<>();
         this.removalQueue = new ArrayList<>();
         this.floor = new ArrayList<>();
 
-        this.tiledGraph = new TiledGraph().init(this);
+        this.tiledGraph = tiledGraph;
         this.smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
         this.pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
 
@@ -106,8 +114,10 @@ public class Level
         this.removalQueue.clear();
 
         //draw floor
-        for (final FloorTile t : this.floor) {
-            t.draw(ctx);
+        final SpriteBatch spriteBatch = ctx.getSpriteBatch();
+        for (final FloorTile t : this.floor)
+        {
+            t.draw(spriteBatch);
         }
 
         // draw living
@@ -128,11 +138,11 @@ public class Level
     private void showGrid(ShapeRenderer shapeRenderer)
     {
         shapeRenderer.setColor(Color.CYAN);
-        for (int height = 0; height < Gdx.graphics.getHeight(); height += TILE_SIZE)
+        for (int height = 0; height < Gdx.graphics.getHeight(); height += tileWidth)
         {
             shapeRenderer.line(0, height, 0, Gdx.graphics.getWidth(), height, 0);
         }
-        for (int width = 0; width < Gdx.graphics.getWidth(); width += TILE_SIZE)
+        for (int width = 0; width < Gdx.graphics.getWidth(); width += tileWidth)
         {
             shapeRenderer.line(width, 0, 0, width, Gdx.graphics.getHeight(), 0);
         }

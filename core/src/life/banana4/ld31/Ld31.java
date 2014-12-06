@@ -4,13 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Ld31 extends ApplicationAdapter
 {
-    private Texture img;
     private Level level;
     private DrawContext drawContext;
 
@@ -19,8 +17,9 @@ public class Ld31 extends ApplicationAdapter
     @Override
     public void create()
     {
-        img = new Texture("badlogic.jpg");
-        this.level = new Level();
+        this.ld31Resources = new Ld31Resources();
+        ld31Resources.build();
+        this.level = ld31Resources.levels.level1;
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(true);
         this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer());
@@ -34,7 +33,8 @@ public class Ld31 extends ApplicationAdapter
         this.level.render(drawContext, Gdx.graphics.getDeltaTime());
     }
 
-    public Ld31Resources getLd31Resources() {
+    public Ld31Resources getLd31Resources()
+    {
         return ld31Resources;
     }
 }

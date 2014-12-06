@@ -1,47 +1,33 @@
 package life.banana4.ld31.ai;
 
 import com.badlogic.gdx.ai.pfa.indexed.DefaultIndexedGraph;
-import life.banana4.ld31.Level;
-import life.banana4.ld31.ai.TiledNode.Type;
-import life.banana4.ld31.entity.Wall;
+import com.badlogic.gdx.graphics.Pixmap;
 
-import static life.banana4.ld31.ai.TiledNode.Type.TILE_FLOOR;
+import static life.banana4.ld31.util.TileType.FLOOR;
+import static life.banana4.ld31.util.TileType.getType;
 
 public class TiledGraph extends DefaultIndexedGraph<TiledNode>
 {
-    public static int SIZE_Y = 21;
-    public static int SIZE_X = 40;
+    private final int width;
+    private final int height;
 
-    public static final float TILE_SIZE = 32;
-    public static final float TILE_SIZE_4 = TILE_SIZE / 4;
-    public static final float TILE_SIZE_2 = TILE_SIZE / 2;
-
-    public TiledGraph init(Level level)
+    public TiledGraph(Pixmap map)
     {
-        for (int x = 0; x < SIZE_X; x++)
+        this.width = map.getWidth();
+        this.height = map.getHeight();
+
+        for (int x = 0; x < map.getWidth(); x++)
         {
-            for (int y = 0; y < SIZE_Y; y++)
+            for (int y = 0; y < map.getHeight(); y++)
             {
-                TiledNode node;
-                if (x == 0 || y == 0 || x == SIZE_X - 1 || y == SIZE_Y - 1)
-                {
-                    //System.out.print("W");
-                    node = new TiledNode(x, y, Type.TILE_WALL);
-                    level.addEntity(new Wall(TILE_SIZE, TILE_SIZE).move(x * TILE_SIZE, y * TILE_SIZE));
-                }
-                else
-                {
-                    //System.out.print(" ");
-                    node = new TiledNode(x, y, TILE_FLOOR);
-                }
-                nodes.add(node);
+                nodes.add(new TiledNode(x, y, getType(map.getPixel(x, y)), height));
             }
-//            System.out.println();
         }
-        for (int x = 0; x < SIZE_X; x++)
+
+        for (int x = 0; x < width; x++)
         {
-            int idx = x * SIZE_Y;
-            for (int y = 0; y < SIZE_Y; y++)
+            int idx = x * height;
+            for (int y = 0; y < height; y++)
             {
                 TiledNode n = nodes.get(idx + y);
                 if (x > 0)
@@ -52,29 +38,27 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
                 {
                     addConnection(n, 0, -1);
                 }
-                if (x < SIZE_X - 1)
+                if (x < width - 1)
                 {
                     addConnection(n, 1, 0);
                 }
-                if (y < SIZE_Y - 1)
+                if (y < height - 1)
                 {
                     addConnection(n, 0, 1);
                 }
             }
         }
-
-        return this;
     }
 
     private void addConnection(TiledNode node, int x, int y)
     {
-        if (node.type == TILE_FLOOR)
+        if (node.type == FLOOR)
         {
             TiledNode target = getNode(node.x + x, node.y + y);
             switch (target.type)
             {
-                case TILE_FLOOR:
-                    //System.out.println(node.x + ":" + node.y + "->" + target.x + ":" + target.y + "|" + x + ":" +y);
+                case FLOOR:
+                    //System.out.println(node.x + ":" + node.y + "->" + target.x + ":" + target.y + "|" + x + ":" + y);
                     node.getConnections().add(new TiledConnection(this, node, target));
             }
         }
@@ -82,6 +66,6 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
 
     public TiledNode getNode(int x, int y)
     {
-        return nodes.get(x * SIZE_Y + y);
+        return nodes.get(x * height + y);
     }
 }
