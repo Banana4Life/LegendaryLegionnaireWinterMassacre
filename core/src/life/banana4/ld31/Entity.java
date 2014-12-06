@@ -1,6 +1,7 @@
 package life.banana4.ld31;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Entity
 {
@@ -83,5 +84,9 @@ public abstract class Entity
     public int hashCode()
     {
         return id;
+    }
+
+    public void onCollide(Entity a, Rectangle rect)
+    {
     }
 }

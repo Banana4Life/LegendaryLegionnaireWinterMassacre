@@ -1,8 +1,12 @@
 package life.banana4.ld31;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import com.badlogic.gdx.math.Rectangle;
 import life.banana4.ld31.ai.TiledGraph;
+import life.banana4.ld31.entity.collision.Collider;
 
 public class Level
 {
@@ -52,8 +56,38 @@ public class Level
         }
     }
 
-    private void detectCollitions()
+    private static long pair(Entity a, Entity b)
     {
+        return (((long)a.id) << 32) | b.id;
+    }
 
+    private void detectCollisions()
+    {
+        final Set<Long> checked = new HashSet<>();
+
+        for (Entity a : this.entities)
+        {
+            for (Entity b : this.entities)
+            {
+                if (a == b)
+                {
+                    continue;
+                }
+                final long id = pair(a, b);
+                if (checked.contains(id))
+                {
+                    continue;
+                }
+                checked.add(id);
+                checked.add(pair(b, a));
+
+                Rectangle rect = Collider.findCollision(a, b);
+                if (rect != null)
+                {
+                    a.onCollide(b, rect);
+                    b.onCollide(a, rect);
+                }
+            }
+        }
     }
 }
