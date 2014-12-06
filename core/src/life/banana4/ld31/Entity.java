@@ -1,7 +1,8 @@
-package life.banana4.ld31.entity;
+package life.banana4.ld31;
 
 public abstract class Entity
 {
+    private Level level;
     private float x;
     private float y;
     private final float width;
@@ -11,6 +12,20 @@ public abstract class Entity
     {
         this.width = width;
         this.height = height;
+    }
+
+    public Level getLevel()
+    {
+        return level;
+    }
+
+    void setLevel(Level level)
+    {
+        this.level = level;
+    }
+
+    public void die() {
+        getLevel().remove(this);
     }
 
     public void move(float x, float y)
