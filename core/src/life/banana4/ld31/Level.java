@@ -18,7 +18,9 @@ import life.banana4.ld31.ai.TiledManhattenDistance;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
+import life.banana4.ld31.entity.Enemy;
 import life.banana4.ld31.entity.Player;
+import life.banana4.ld31.entity.PointEnemy;
 import life.banana4.ld31.entity.collision.Collider;
 import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
@@ -45,6 +47,7 @@ public class Level
     private final TiledManhattenDistance heuristic = new TiledManhattenDistance();
     private final PathSmoother<TiledNode, Vector2> smoother;
     private final IndexedAStarPathFinder<TiledNode> pathFinder;
+    private final Player player;
 
 
     public Level()
@@ -57,25 +60,12 @@ public class Level
         this.smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
         this.pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
 
-        System.out.println("Running tests...");
-        IndexedAStarPathFinder<TiledNode> pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
-        TiledSmoothableGraphPath path = new TiledSmoothableGraphPath();
+        player = new Player();
+        addEntity(player).move(100, 100);
 
-        pathFinder.searchNodePath(tiledGraph.getNode(12, 5), tiledGraph.getNode(16, 19), heuristic, path);
-
-        for (TiledNode tiledNode : path)
-        {
-            System.out.println(tiledNode.x + ":" + tiledNode.y);
-        }
-
-        smoother.smoothPath(path);
-        System.out.println("smoothed");
-        for (TiledNode tiledNode : path)
-        {
-            System.out.println(tiledNode.x + ":" + tiledNode.y);
-        }
-
-        addEntity(new Player()).move(100, 100);
+        Random random = new Random();
+        addEntity(new PointEnemy().move((random.nextInt(TiledGraph.SIZE_X - 2) + 1) * TILE_SIZE, (random.nextInt(TiledGraph.SIZE_Y - 2) + 1) * TILE_SIZE));
+        addEntity(new PointEnemy().move((random.nextInt(TiledGraph.SIZE_X - 2) + 1) * TILE_SIZE, (random.nextInt(TiledGraph.SIZE_Y - 2) + 1) * TILE_SIZE));
     }
 
     void remove(Entity entity)
@@ -120,17 +110,11 @@ public class Level
         }
     }
 
-    private int randomX1 = new Random().nextInt(TiledGraph.SIZE_X - 2) + 1;
-    private int randomY1 = new Random().nextInt(TiledGraph.SIZE_Y - 2) + 1;
-    private int randomX2 = new Random().nextInt(TiledGraph.SIZE_X - 2) + 1;
-    private int randomY2 = new Random().nextInt(TiledGraph.SIZE_Y - 2) + 1;
-
     private void drawLevel(DrawContext ctx)
     {
         ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
         shapeRenderer.begin(ShapeType.Line);
         showGrid(shapeRenderer);
-        showPath(shapeRenderer);
         shapeRenderer.end();
     }
 
@@ -147,34 +131,40 @@ public class Level
         }
     }
 
-    private void showPath(ShapeRenderer shapeRenderer)
+    public void calculatePath(TiledSmoothableGraphPath path, ShapeRenderer shapeRenderer, Entity entity)
     {
-        TiledSmoothableGraphPath path = new TiledSmoothableGraphPath();
-        pathFinder.searchNodePath(tiledGraph.getNode(randomX1, randomY1), tiledGraph.getNode(randomX2, randomY2),
-                                  heuristic, path);
-
-        TiledNode last = path.get(0);
-        for (TiledNode tiledNode : path)
+        path.clear();
+        if (entity instanceof Enemy)
         {
-            shapeRenderer.setColor(Color.YELLOW);
-            shapeRenderer.box(tiledNode.getTileX() + TILE_SIZE_4, tiledNode.getTileY() + TILE_SIZE_4, 0, TILE_SIZE_2,
-                              TILE_SIZE_2, 0);
-            shapeRenderer.setColor(Color.PURPLE);
-            shapeRenderer.line(last.getTileX() + TILE_SIZE_2, last.getTileY() + TILE_SIZE_2, 0,
-                               tiledNode.getTileX() + TILE_SIZE_2, tiledNode.getTileY() + TILE_SIZE_2, 0);
-            last = tiledNode;
-        }
+            pathFinder.searchNodePath(tiledGraph.getNode((int)(entity.getX() / TILE_SIZE),
+                                                         (int)(entity.getY() / TILE_SIZE)), tiledGraph.getNode(
+                (int)(player.getX() / TILE_SIZE), (int)(player.getY() / TILE_SIZE)), heuristic, path);
 
-        smoother.smoothPath(path);
-        last = path.get(0);
-        for (TiledNode tiledNode : path)
-        {
-            shapeRenderer.setColor(Color.GREEN);
-            shapeRenderer.box(tiledNode.getTileX() + TILE_SIZE_4, tiledNode.getTileY() + TILE_SIZE_4, 0, TILE_SIZE_2,
-                              TILE_SIZE_2, 0);
-            shapeRenderer.line(last.getTileX() + TILE_SIZE_2, last.getTileY() + TILE_SIZE_2, 0,
-                               tiledNode.getTileX() + TILE_SIZE_2, tiledNode.getTileY() + TILE_SIZE_2, 0);
-            last = tiledNode;
+            TiledNode last = path.get(0);
+                /*
+                for (TiledNode tiledNode : path)
+                {
+                    shapeRenderer.setColor(Color.YELLOW);
+                    shapeRenderer.box(tiledNode.getTileX() + TILE_SIZE_4, tiledNode.getTileY() + TILE_SIZE_4, 0, TILE_SIZE_2,
+                                      TILE_SIZE_2, 0);
+                    shapeRenderer.setColor(Color.PURPLE);
+                    shapeRenderer.line(last.getTileX() + TILE_SIZE_2, last.getTileY() + TILE_SIZE_2, 0,
+                                       tiledNode.getTileX() + TILE_SIZE_2, tiledNode.getTileY() + TILE_SIZE_2, 0);
+                    last = tiledNode;
+                }
+                */
+
+            smoother.smoothPath(path);
+            last = path.get(0);
+            for (TiledNode tiledNode : path)
+            {
+                shapeRenderer.setColor(Color.GREEN);
+                shapeRenderer.box(tiledNode.getTileX() + TILE_SIZE_4, tiledNode.getTileY() + TILE_SIZE_4, 0,
+                                  TILE_SIZE_2, TILE_SIZE_2, 0);
+                shapeRenderer.line(last.getTileX() + TILE_SIZE_2, last.getTileY() + TILE_SIZE_2, 0,
+                                   tiledNode.getTileX() + TILE_SIZE_2, tiledNode.getTileY() + TILE_SIZE_2, 0);
+                last = tiledNode;
+            }
         }
     }
 

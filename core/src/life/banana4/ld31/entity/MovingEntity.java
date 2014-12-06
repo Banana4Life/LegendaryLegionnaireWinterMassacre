@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 
 public abstract class MovingEntity extends Entity
@@ -16,5 +17,17 @@ public abstract class MovingEntity extends Entity
     {
         this.vx += x;
         this.vy += y;
+    }
+
+    public void setVelocity(float vx, float vy)
+    {
+        this.vx = vx;
+        this.vy = vy;
+    }
+
+    @Override
+    public void update(float delta)
+    {
+        this.move(vx * delta, vy * delta);
     }
 }
