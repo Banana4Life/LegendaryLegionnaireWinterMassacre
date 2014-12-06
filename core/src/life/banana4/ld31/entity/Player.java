@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import life.banana4.ld31.DrawContext;
@@ -105,13 +104,16 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     }
 
     @Override
-    public void onCollide(Rectangle rect, CollisionTarget target)
+    public void onCollide(CollisionTarget target, Vector2 mtv)
     {
-
+        if (target instanceof Wall)
+        {
+            move(mtv.x, mtv.y);
+        }
     }
 
     @Override
-    public void onCollide(Rectangle rect, CollisionSource source)
+    public void onCollide(CollisionSource source, Vector2 mtv)
     {
 
     }

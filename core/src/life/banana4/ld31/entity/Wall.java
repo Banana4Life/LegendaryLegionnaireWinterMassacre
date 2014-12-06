@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.collision.CollisionSource;
@@ -39,7 +39,7 @@ public class Wall extends Entity implements CollisionTarget
     }
 
     @Override
-    public void onCollide(Rectangle rect, CollisionSource source)
+    public void onCollide(CollisionSource source, Vector2 mtv)
     {
 
     }

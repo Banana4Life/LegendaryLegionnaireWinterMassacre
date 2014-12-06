@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
@@ -98,13 +98,13 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
     }
 
     @Override
-    public void onCollide(Rectangle rect, CollisionTarget target)
+    public void onCollide(CollisionTarget target, Vector2 mtv)
     {
 
     }
 
     @Override
-    public void onCollide(Rectangle rect, CollisionSource source)
+    public void onCollide(CollisionSource source, Vector2 mtv)
     {
 
     }

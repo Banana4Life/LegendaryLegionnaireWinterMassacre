@@ -1,8 +1,8 @@
 package life.banana4.ld31.entity.collision;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public interface CollisionSource
 {
-    void onCollide(Rectangle rect, CollisionTarget target);
+    void onCollide(CollisionTarget target, Vector2 mtv);
 }

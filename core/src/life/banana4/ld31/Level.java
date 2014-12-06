@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.ai.TiledGraph;
 import life.banana4.ld31.ai.TiledManhattenDistance;
@@ -204,41 +203,66 @@ public class Level
     {
         final Set<Long> checked = new HashSet<>();
 
-        for (Entity a : this.entities)
+        List<Entity> recheck = new ArrayList<>();
+        List<Entity> check = this.entities;
+        do
         {
-            if (!(a instanceof CollisionSource))
+            checked.clear();
+            if (!recheck.isEmpty())
             {
-                continue;
+                recheck = new ArrayList<>();
             }
-            CollisionSource source = (CollisionSource)a;
-            for (Entity b : this.entities)
+            for (Entity a : check)
             {
-                if (a == b)
+                if (!(a instanceof CollisionSource))
                 {
                     continue;
                 }
-                if (!(b instanceof CollisionTarget))
+                CollisionSource source = (CollisionSource)a;
+                for (Entity b : this.entities)
                 {
-                    continue;
-                }
-                CollisionTarget target = (CollisionTarget)b;
+                    if (a == b)
+                    {
+                        continue;
+                    }
+                    if (!(b instanceof CollisionTarget))
+                    {
+                        continue;
+                    }
+                    CollisionTarget target = (CollisionTarget)b;
 
-                final long id = pair(a, b);
-                if (checked.contains(id))
-                {
-                    continue;
-                }
-                checked.add(id);
-                checked.add(pair(b, a));
+                    final long id = pair(a, b);
+                    if (checked.contains(id))
+                    {
+                        continue;
+                    }
+                    checked.add(id);
+                    checked.add(pair(b, a));
 
-                Rectangle rect = Collider.findCollision(a, b);
-                if (rect != null)
-                {
-                    source.onCollide(rect, target);
-                    target.onCollide(rect, source);
+                    Vector2 rect = Collider.findCollision(a, b);
+                    if (rect != null)
+                    {
+                        float oldX = a.getX();
+                        float oldY = a.getY();
+                        source.onCollide(target, rect);
+                        if (oldX != a.getX() || oldY != a.getY())
+                        {
+                            recheck.add(a);
+                        }
+
+                        oldX = b.getX();
+                        oldY = b.getY();
+                        target.onCollide(source, rect);
+                        if (oldX != b.getX() || oldY != b.getY())
+                        {
+                            recheck.add(b);
+                        }
+                    }
                 }
             }
+            check = recheck;
         }
+        while (!recheck.isEmpty());
     }
 
     private static Set<Intention> scanIntentions()

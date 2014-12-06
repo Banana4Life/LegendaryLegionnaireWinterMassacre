@@ -1,23 +1,54 @@
 package life.banana4.ld31.entity.collision;
 
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.Entity;
+
+import static java.lang.Math.abs;
 
 public class Collider
 {
-    private static final Rectangle helper1 = new Rectangle(0, 0, 0, 0);
-    private static final Rectangle helper2 = new Rectangle(0, 0, 0, 0);
-    private static final Rectangle helper3 = new Rectangle(0, 0, 0, 0);
+    private static final Vector2 amin = new Vector2(0, 0);
+    private static final Vector2 amax = new Vector2(0, 0);
+    private static final Vector2 bmin = new Vector2(0, 0);
+    private static final Vector2 bmax = new Vector2(0, 0);
 
-    public static Rectangle findCollision(Entity e1, Entity e2)
+    public static Vector2 findCollision(Entity a, Entity b)
     {
-        helper1.set(e1.getX(), e1.getY(), e1.getWidth(), e1.getHeight());
-        helper2.set(e2.getX(), e2.getY(), e2.getWidth(), e2.getHeight());
-        if (Intersector.intersectRectangles(helper1, helper2, helper3))
+        amin.set(a.getX(), a.getY());
+        amax.set(a.getX() + a.getWidth(), a.getY() + a.getHeight());
+        bmin.set(b.getX(), b.getY());
+        bmax.set(b.getX() + b.getWidth(), b.getY() + b.getHeight());
+
+        Vector2 mtv = new Vector2(0, 0);
+
+        float left = bmin.x - amax.x;
+        float right = bmax.x - amin.x;
+        float top = bmin.y - amax.y;
+        float bottom = bmax.y - amin.y;
+
+
+
+        if (left > 0 || right < 0 || top > 0 || bottom < 0)
         {
-            return helper3;
+            return null;
         }
-        return null;
+        else
+        {
+            mtv.x = abs(left) < right ? left : right;
+            mtv.y = abs(top) < bottom ? top : bottom;
+            if (abs(mtv.x) < abs(mtv.y))
+            {
+                mtv.y = 0;
+            }
+            else
+            {
+                mtv.x = 0;
+            }
+            if (mtv.x == 0 && mtv.y == 0)
+            {
+                return null;
+            }
+            return mtv;
+        }
     }
 }
