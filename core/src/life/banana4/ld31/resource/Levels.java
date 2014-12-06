@@ -29,6 +29,13 @@ public class Levels extends ResourceBag<Level>
     }
 
     @Override
+    public void build()
+    {
+        textures.build();
+        super.build();
+    }
+
+    @Override
     protected Level load(FileRef basedir, Field field)
     {
         final String id = field.getName();
