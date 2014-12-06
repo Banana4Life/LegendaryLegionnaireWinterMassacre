@@ -99,6 +99,13 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
                     shoot(new Projectile(this, 3, 3), dir.x, dir.y, 200);
                     //radius -= 15 * delta;
                     break;
+                case TERTIARY_ATTACK:
+                    for (float i = 0; i < 360 * 2; i += 3)
+                    {
+                        dir.setAngle(getRotation() + i);
+                        shoot(new Projectile(this, 3, 3), dir.x, dir.y, 500);
+                    }
+                    break;
             }
         }
     }

@@ -48,7 +48,8 @@ public final class Intention
         MOVE_LEFT,
         MOVE_RIGHT,
         PRIMARY_ATTACK,
-        SECONDARY_ATTACK;
+        SECONDARY_ATTACK,
+        TERTIARY_ATTACK;
 
         public boolean isMove()
         {

@@ -21,6 +21,8 @@ public class KeyboardIntentionDetector implements IntentionDetector
         keys.put(Keys.A, new Intention(Type.MOVE_LEFT));
         keys.put(Keys.D, new Intention(Type.MOVE_RIGHT));
 
+        keys.put(Keys.B, new Intention(Type.TERTIARY_ATTACK));
+
         buttons.put(Buttons.LEFT, new Intention(Type.PRIMARY_ATTACK));
         buttons.put(Buttons.RIGHT, new Intention(Type.SECONDARY_ATTACK));
     }
