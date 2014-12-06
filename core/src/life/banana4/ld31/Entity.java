@@ -50,6 +50,16 @@ public abstract class Entity
         return x;
     }
 
+    public float getMidX()
+    {
+        return getX() + getWidth() / 2;
+    }
+
+    public float getMidY()
+    {
+        return getY() + getHeight() / 2;
+    }
+
     public float getY()
     {
         return y;

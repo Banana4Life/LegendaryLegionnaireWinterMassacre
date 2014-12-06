@@ -29,7 +29,8 @@ import life.banana4.ld31.input.IntentionDetector;
 import life.banana4.ld31.input.KeyboardIntentionDetector;
 
 import static life.banana4.ld31.input.IntentionDetector.NO_INTENTIONS;
-import static life.banana4.ld31.resource.Levels.*;
+import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
+import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
 
 public class Level
 {
@@ -72,10 +73,10 @@ public class Level
         addEntity(player).move(550, 300);
 
         Random random = new Random();
-        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH, (random.nextInt(height - 2) + 1)
-            * TILE_WIDTH));
-        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH, (random.nextInt(height - 2) + 1)
-            * TILE_WIDTH));
+        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2, (random.nextInt(height - 2) + 1)
+            * TILE_WIDTH - TILE_WIDTH_2));
+        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2, (random.nextInt(height - 2) + 1)
+            * TILE_WIDTH - TILE_WIDTH_2));
     }
 
     public Player getPlayer()
@@ -153,44 +154,15 @@ public class Level
         }
     }
 
-    public void calculatePath(TiledSmoothableGraphPath path, ShapeRenderer shapeRenderer, Entity entity)
+    public void calculatePath(TiledSmoothableGraphPath path, Entity entity)
     {
         path.clear();
         if (entity instanceof Enemy)
         {
-            pathFinder.searchNodePath(tiledGraph.getNode((int)(entity.getX() / TILE_WIDTH),
-                                                         (int)(entity.getY() / TILE_WIDTH)), tiledGraph.getNode(
-                (int)(player.getX() / TILE_WIDTH), (int)(player.getY() / TILE_WIDTH)), heuristic, path);
-
-            if (path.getCount() == 0)
-            {
-                return;
-            }
-            TiledNode last = path.get(0);
-                /*
-                for (TiledNode tiledNode : path)
-                {
-                    shapeRenderer.setColor(Color.YELLOW);
-                    shapeRenderer.box(tiledNode.getTileX() + TILE_WIDTH_4, tiledNode.getTileY() + TILE_WIDTH_4, 0, TILE_WIDTH_2,
-                                      TILE_WIDTH_2, 0);
-                    shapeRenderer.setColor(Color.PURPLE);
-                    shapeRenderer.line(last.getTileX() + TILE_WIDTH_2, last.getTileY() + TILE_WIDTH_2, 0,
-                                       tiledNode.getTileX() + TILE_WIDTH_2, tiledNode.getTileY() + TILE_WIDTH_2, 0);
-                    last = tiledNode;
-                }
-                */
-
+            pathFinder.searchNodePath(tiledGraph.getNode((int)(entity.getMidX() / TILE_WIDTH),
+                                                         (int)(entity.getMidY() / TILE_WIDTH)), tiledGraph.getNode(
+                (int)(player.getMidX() / TILE_WIDTH), (int)(player.getMidY() / TILE_WIDTH)), heuristic, path);
             smoother.smoothPath(path);
-            last = path.get(0);
-            for (TiledNode tiledNode : path)
-            {
-                shapeRenderer.setColor(Color.GREEN);
-                shapeRenderer.box(tiledNode.getTileX() + TILE_WIDTH_4, tiledNode.getTileY() + TILE_WIDTH_4, 0,
-                                  TILE_WIDTH_2, TILE_WIDTH_2, 0);
-                shapeRenderer.line(last.getTileX() + TILE_WIDTH_2, last.getTileY() + TILE_WIDTH_2, 0,
-                                   tiledNode.getTileX() + TILE_WIDTH_2, tiledNode.getTileY() + TILE_WIDTH_2, 0);
-                last = tiledNode;
-            }
         }
     }
 

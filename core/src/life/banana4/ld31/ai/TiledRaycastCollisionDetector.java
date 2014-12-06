@@ -19,12 +19,29 @@ public class TiledRaycastCollisionDetector implements RaycastCollisionDetector<V
     @Override
     public boolean collides(Ray<Vector2> ray)
     {
-        int x0 = (int)ray.start.x;
-        int y0 = (int)ray.start.y;
-        int x1 = (int)ray.end.x;
-        int y1 = (int)ray.end.y;
+        for (int i1 = 0; i1 <= 1; i1++)
+        {
+            for (int j1 = 0; j1 <= 1; j1++)
+            {
+                for (int i2 = 0; i2 <= 1; i2++)
+                {
+                    for (int j2 = 0; j2 <= 1; j2++)
+                    {
+                        if (collides0(ray.start.x + i1, ray.start.y + j1,
+                                      ray.end.x + i2, ray.end.y + j2))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-        int tmp;
+    private boolean collides0(float x0, float y0, float x1, float y1)
+    {
+        float tmp;
         boolean steep = Math.abs(y1 - y0) > Math.abs(x1 - x0);
         if (steep)
         {
@@ -49,14 +66,14 @@ public class TiledRaycastCollisionDetector implements RaycastCollisionDetector<V
             y1 = tmp;
         }
 
-        int deltax = x1 - x0;
-        int deltay = Math.abs(y1 - y0);
+        float deltax = x1 - x0;
+        float deltay = Math.abs(y1 - y0);
         int error = 0;
-        int y = y0;
-        int ystep = (y0 < y1 ? 1 : -1);
-        for (int x = x0; x <= x1; x++)
+        float y = y0;
+        float ystep = (y0 < y1 ? 0.2f : -0.2f);
+        for (float x = x0; x <= x1; x += 0.2f)
         {
-            TiledNode tile = steep ? worldMap.getNode(y, x) : worldMap.getNode(x, y);
+            TiledNode tile = steep ? worldMap.getNode((int)y, (int)x) : worldMap.getNode((int)x, (int)y);
             if (tile.type != FLOOR)
             {
                 return true; // We've hit a wall
