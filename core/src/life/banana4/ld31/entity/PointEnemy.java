@@ -7,6 +7,9 @@ import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.ai.TiledGraph;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
+import life.banana4.ld31.resource.Levels;
+
+import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
 
 public class PointEnemy extends Enemy
 {
@@ -28,14 +31,14 @@ public class PointEnemy extends Enemy
             return;
         }
         TiledNode tiledNode = path.get(1);
-        float x = this.getX() / TiledGraph.TILE_SIZE;
-        float y = this.getY() / TiledGraph.TILE_SIZE;
+        float x = this.getX() / TILE_WIDTH;
+        float y = this.getY() / TILE_WIDTH;
         x = tiledNode.x - x;
         y = tiledNode.y - y;
         double length = Math.sqrt(x * x + y * y);
         x /= length;
         y /= length;
-        this.setVelocity(x * SPEED,y * SPEED);
+        this.setVelocity(x * SPEED, y * SPEED);
     }
 
     @Override

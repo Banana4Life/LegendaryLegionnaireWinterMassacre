@@ -28,8 +28,8 @@ import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.IntentionDetector;
 import life.banana4.ld31.input.KeyboardIntentionDetector;
 
-import static life.banana4.ld31.ai.TiledGraph.*;
 import static life.banana4.ld31.input.IntentionDetector.NO_INTENTIONS;
+import static life.banana4.ld31.resource.Levels.*;
 
 public class Level
 {
@@ -53,13 +53,11 @@ public class Level
 
     private final int width;
     private final int height;
-    private final int tileWidth;
 
-    public Level(int width, int height, int tileWidth, TiledGraph tiledGraph)
+    public Level(int width, int height, TiledGraph tiledGraph)
     {
         this.width = width;
         this.height = height;
-        this.tileWidth = tileWidth;
 
         this.entities = new ArrayList<>();
         this.spawnQueue = new ArrayList<>();
@@ -74,8 +72,10 @@ public class Level
         addEntity(player).move(100, 100);
 
         Random random = new Random();
-        addEntity(new PointEnemy().move((random.nextInt(TiledGraph.SIZE_X - 2) + 1) * TILE_SIZE, (random.nextInt(TiledGraph.SIZE_Y - 2) + 1) * TILE_SIZE));
-        addEntity(new PointEnemy().move((random.nextInt(TiledGraph.SIZE_X - 2) + 1) * TILE_SIZE, (random.nextInt(TiledGraph.SIZE_Y - 2) + 1) * TILE_SIZE));
+        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH, (random.nextInt(height - 2) + 1)
+            * TILE_WIDTH));
+        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH, (random.nextInt(height - 2) + 1)
+            * TILE_WIDTH));
     }
 
     void remove(Entity entity)
@@ -138,11 +138,11 @@ public class Level
     private void showGrid(ShapeRenderer shapeRenderer)
     {
         shapeRenderer.setColor(Color.CYAN);
-        for (int height = 0; height < Gdx.graphics.getHeight(); height += tileWidth)
+        for (int height = 0; height < Gdx.graphics.getHeight(); height += TILE_WIDTH)
         {
             shapeRenderer.line(0, height, 0, Gdx.graphics.getWidth(), height, 0);
         }
-        for (int width = 0; width < Gdx.graphics.getWidth(); width += tileWidth)
+        for (int width = 0; width < Gdx.graphics.getWidth(); width += TILE_WIDTH)
         {
             shapeRenderer.line(width, 0, 0, width, Gdx.graphics.getHeight(), 0);
         }
@@ -153,20 +153,24 @@ public class Level
         path.clear();
         if (entity instanceof Enemy)
         {
-            pathFinder.searchNodePath(tiledGraph.getNode((int)(entity.getX() / TILE_SIZE),
-                                                         (int)(entity.getY() / TILE_SIZE)), tiledGraph.getNode(
-                (int)(player.getX() / TILE_SIZE), (int)(player.getY() / TILE_SIZE)), heuristic, path);
+            pathFinder.searchNodePath(tiledGraph.getNode((int)(entity.getX() / TILE_WIDTH),
+                                                         (int)(entity.getY() / TILE_WIDTH)), tiledGraph.getNode(
+                (int)(player.getX() / TILE_WIDTH), (int)(player.getY() / TILE_WIDTH)), heuristic, path);
 
+            if (path.getCount() == 0)
+            {
+                return;
+            }
             TiledNode last = path.get(0);
                 /*
                 for (TiledNode tiledNode : path)
                 {
                     shapeRenderer.setColor(Color.YELLOW);
-                    shapeRenderer.box(tiledNode.getTileX() + TILE_SIZE_4, tiledNode.getTileY() + TILE_SIZE_4, 0, TILE_SIZE_2,
-                                      TILE_SIZE_2, 0);
+                    shapeRenderer.box(tiledNode.getTileX() + TILE_WIDTH_4, tiledNode.getTileY() + TILE_WIDTH_4, 0, TILE_WIDTH_2,
+                                      TILE_WIDTH_2, 0);
                     shapeRenderer.setColor(Color.PURPLE);
-                    shapeRenderer.line(last.getTileX() + TILE_SIZE_2, last.getTileY() + TILE_SIZE_2, 0,
-                                       tiledNode.getTileX() + TILE_SIZE_2, tiledNode.getTileY() + TILE_SIZE_2, 0);
+                    shapeRenderer.line(last.getTileX() + TILE_WIDTH_2, last.getTileY() + TILE_WIDTH_2, 0,
+                                       tiledNode.getTileX() + TILE_WIDTH_2, tiledNode.getTileY() + TILE_WIDTH_2, 0);
                     last = tiledNode;
                 }
                 */
@@ -176,10 +180,10 @@ public class Level
             for (TiledNode tiledNode : path)
             {
                 shapeRenderer.setColor(Color.GREEN);
-                shapeRenderer.box(tiledNode.getTileX() + TILE_SIZE_4, tiledNode.getTileY() + TILE_SIZE_4, 0,
-                                  TILE_SIZE_2, TILE_SIZE_2, 0);
-                shapeRenderer.line(last.getTileX() + TILE_SIZE_2, last.getTileY() + TILE_SIZE_2, 0,
-                                   tiledNode.getTileX() + TILE_SIZE_2, tiledNode.getTileY() + TILE_SIZE_2, 0);
+                shapeRenderer.box(tiledNode.getTileX() + TILE_WIDTH_4, tiledNode.getTileY() + TILE_WIDTH_4, 0,
+                                  TILE_WIDTH_2, TILE_WIDTH_2, 0);
+                shapeRenderer.line(last.getTileX() + TILE_WIDTH_2, last.getTileY() + TILE_WIDTH_2, 0,
+                                   tiledNode.getTileX() + TILE_WIDTH_2, tiledNode.getTileY() + TILE_WIDTH_2, 0);
                 last = tiledNode;
             }
         }

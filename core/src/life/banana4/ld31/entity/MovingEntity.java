@@ -1,6 +1,5 @@
 package life.banana4.ld31.entity;
 
-import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 
 public abstract class MovingEntity extends Entity

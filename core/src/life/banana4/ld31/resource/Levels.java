@@ -14,6 +14,8 @@ import life.banana4.util.resourcebags.ResourceBag;
 public class Levels extends ResourceBag<Level>
 {
     public static final int TILE_WIDTH = 32;
+    public static final int TILE_WIDTH_2 = TILE_WIDTH / 2;
+    public static final int TILE_WIDTH_4 = TILE_WIDTH / 4;
 
     public Level level1;
 
@@ -25,7 +27,7 @@ public class Levels extends ResourceBag<Level>
         TextureData map = new Texture(basedir.child(id + ".bmp").getPath()).getTextureData();
         map.prepare();
         Pixmap pixmap = map.consumePixmap();
-        Level level = new Level(pixmap.getWidth(), pixmap.getHeight(), TILE_WIDTH, new TiledGraph(pixmap));
+        Level level = new Level(pixmap.getWidth(), pixmap.getHeight(), new TiledGraph(pixmap));
         for (int x = 0; x < map.getWidth(); x++)
         {
             for (int y = 0; y < map.getHeight(); y++)
@@ -36,7 +38,7 @@ public class Levels extends ResourceBag<Level>
                 switch (TileType.getType(color))
                 {
                     case WALL:
-                        level.addEntity(new Wall(TILE_WIDTH, TILE_WIDTH));
+                        level.addEntity(new Wall(TILE_WIDTH, TILE_WIDTH).move(x * TILE_WIDTH, y * TILE_WIDTH));
                         break;
                     case NONE:
                         System.out.println("No type for that color");

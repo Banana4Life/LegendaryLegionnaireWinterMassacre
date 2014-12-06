@@ -39,7 +39,8 @@ public class Player extends MovingEntity
         if (t.isMove())
         {
             Float mul = intention.getArgumentOr(1f);
-            if (mul < MINIMUM_MOVE_MUL) {
+            if (mul < MINIMUM_MOVE_MUL)
+            {
                 return;
             }
             mul *= delta;
