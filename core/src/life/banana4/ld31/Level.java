@@ -14,12 +14,25 @@ import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.collision.Collider;
+import life.banana4.ld31.input.ControllerIntentionDetector;
+import life.banana4.ld31.input.Intention;
+import life.banana4.ld31.input.IntentionDetector;
+import life.banana4.ld31.input.KeyboardIntentionDetector;
+
+import static life.banana4.ld31.input.IntentionDetector.NO_INTENTIONS;
 
 public class Level
 {
     private final List<Entity> entities;
     private final List<Entity> spawnQueue;
     private final List<Entity> removalQueue;
+    private static final List<IntentionDetector> INTENTION_DETECTORS = new ArrayList<>();
+
+    static
+    {
+        INTENTION_DETECTORS.add(new KeyboardIntentionDetector());
+        INTENTION_DETECTORS.add(new ControllerIntentionDetector());
+    }
 
     private final TiledGraph tiledGraph;
     private final TiledManhattenDistance heuristic = new TiledManhattenDistance();
@@ -71,9 +84,15 @@ public class Level
         this.entities.addAll(this.spawnQueue);
         this.spawnQueue.clear();
 
+        Set<Intention> intentions = scanIntentions();
+
         // update living
         for (final Entity e : this.entities)
         {
+            for (final Intention intention : intentions)
+            {
+                e.reactTo(intention, delta);
+            }
             e.update(delta);
         }
 
@@ -121,5 +140,16 @@ public class Level
                 }
             }
         }
+    }
+
+    private static Set<Intention> scanIntentions() {
+        for (final IntentionDetector detector : INTENTION_DETECTORS)
+        {
+            Set<Intention> intentions = detector.detect();
+            if (!intentions.isEmpty()) {
+                return intentions;
+            }
+        }
+        return NO_INTENTIONS;
     }
 }

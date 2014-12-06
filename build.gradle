@@ -45,6 +45,8 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
     }
 }
 
@@ -58,6 +60,7 @@ project(":core") {
         compile group: "life.banana4.util", name: "resourcebags", version: "0.0.1-SNAPSHOT", changing: true
         compile "de.cubeisland.engine:reflect:2.0.4"
         compile "com.badlogicgames.gdx:gdx-ai:1.4.1-SNAPSHOT"
+        compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
     }
 }
 
