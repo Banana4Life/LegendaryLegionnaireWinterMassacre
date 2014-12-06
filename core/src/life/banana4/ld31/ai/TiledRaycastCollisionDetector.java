@@ -6,8 +6,6 @@ import com.badlogic.gdx.ai.utils.RaycastCollisionDetector;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.util.TileType;
 
-import static life.banana4.ld31.util.TileType.SNOW;
-
 public class TiledRaycastCollisionDetector implements RaycastCollisionDetector<Vector2>
 {
     TiledGraph worldMap;

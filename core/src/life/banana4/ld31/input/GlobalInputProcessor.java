@@ -36,7 +36,8 @@ public class GlobalInputProcessor implements AllThemInputProcessor
     @Override
     public boolean keyUp(int keycode)
     {
-        if (keycode == Keys.SPACE) {
+        if (keycode == Keys.SPACE)
+        {
             System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
             System.out.println("Living entities: " + game.getLevel().getEntities().size());
         }

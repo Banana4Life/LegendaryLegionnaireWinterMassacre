@@ -2,8 +2,10 @@ package life.banana4.ld31;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Rectangle;
+import life.banana4.ld31.ai.TiledNode;
+import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.input.Intention;
+import life.banana4.ld31.util.TileType;
 
 public abstract class Entity
 {
@@ -40,8 +42,23 @@ public abstract class Entity
 
     public Entity move(float x, float y)
     {
+        float xOld = this.x;
+        float yOld = this.y;
         this.x += x;
         this.y += y;
+        if (this.getLevel() != null && this instanceof Player)
+        {
+            TiledNode node = this.getLevel().nodeAt(this.x, this.y);
+            if (node.type == TileType.WALL)
+            {
+                if (this.getLevel().nodeAt(xOld, yOld).type != TileType.WALL)
+                {
+                    this.x = xOld;
+                    this.y = yOld;
+                    this.move(x * 0.9f, y * 0.9f);
+                }
+            }
+        }
         return this;
     }
 

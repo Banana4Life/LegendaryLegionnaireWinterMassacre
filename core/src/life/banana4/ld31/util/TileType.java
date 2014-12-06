@@ -23,7 +23,8 @@ public enum TileType
         return LOOKUP.get(color) == null ? NONE : LOOKUP.get(color);
     }
 
-    public static boolean isFloor(TileType type) {
+    public static boolean isFloor(TileType type)
+    {
         return type == SNOW || type == DIRT;
     }
 

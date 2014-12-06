@@ -24,7 +24,8 @@ public class Levels extends ResourceBag<Level>
 
     public Level level1;
 
-    public Levels(Textures textures) {
+    public Levels(Textures textures)
+    {
         this.textures = textures;
     }
 
@@ -57,10 +58,14 @@ public class Levels extends ResourceBag<Level>
                         level.addEntity(new Wall(TILE_WIDTH, TILE_WIDTH).move(x * TILE_WIDTH, y * TILE_WIDTH));
                         break;
                     case SNOW:
-                        level.getFloor().add(new FloorTile(new TextureRegion(textures.floor, 4 * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH, TILE_WIDTH)).setPosition(new Vector2(x * TILE_WIDTH, y * TILE_WIDTH)));
+                        level.getFloor().add(new FloorTile(new TextureRegion(textures.floor, 4 * TILE_WIDTH, TILE_WIDTH,
+                                                                             TILE_WIDTH, TILE_WIDTH)).setPosition(
+                            new Vector2(x * TILE_WIDTH, y * TILE_WIDTH)));
                         break;
                     case DIRT:
-                        level.getFloor().add(new FloorTile(new TextureRegion(textures.floor, TILE_WIDTH, TILE_WIDTH, TILE_WIDTH, TILE_WIDTH)).setPosition(new Vector2(x * TILE_WIDTH, y * TILE_WIDTH)));
+                        level.getFloor().add(new FloorTile(new TextureRegion(textures.floor, TILE_WIDTH, TILE_WIDTH,
+                                                                             TILE_WIDTH, TILE_WIDTH)).setPosition(
+                            new Vector2(x * TILE_WIDTH, y * TILE_WIDTH)));
                     case NONE:
                         System.out.println("No type for that color");
                         break;

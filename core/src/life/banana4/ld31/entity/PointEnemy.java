@@ -11,7 +11,8 @@ import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 
-import static life.banana4.ld31.resource.Levels.*;
+import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
+import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
 
 public class PointEnemy extends Enemy implements CollisionSource, CollisionTarget
 {
@@ -48,7 +49,7 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
         else
         {
             TiledNode tiledNode = path.get(1);
-            x= tiledNode.x * TILE_WIDTH + TILE_WIDTH_2 - this.getMidX();
+            x = tiledNode.x * TILE_WIDTH + TILE_WIDTH_2 - this.getMidX();
             y = tiledNode.y * TILE_WIDTH + TILE_WIDTH_2 - this.getMidY();
         }
         double length = Math.sqrt(x * x + y * y);

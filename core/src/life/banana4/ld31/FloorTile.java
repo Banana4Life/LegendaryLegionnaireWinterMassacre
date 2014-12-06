@@ -9,7 +9,8 @@ public class FloorTile
     private Vector2 position;
     private TextureRegion texture;
 
-    public FloorTile(TextureRegion texture) {
+    public FloorTile(TextureRegion texture)
+    {
         this.texture = texture;
     }
 

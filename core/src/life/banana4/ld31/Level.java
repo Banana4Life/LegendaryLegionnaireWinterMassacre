@@ -240,4 +240,9 @@ public class Level
     {
         return entities;
     }
+
+    public TiledNode nodeAt(float x, float y)
+    {
+        return this.tiledGraph.getNode((int)(x / TILE_WIDTH), (int)(y / TILE_WIDTH));
+    }
 }
