@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class DrawContext
 {
-    public final SpriteBatch spriteBatch;
-    public final ShapeRenderer shapeRenderer;
+    private final SpriteBatch spriteBatch;
+    private final ShapeRenderer shapeRenderer;
     public final OrthographicCamera camera;
 
     public DrawContext(OrthographicCamera camera, SpriteBatch spriteBatch, ShapeRenderer shapeRenderer)
@@ -17,5 +17,17 @@ public class DrawContext
         this.spriteBatch.setProjectionMatrix(camera.combined);
         this.shapeRenderer = shapeRenderer;
         this.spriteBatch.setProjectionMatrix(camera.combined);
+    }
+
+    public SpriteBatch getSpriteBatch()
+    {
+        spriteBatch.setProjectionMatrix(camera.combined);
+        return spriteBatch;
+    }
+
+    public ShapeRenderer getShapeRenderer()
+    {
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        return shapeRenderer;
     }
 }

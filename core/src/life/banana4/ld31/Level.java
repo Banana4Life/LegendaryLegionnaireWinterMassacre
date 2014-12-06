@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.PathSmoother;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.ai.TiledGraph;
@@ -80,6 +84,7 @@ public class Level
 
     public void render(DrawContext ctx, float delta)
     {
+        drawLevel(ctx);
         // spawn queued
         this.entities.addAll(this.spawnQueue);
         this.spawnQueue.clear();
@@ -105,6 +110,25 @@ public class Level
         {
             e.draw(ctx);
         }
+    }
+
+    private void drawLevel(DrawContext ctx)
+    {
+        ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
+        shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(Color.CYAN);
+
+        for (int height = 0; height < Gdx.graphics.getHeight(); height += TiledGraph.TILE_SIZE)
+        {
+            shapeRenderer.line(0, height, 0, Gdx.graphics.getWidth(), height, 0);
+
+        }
+        for (int width = 0; width < Gdx.graphics.getWidth(); width += TiledGraph.TILE_SIZE)
+        {
+            shapeRenderer.line(width, 0, 0, width, Gdx.graphics.getHeight(), 0);
+        }
+
+        shapeRenderer.end();
     }
 
     private static long pair(Entity a, Entity b)

@@ -9,8 +9,10 @@ import static life.banana4.ld31.ai.TiledNode.Type.TILE_FLOOR;
 
 public class TiledGraph extends DefaultIndexedGraph<TiledNode>
 {
-    public static int SIZE_Y = 50;
-    public static int SIZE_X = 20;
+    public static int SIZE_Y = 21;
+    public static int SIZE_X = 40;
+
+    public static final int TILE_SIZE = 32;
 
     public TiledGraph init(Level level)
     {
@@ -23,7 +25,7 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
                 {
                     //System.out.print("W");
                     node = new TiledNode(x, y, Type.TILE_WALL);
-                    level.addEntity(new Wall(1, 1).move(x, y));
+                    level.addEntity(new Wall(TILE_SIZE, TILE_SIZE).move(x * TILE_SIZE, y * TILE_SIZE));
                 }
                 else
                 {
