@@ -40,7 +40,7 @@ public class Player extends MovingEntity
         ShapeRenderer r = ctx.getShapeRenderer();
         r.begin(ShapeType.Line);
         r.setColor(Color.CYAN);
-        Vector2 line = new Vector2(100, 0).setAngle(getRotation()).scl(100);
+        Vector2 line = new Vector2(100, 0).setAngle(getRotation() - 90f).scl(100);
         r.line(getX(), getY(), getX() + line.x, getY() + line.y);
         r.end();
 
