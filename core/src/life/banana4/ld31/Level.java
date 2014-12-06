@@ -17,6 +17,7 @@ import life.banana4.ld31.ai.TiledManhattenDistance;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
+import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.collision.Collider;
 import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
@@ -69,6 +70,8 @@ public class Level
         {
             System.out.println(tiledNode.x + ":" + tiledNode.y);
         }
+
+        addEntity(new Player()).move(100, 100);
     }
 
     void remove(Entity entity)
@@ -76,10 +79,11 @@ public class Level
         this.removalQueue.add(entity);
     }
 
-    public void addEntity(Entity e)
+    public <T extends Entity> T addEntity(T e)
     {
         e.setLevel(this);
         this.spawnQueue.add(e);
+        return e;
     }
 
     public void render(DrawContext ctx, float delta)
