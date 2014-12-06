@@ -29,6 +29,7 @@ import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.IntentionDetector;
 import life.banana4.ld31.input.KeyboardIntentionDetector;
+import life.banana4.ld31.util.TileType;
 
 import static life.banana4.ld31.input.IntentionDetector.NO_INTENTIONS;
 import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
@@ -57,6 +58,9 @@ public class Level
     private final int width;
     private final int height;
 
+
+    private boolean debug = true; // TODO debug
+
     public Level(int width, int height, TiledGraph tiledGraph)
     {
         this.width = width;
@@ -73,12 +77,6 @@ public class Level
 
         player = new Player();
         addEntity(player).move(550, 300);
-
-        Random random = new Random();
-        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2, (random.nextInt(
-            height - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2));
-        addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2, (random.nextInt(
-            height - 2) + 1) * TILE_WIDTH - TILE_WIDTH_2));
     }
 
     public Player getPlayer()
@@ -94,12 +92,36 @@ public class Level
     public <T extends Entity> T addEntity(T e)
     {
         e.setLevel(this);
+        if (e instanceof Enemy)
+        {
+            if (this.nodeAt(e.getX(), e.getY()).type == TileType.WALL)
+            {
+                e.die();
+            }
+        }
         this.spawnQueue.add(e);
         return e;
     }
 
     public void render(DrawContext ctx, float delta)
     {
+        int enemyCount = 0;
+        for (Entity entity : this.entities)
+        {
+            if (entity instanceof Enemy)
+            {
+                enemyCount++;
+            }
+        }
+        if (enemyCount < 2)
+        {
+            Random random = new Random();
+            addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2,
+                                            (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2));
+            addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2,
+                                            (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2));
+        }
+
         drawLevel(ctx);
         // spawn queued
         this.entities.addAll(this.spawnQueue);
@@ -244,5 +266,10 @@ public class Level
     public TiledNode nodeAt(float x, float y)
     {
         return this.tiledGraph.getNode((int)(x / TILE_WIDTH), (int)(y / TILE_WIDTH));
+    }
+
+    public boolean isDebug()
+    {
+        return debug;
     }
 }

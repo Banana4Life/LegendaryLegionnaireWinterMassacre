@@ -1,7 +1,10 @@
 package life.banana4.ld31;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.input.Intention;
@@ -104,7 +107,17 @@ public abstract class Entity
 
     public abstract void update(OrthographicCamera camera, float delta);
 
-    public abstract void draw(DrawContext ctx);
+    public void draw(DrawContext ctx)
+    {
+        if (this.getLevel().isDebug())
+        {
+            ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
+            shapeRenderer.begin(ShapeType.Line);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.box(this.getX(), this.getY(), 0,this.getWidth(), this.getHeight(),0);
+            shapeRenderer.end();
+        }
+    }
 
     @Override
     public boolean equals(Object o)

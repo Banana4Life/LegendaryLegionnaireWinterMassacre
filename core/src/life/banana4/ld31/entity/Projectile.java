@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -28,10 +29,21 @@ public class Projectile extends MovingEntity implements CollisionSource
     @Override
     public void draw(DrawContext ctx)
     {
+        super.draw(ctx);
         ShapeRenderer r = ctx.getShapeRenderer();
 
         r.begin(ShapeType.Filled);
-        r.circle(getX(), getY(), 3);
+        if (shooter instanceof Player)
+        {
+            r.setColor(Color.BLUE);
+            r.circle(getMidX(), getMidY(), 2);
+        }
+        else
+        {
+            r.setColor(Color.RED);
+            r.circle(getMidX(), getMidY(), 3);
+        }
+
         r.end();
     }
 

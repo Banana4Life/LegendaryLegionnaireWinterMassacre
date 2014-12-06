@@ -20,7 +20,7 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
 
     public Player()
     {
-        super(10, 10);
+        super(20, 20);
     }
 
     @Override
@@ -31,12 +31,14 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     @Override
     public void draw(DrawContext ctx)
     {
+        super.draw(ctx);
         SpriteBatch batch = ctx.getSpriteBatch();
         batch.begin();
 
         Vector2 offset = new Vector2(-64, -64).rotate(getRotation() + 90);
-        batch.draw(ctx.resources.textures.torso, getX() + offset.x, getY() + offset.y, 0, 0, 128, 128, 1, 1,
-                   getRotation() + 90, 0, 0, 128, 128, false, false);
+        batch.draw(ctx.resources.textures.torso, getX() + this.getWidth() / 2 + offset.x,
+                   getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 90, 0, 0, 128, 128,
+                   false, false);
         batch.end();
 
         ShapeRenderer r = ctx.getShapeRenderer();

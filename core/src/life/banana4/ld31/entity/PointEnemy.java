@@ -25,7 +25,7 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
 
     public PointEnemy()
     {
-        super(5, 5);
+        super(20, 20);
     }
 
     @Override
@@ -72,10 +72,11 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
     @Override
     public void draw(DrawContext ctx)
     {
+        super.draw(ctx);
         ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(Color.PINK);
-        shapeRenderer.circle(this.getX(), this.getY(), 10);
+        shapeRenderer.circle(this.getMidX(), this.getMidY(), 10);
 
         /*
         if (this.path.getCount() > 1)

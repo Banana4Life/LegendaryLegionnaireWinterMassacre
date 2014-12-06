@@ -26,6 +26,7 @@ public class Wall extends Entity implements CollisionTarget
     @Override
     public void draw(DrawContext ctx)
     {
+        super.draw(ctx);
         ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(Color.OLIVE);
