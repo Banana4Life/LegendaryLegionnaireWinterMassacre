@@ -1,6 +1,7 @@
 package life.banana4.ld31;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import life.banana4.ld31.input.Intention;
 
@@ -54,6 +55,11 @@ public abstract class Entity
         return y;
     }
 
+    public void setRotation(float rotation)
+    {
+        this.rotation = rotation;
+    }
+
     public float getRotation()
     {
         return rotation;
@@ -69,7 +75,7 @@ public abstract class Entity
         return height;
     }
 
-    public abstract void update(float delta);
+    public abstract void update(OrthographicCamera camera, float delta);
 
     public abstract void draw(DrawContext ctx);
 

@@ -69,7 +69,7 @@ public class Level
         this.pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
 
         player = new Player();
-        addEntity(player).move(100, 100);
+        addEntity(player).move(550, 300);
 
         Random random = new Random();
         addEntity(new PointEnemy().move((random.nextInt(width - 2) + 1) * TILE_WIDTH, (random.nextInt(height - 2) + 1)
@@ -111,7 +111,7 @@ public class Level
             {
                 e.reactTo(intention, delta);
             }
-            e.update(delta);
+            e.update(ctx.camera, delta);
         }
 
         // remove dead

@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import life.banana4.ld31.Entity;
 
 public abstract class MovingEntity extends Entity
@@ -25,7 +26,7 @@ public abstract class MovingEntity extends Entity
     }
 
     @Override
-    public void update(float delta)
+    public void update(OrthographicCamera camera, float delta)
     {
         this.move(vx * delta, vy * delta);
     }

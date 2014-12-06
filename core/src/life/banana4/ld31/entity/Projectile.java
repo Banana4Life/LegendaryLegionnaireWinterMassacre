@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import life.banana4.ld31.DrawContext;
@@ -12,9 +13,9 @@ public class Projectile extends MovingEntity
     }
 
     @Override
-    public void update(float delta)
+    public void update(OrthographicCamera camera, float delta)
     {
-        super.update(delta);
+        super.update(camera, delta);
     }
 
     @Override
