@@ -34,7 +34,7 @@ public abstract class MovingEntity extends Entity
     public Projectile shoot(Projectile p, float x, float y)
     {
         getLevel().addEntity(p);
-        p.move(getX(), getY());
+        p.move(getMidX(), getMidY());
         p.setVelocity(x, y);
         return p;
     }

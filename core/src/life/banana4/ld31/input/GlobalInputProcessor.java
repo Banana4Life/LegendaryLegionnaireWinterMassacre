@@ -65,7 +65,10 @@ public class GlobalInputProcessor implements AllThemInputProcessor
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {
-        return false;
+        Player player = game.getLevel().getPlayer();
+        player.lookAt(screenX, screenY);
+        player.setMouseControlled(true);
+        return true;
     }
 
     @Override
