@@ -28,6 +28,7 @@ public class PointEnemy extends Enemy
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);
+        this.getLevel().calculatePath(path, this);
         if (path.getCount() < 2)
         {
             this.setVelocity(0, 0);
