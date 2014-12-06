@@ -78,6 +78,11 @@ public class Level
             * TILE_WIDTH));
     }
 
+    public Player getPlayer()
+    {
+        return this.player;
+    }
+
     void remove(Entity entity)
     {
         this.removalQueue.add(entity);

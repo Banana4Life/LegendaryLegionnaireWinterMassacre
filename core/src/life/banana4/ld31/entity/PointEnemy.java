@@ -4,18 +4,19 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import life.banana4.ld31.DrawContext;
-import life.banana4.ld31.ai.TiledGraph;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
-import life.banana4.ld31.resource.Levels;
 
 import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
 
 public class PointEnemy extends Enemy
 {
-    private static float SPEED = 75;
+    private static final float SPEED = 75;
+    private static final float ATTACK_RANGE = 300;
+    private static final float SHOT_DELAY = 0.15f;
 
     private TiledSmoothableGraphPath path = new TiledSmoothableGraphPath();
+    private float waitedFor = 0;
 
     public PointEnemy()
     {
@@ -39,6 +40,17 @@ public class PointEnemy extends Enemy
         x /= length;
         y /= length;
         this.setVelocity(x * SPEED, y * SPEED);
+
+        Player p = getLevel().getPlayer();
+
+        float dx = p.getX() - getX();
+        float dy = p.getY() - getY();
+        waitedFor += delta;
+        if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY)
+        {
+            shoot(new Projectile(3, 3), dx, dy, 200);
+            waitedFor = 0;
+        }
     }
 
     @Override
