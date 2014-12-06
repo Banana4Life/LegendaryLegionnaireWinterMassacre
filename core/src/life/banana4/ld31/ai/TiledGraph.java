@@ -12,7 +12,9 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
     public static int SIZE_Y = 21;
     public static int SIZE_X = 40;
 
-    public static final int TILE_SIZE = 32;
+    public static final float TILE_SIZE = 32;
+    public static final float TILE_SIZE_4 = TILE_SIZE / 4;
+    public static final float TILE_SIZE_2 = TILE_SIZE / 2;
 
     public TiledGraph init(Level level)
     {

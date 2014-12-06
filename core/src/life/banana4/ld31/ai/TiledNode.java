@@ -38,4 +38,14 @@ public class TiledNode implements IndexedNode<TiledNode>
     {
         return x * TiledGraph.SIZE_Y + y;
     }
+
+    public float getTileX()
+    {
+        return this.x * TiledGraph.TILE_SIZE;
+    }
+
+    public float getTileY()
+    {
+        return this.y * TiledGraph.TILE_SIZE;
+    }
 }

@@ -3,6 +3,7 @@ package life.banana4.ld31;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.PathSmoother;
@@ -24,6 +25,7 @@ import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.IntentionDetector;
 import life.banana4.ld31.input.KeyboardIntentionDetector;
 
+import static life.banana4.ld31.ai.TiledGraph.*;
 import static life.banana4.ld31.input.IntentionDetector.NO_INTENTIONS;
 
 public class Level
@@ -42,6 +44,7 @@ public class Level
     private final TiledGraph tiledGraph;
     private final TiledManhattenDistance heuristic = new TiledManhattenDistance();
     private final PathSmoother<TiledNode, Vector2> smoother;
+    private final IndexedAStarPathFinder<TiledNode> pathFinder;
 
 
     public Level()
@@ -50,8 +53,9 @@ public class Level
         this.spawnQueue = new ArrayList<>();
         this.removalQueue = new ArrayList<>();
 
-        tiledGraph = new TiledGraph().init(this);
-        smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
+        this.tiledGraph = new TiledGraph().init(this);
+        this.smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
+        this.pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
 
         System.out.println("Running tests...");
         IndexedAStarPathFinder<TiledNode> pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
@@ -116,23 +120,62 @@ public class Level
         }
     }
 
+    private int randomX1 = new Random().nextInt(TiledGraph.SIZE_X - 2) + 1;
+    private int randomY1 = new Random().nextInt(TiledGraph.SIZE_Y - 2) + 1;
+    private int randomX2 = new Random().nextInt(TiledGraph.SIZE_X - 2) + 1;
+    private int randomY2 = new Random().nextInt(TiledGraph.SIZE_Y - 2) + 1;
+
     private void drawLevel(DrawContext ctx)
     {
         ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
         shapeRenderer.begin(ShapeType.Line);
-        shapeRenderer.setColor(Color.CYAN);
+        showGrid(shapeRenderer);
+        showPath(shapeRenderer);
+        shapeRenderer.end();
+    }
 
-        for (int height = 0; height < Gdx.graphics.getHeight(); height += TiledGraph.TILE_SIZE)
+    private void showGrid(ShapeRenderer shapeRenderer)
+    {
+        shapeRenderer.setColor(Color.CYAN);
+        for (int height = 0; height < Gdx.graphics.getHeight(); height += TILE_SIZE)
         {
             shapeRenderer.line(0, height, 0, Gdx.graphics.getWidth(), height, 0);
-
         }
-        for (int width = 0; width < Gdx.graphics.getWidth(); width += TiledGraph.TILE_SIZE)
+        for (int width = 0; width < Gdx.graphics.getWidth(); width += TILE_SIZE)
         {
             shapeRenderer.line(width, 0, 0, width, Gdx.graphics.getHeight(), 0);
         }
+    }
 
-        shapeRenderer.end();
+    private void showPath(ShapeRenderer shapeRenderer)
+    {
+        TiledSmoothableGraphPath path = new TiledSmoothableGraphPath();
+        pathFinder.searchNodePath(tiledGraph.getNode(randomX1, randomY1), tiledGraph.getNode(randomX2, randomY2),
+                                  heuristic, path);
+
+        TiledNode last = path.get(0);
+        for (TiledNode tiledNode : path)
+        {
+            shapeRenderer.setColor(Color.YELLOW);
+            shapeRenderer.box(tiledNode.getTileX() + TILE_SIZE_4, tiledNode.getTileY() + TILE_SIZE_4, 0, TILE_SIZE_2,
+                              TILE_SIZE_2, 0);
+            shapeRenderer.setColor(Color.PURPLE);
+            shapeRenderer.line(last.getTileX() + TILE_SIZE_2, last.getTileY() + TILE_SIZE_2, 0,
+                               tiledNode.getTileX() + TILE_SIZE_2, tiledNode.getTileY() + TILE_SIZE_2, 0);
+            last = tiledNode;
+        }
+
+        smoother.smoothPath(path);
+        last = path.get(0);
+        for (TiledNode tiledNode : path)
+        {
+            shapeRenderer.setColor(Color.GREEN);
+            shapeRenderer.box(tiledNode.getTileX() + TILE_SIZE_4, tiledNode.getTileY() + TILE_SIZE_4, 0, TILE_SIZE_2,
+                              TILE_SIZE_2, 0);
+            shapeRenderer.line(last.getTileX() + TILE_SIZE_2, last.getTileY() + TILE_SIZE_2, 0,
+                               tiledNode.getTileX() + TILE_SIZE_2, tiledNode.getTileY() + TILE_SIZE_2, 0);
+            last = tiledNode;
+        }
     }
 
     private static long pair(Entity a, Entity b)
