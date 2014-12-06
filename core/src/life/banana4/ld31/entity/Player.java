@@ -25,7 +25,7 @@ public class Player extends MovingEntity
     @Override
     public void draw(DrawContext ctx)
     {
-        ShapeRenderer r = ctx.shapeRenderer;
+        ShapeRenderer r = ctx.getShapeRenderer();
         r.begin(ShapeType.Filled);
         r.circle(getX(), getY(), radius);
         r.end();
