@@ -38,4 +38,8 @@ public abstract class Entity
     {
         return height;
     }
+
+    public abstract void update(float delta);
+
+    public abstract void draw(float delta);
 }
