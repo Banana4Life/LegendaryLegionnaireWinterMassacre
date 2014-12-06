@@ -9,6 +9,7 @@ import life.banana4.ld31.input.Intention.Type;
 public class Player extends MovingEntity
 {
     public static final float SPEED = 100;
+    public static final float MINIMUM_MOVE_MUL = 0.05f;
     private float radius = 20;
 
     public Player()
@@ -37,14 +38,19 @@ public class Player extends MovingEntity
         Type t = intention.getType();
         if (t.isMove())
         {
-            Float mul = delta * intention.getArgumentOr(1f);
+            Float mul = intention.getArgumentOr(1f);
+            if (mul < MINIMUM_MOVE_MUL) {
+                return;
+            }
+            System.out.println(mul);
+            mul *= delta;
             switch (t)
             {
                 case MOVE_UP:
-                    move(0 * mul, SPEED * mul);
+                    move(0 * mul, -SPEED * mul);
                     break;
                 case MOVE_DOWN:
-                    move(0 * mul, -SPEED * mul);
+                    move(0 * mul, SPEED * mul);
                     break;
                 case MOVE_LEFT:
                     move(-SPEED * mul, 0 * mul);
