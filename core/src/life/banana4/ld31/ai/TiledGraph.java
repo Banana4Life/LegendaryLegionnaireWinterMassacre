@@ -55,13 +55,8 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
         if (isFloor(node.type))
         {
             TiledNode target = getNode(node.x + x, node.y + y);
-            switch (target.type)
-            {
-                case SNOW:
-                case DIRT:
-                    //System.out.println(node.x + ":" + node.y + "->" + target.x + ":" + target.y + "|" + x + ":" + y);
-                    node.getConnections().add(new TiledConnection(this, node, target));
-            }
+            //System.out.println(node.x + ":" + node.y + "->" + target.x + ":" + target.y + "|" + x + ":" + y);
+            node.getConnections().add(new TiledConnection(this, node, target));
         }
     }
 
