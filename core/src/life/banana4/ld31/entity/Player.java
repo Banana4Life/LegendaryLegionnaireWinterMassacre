@@ -42,7 +42,6 @@ public class Player extends MovingEntity
             if (mul < MINIMUM_MOVE_MUL) {
                 return;
             }
-            System.out.println(mul);
             mul *= delta;
             switch (t)
             {
