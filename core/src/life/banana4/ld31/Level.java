@@ -23,6 +23,8 @@ import life.banana4.ld31.entity.Enemy;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.PointEnemy;
 import life.banana4.ld31.entity.collision.Collider;
+import life.banana4.ld31.entity.collision.CollisionSource;
+import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.IntentionDetector;
@@ -115,18 +117,11 @@ public class Level
             e.update(ctx.camera, delta);
         }
 
+        detectCollisions();
+
         // remove dead
         this.entities.removeAll(this.removalQueue);
         this.removalQueue.clear();
-
-        //draw floor
-        final SpriteBatch spriteBatch = ctx.getSpriteBatch();
-        spriteBatch.begin();
-        for (final FloorTile t : this.floor)
-        {
-            t.draw(spriteBatch);
-        }
-        spriteBatch.end();
 
         // draw living
         for (final Entity e : this.entities)
@@ -141,6 +136,15 @@ public class Level
         shapeRenderer.begin(ShapeType.Line);
         showGrid(shapeRenderer);
         shapeRenderer.end();
+
+        //draw floor
+        final SpriteBatch spriteBatch = ctx.getSpriteBatch();
+        spriteBatch.begin();
+        for (final FloorTile t : this.floor)
+        {
+            t.draw(spriteBatch);
+        }
+        spriteBatch.end();
     }
 
     private void showGrid(ShapeRenderer shapeRenderer)
@@ -179,12 +183,23 @@ public class Level
 
         for (Entity a : this.entities)
         {
+            if (!(a instanceof CollisionSource))
+            {
+                continue;
+            }
+            CollisionSource source = (CollisionSource)a;
             for (Entity b : this.entities)
             {
                 if (a == b)
                 {
                     continue;
                 }
+                if (!(b instanceof CollisionTarget))
+                {
+                    continue;
+                }
+                CollisionTarget target = (CollisionTarget)b;
+
                 final long id = pair(a, b);
                 if (checked.contains(id))
                 {
@@ -196,8 +211,8 @@ public class Level
                 Rectangle rect = Collider.findCollision(a, b);
                 if (rect != null)
                 {
-                    a.onCollide(b, rect);
-                    b.onCollide(a, rect);
+                    source.onCollide(rect, target);
+                    target.onCollide(rect, source);
                 }
             }
         }

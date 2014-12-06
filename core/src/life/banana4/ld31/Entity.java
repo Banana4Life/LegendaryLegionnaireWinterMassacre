@@ -110,10 +110,6 @@ public abstract class Entity
         return id;
     }
 
-    public void onCollide(Entity a, Rectangle rect)
-    {
-    }
-
     public void reactTo(Intention intention, float delta)
     {
 

@@ -5,12 +5,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
+import life.banana4.ld31.entity.collision.CollisionSource;
+import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
 
-public class Player extends MovingEntity
+public class Player extends MovingEntity implements CollisionSource, CollisionTarget
 {
     public static final float SPEED = 100;
     public static final float MINIMUM_MOVE_MUL = 0.06f;
@@ -78,12 +81,24 @@ public class Player extends MovingEntity
             switch (t)
             {
                 case PRIMARY_ATTACK:
-                    shoot(new Projectile(3, 3), dir.x, dir.y, 500);
+                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 500);
                     break;
                 case SECONDARY_ATTACK:
                     //radius -= 15 * delta;
                     break;
             }
         }
+    }
+
+    @Override
+    public void onCollide(Rectangle rect, CollisionTarget target)
+    {
+
+    }
+
+    @Override
+    public void onCollide(Rectangle rect, CollisionSource source)
+    {
+
     }
 }

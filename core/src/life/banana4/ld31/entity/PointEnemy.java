@@ -4,13 +4,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
+import life.banana4.ld31.entity.collision.CollisionSource;
+import life.banana4.ld31.entity.collision.CollisionTarget;
 
 import static life.banana4.ld31.resource.Levels.*;
 
-public class PointEnemy extends Enemy
+public class PointEnemy extends Enemy implements CollisionSource, CollisionTarget
 {
     private static final float SPEED = 75;
     private static final float ATTACK_RANGE = 300;
@@ -60,7 +63,7 @@ public class PointEnemy extends Enemy
         waitedFor += delta;
         if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY && path.getCount() == 2)
         {
-            shoot(new Projectile(3, 3), dx, dy, 200);
+            shoot(new Projectile(this, 3, 3), dx, dy, 200);
             waitedFor = 0;
         }
     }
@@ -90,5 +93,17 @@ public class PointEnemy extends Enemy
         }
         */
         shapeRenderer.end();
+    }
+
+    @Override
+    public void onCollide(Rectangle rect, CollisionTarget target)
+    {
+
+    }
+
+    @Override
+    public void onCollide(Rectangle rect, CollisionSource source)
+    {
+
     }
 }

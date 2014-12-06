@@ -4,10 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
+import life.banana4.ld31.entity.collision.CollisionSource;
+import life.banana4.ld31.entity.collision.CollisionTarget;
 
-public class Wall extends Entity
+public class Wall extends Entity implements CollisionTarget
 {
     public Wall(float width, float height)
     {
@@ -32,5 +35,11 @@ public class Wall extends Entity
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.box(this.getX(), this.getY(), 0, this.getWidth(), this.getHeight(), 0);
         shapeRenderer.end();
+    }
+
+    @Override
+    public void onCollide(Rectangle rect, CollisionSource source)
+    {
+
     }
 }
