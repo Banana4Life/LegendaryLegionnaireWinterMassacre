@@ -71,9 +71,9 @@ public class GlobalInputProcessor implements AllThemInputProcessor
     @Override
     public boolean mouseMoved(int screenX, int screenY)
     {
-        Player p = game.getLevel().getPlayer();
-        Vector3 pos = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-        p.setRotation(new Vector2(pos.x - p.getX(), pos.y - p.getY()).angle());
+        Player player = game.getLevel().getPlayer();
+        player.lookAt(screenX, screenY);
+        player.setMouseControlled(true);
         return true;
     }
 
@@ -119,6 +119,7 @@ public class GlobalInputProcessor implements AllThemInputProcessor
             Vector2 vec = new Vector2(c.getAxis(XBox360Pad.AXIS_RIGHT_X), c.getAxis(XBox360Pad.AXIS_RIGHT_Y));
             game.getLevel().getPlayer().setRotation(vec.angle());
         }
+        game.getLevel().getPlayer().setMouseControlled(false);
         return true;
     }
 

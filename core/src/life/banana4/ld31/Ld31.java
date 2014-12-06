@@ -23,6 +23,7 @@ public class Ld31 extends ApplicationAdapter
         this.ld31Resources = new Ld31Resources();
         ld31Resources.build();
         this.level = ld31Resources.levels.level1;
+        this.level.game = this;
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(true);
         this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), ld31Resources);
@@ -42,5 +43,10 @@ public class Ld31 extends ApplicationAdapter
     public Level getLevel()
     {
         return level;
+    }
+
+    public DrawContext getDrawContext()
+    {
+        return drawContext;
     }
 }

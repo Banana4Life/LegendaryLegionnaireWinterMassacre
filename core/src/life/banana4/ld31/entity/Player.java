@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,7 +8,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import life.banana4.ld31.DrawContext;
+import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.Intention;
@@ -17,6 +20,7 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
 {
     public static final float SPEED = 100;
     public static final float MINIMUM_MOVE_MUL = 0.06f;
+    private boolean isMouseControlled = false;
 
     public Player()
     {
@@ -45,7 +49,7 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
         r.begin(ShapeType.Line);
         r.setColor(Color.CYAN);
         Vector2 line = new Vector2(100, 0).setAngle(getRotation()).scl(100);
-        r.line(getX(), getY(), getX() + line.x, getY() + line.y);
+        r.line(getMidX(), getMidY(), getMidX() + line.x, getMidY() + line.y);
         r.end();
     }
 
@@ -102,5 +106,28 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     public void onCollide(Rectangle rect, CollisionSource source)
     {
 
+    }
+
+    @Override
+    public Entity move(float x, float y)
+    {
+        super.move(x, y);
+        if (this.isMouseControlled)
+        {
+            this.lookAt(Gdx.input.getX(), Gdx.input.getY());
+        }
+        return this;
+    }
+
+    public void setMouseControlled(boolean mouseControlled)
+    {
+        this.isMouseControlled = mouseControlled;
+    }
+
+    public void lookAt(int screenX, int screenY)
+    {
+        OrthographicCamera camera = this.getLevel().getGame().getDrawContext().camera;
+        Vector3 pos = camera.unproject(new Vector3(screenX, screenY, 0));
+        this.setRotation(new Vector2(pos.x - this.getX(), pos.y - this.getY()).angle());
     }
 }

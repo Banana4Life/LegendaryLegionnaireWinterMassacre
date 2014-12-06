@@ -58,6 +58,7 @@ public class Level
     private final int width;
     private final int height;
 
+    Ld31 game;
 
     private boolean debug = true; // TODO debug
 
@@ -271,5 +272,10 @@ public class Level
     public boolean isDebug()
     {
         return debug;
+    }
+
+    public Ld31 getGame()
+    {
+        return this.game;
     }
 }
