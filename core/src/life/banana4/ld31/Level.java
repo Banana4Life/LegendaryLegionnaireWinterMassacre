@@ -121,10 +121,12 @@ public class Level
 
         //draw floor
         final SpriteBatch spriteBatch = ctx.getSpriteBatch();
+        spriteBatch.begin();
         for (final FloorTile t : this.floor)
         {
             t.draw(spriteBatch);
         }
+        spriteBatch.end();
 
         // draw living
         for (final Entity e : this.entities)
@@ -212,5 +214,10 @@ public class Level
             }
         }
         return NO_INTENTIONS;
+    }
+
+    public List<FloorTile> getFloor()
+    {
+        return floor;
     }
 }

@@ -2,8 +2,9 @@ package life.banana4.ld31.ai;
 
 import com.badlogic.gdx.ai.pfa.indexed.DefaultIndexedGraph;
 import com.badlogic.gdx.graphics.Pixmap;
+import life.banana4.ld31.util.TileType;
 
-import static life.banana4.ld31.util.TileType.FLOOR;
+import static life.banana4.ld31.util.TileType.*;
 import static life.banana4.ld31.util.TileType.getType;
 
 public class TiledGraph extends DefaultIndexedGraph<TiledNode>
@@ -52,12 +53,12 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
 
     private void addConnection(TiledNode node, int x, int y)
     {
-        if (node.type == FLOOR)
+        if (isFloor(node.type))
         {
             TiledNode target = getNode(node.x + x, node.y + y);
             switch (target.type)
             {
-                case FLOOR:
+                case SNOW: case DIRT:
                     //System.out.println(node.x + ":" + node.y + "->" + target.x + ":" + target.y + "|" + x + ":" + y);
                     node.getConnections().add(new TiledConnection(this, node, target));
             }

@@ -8,6 +8,7 @@ import life.banana4.util.resourcebags.ResourceBag;
 public class Textures extends ResourceBag<Texture>
 {
     public Texture torso;
+    public Texture floor;
 
     @Override
     protected Texture load(FileRef basedir, Field field)
