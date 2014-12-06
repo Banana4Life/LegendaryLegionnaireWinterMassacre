@@ -235,4 +235,9 @@ public class Level
     {
         return floor;
     }
+
+    public List<Entity> getEntities()
+    {
+        return entities;
+    }
 }

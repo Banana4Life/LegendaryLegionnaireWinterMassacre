@@ -1,6 +1,7 @@
 package life.banana4.ld31.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -35,6 +36,10 @@ public class GlobalInputProcessor implements AllThemInputProcessor
     @Override
     public boolean keyUp(int keycode)
     {
+        if (keycode == Keys.SPACE) {
+            System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+            System.out.println("Living entities: " + game.getLevel().getEntities().size());
+        }
         return false;
     }
 
