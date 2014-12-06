@@ -50,7 +50,6 @@ public class Projectile extends MovingEntity implements CollisionSource
     @Override
     public void onCollide(Rectangle rect, CollisionTarget target)
     {
-        System.out.println("projectile meets " + target.getClass().getSimpleName());
         if (target instanceof Wall)
         {
             die();

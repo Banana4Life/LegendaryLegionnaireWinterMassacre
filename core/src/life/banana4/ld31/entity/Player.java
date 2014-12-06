@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -87,9 +88,16 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
             switch (t)
             {
                 case PRIMARY_ATTACK:
-                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 500);
+                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 600);
                     break;
                 case SECONDARY_ATTACK:
+                    Random random = new Random();
+                    dir.setAngle(getRotation() - (random.nextInt(8) + 5));
+                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 200);
+                    dir.setAngle(getRotation() + (random.nextInt(11) - 5));
+                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 200);
+                    dir.setAngle(getRotation() + (random.nextInt(8) + 5));
+                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 200);
                     //radius -= 15 * delta;
                     break;
             }
