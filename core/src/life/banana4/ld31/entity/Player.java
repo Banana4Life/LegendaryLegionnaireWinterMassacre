@@ -31,7 +31,9 @@ public class Player extends MovingEntity
     {
         SpriteBatch batch = ctx.getSpriteBatch();
         batch.begin();
-        batch.draw(ctx.resources.textures.torso, getX(), getY(), 0, 0, 128, 128, 1, 1, getRotation(), 0, 0, 128, 128,
+
+        Vector2 offset = new Vector2(-64, -64).rotate(getRotation() + 90);
+        batch.draw(ctx.resources.textures.torso, getX() + offset.x, getY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 90, 0, 0, 128, 128,
                    false, false);
         batch.end();
 
