@@ -1,6 +1,7 @@
 package life.banana4.ld31;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -49,7 +50,12 @@ public abstract class Entity
         float yOld = this.y;
         this.x += x;
         this.y += y;
-        if (this.getLevel() != null && this instanceof Player)
+
+        if (this.x < 0 || this.y < 0 || this.x > Gdx.graphics.getWidth() || this.y > Gdx.graphics.getHeight())
+        {
+            this.die();
+        }
+        /*else if (this.getLevel() != null && this instanceof Player)
         {
             TiledNode node = this.getLevel().nodeAt(this.x, this.y);
             if (node.type == TileType.WALL)
@@ -61,7 +67,7 @@ public abstract class Entity
                     this.move(x * 0.9f, y * 0.9f);
                 }
             }
-        }
+        }*/
         return this;
     }
 
