@@ -53,7 +53,6 @@ public abstract class LivingEntity extends Entity
     public Projectile shoot(Projectile p, float x, float y)
     {
         getLevel().addEntity(p);
-        p.move(getMidX(), getMidY());
         p.setVelocity(x, y);
         p.setRotation(new Vector2(x, y).angle());
         return p;

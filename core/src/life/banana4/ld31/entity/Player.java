@@ -81,7 +81,8 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 
         float modifiedWalkingAngle;
         float difference = Math.abs(getRotation() - getWalkingAngle());
-        if (difference < 90 || difference > 270) {
+        if (difference < 90 || difference > 270)
+        {
             animations.legs.setPlayMode(PlayMode.NORMAL);
             modifiedWalkingAngle = getWalkingAngle();
         }
@@ -91,19 +92,17 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             modifiedWalkingAngle = getWalkingAngle() + 180;
         }
         Vector2 walkingOffset = new Vector2(64, -64).rotate(modifiedWalkingAngle + 90);
-        batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true),
-                   getX() + getWidth() / 2 + walkingOffset.x, getY() + getHeight() / 2 + walkingOffset.y, 0, 0, 128, 128, 1,
-                   1, modifiedWalkingAngle + 180, true);
-        if (secondaryStateTime <= SECONDARY_COOLDOWN) {
-            batch.draw(ctx.resources.animations.charswordswing.getKeyFrame(secondaryStateTime),
-                       getX() + getWidth() / 2 + offset.x, getY() + getHeight() / 2 + offset.y, 0, 0, 128,
-                       128, 1, 1, getRotation() + 180, true);
+        batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true), getMidX() + walkingOffset.x,
+                   getMidY() + walkingOffset.y, 0, 0, 128, 128, 1, 1, modifiedWalkingAngle + 180, true);
+        if (secondaryStateTime <= SECONDARY_COOLDOWN)
+        {
+            batch.draw(ctx.resources.animations.charswordswing.getKeyFrame(secondaryStateTime), getMidX() + offset.x,
+                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
         }
         else
         {
-            batch.draw(ctx.resources.animations.charcrossload.getKeyFrame(primaryStateTime),
-                       getX() + getWidth() / 2 + offset.x, getY() + getHeight() / 2 + offset.y, 0, 0, 128,
-                       128, 1, 1, getRotation() + 180, true);
+            batch.draw(ctx.resources.animations.charcrossload.getKeyFrame(primaryStateTime), getMidX() + offset.x,
+                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
         }
         batch.end();
 
@@ -126,6 +125,11 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 
             r.end();
 
+            r.begin(ShapeType.Filled);
+            r.setColor(Color.RED);
+            Vector2 rotate = new Vector2(32, 3).rotate(this.getRotation());
+            r.box(this.getMidX() + rotate.x, this.getMidY() + rotate.y, 0, 3, 3, 0);
+            r.end();
         }
     }
 
@@ -160,8 +164,10 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     }
                     Ld31Resources resources = this.getLevel().getGame().getDrawContext().resources;
                     primaryStateTime = 0;
-                    shoot(new BoltProjectile(this),
-                          dir.x, dir.y, 600);
+                    Vector2 rotate = new Vector2(32, 3).rotate(this.getRotation());
+                    BoltProjectile bolt = new BoltProjectile(this);
+                    bolt.move(this.getMidX() + rotate.x, this.getMidY() + rotate.y);
+                    shoot(bolt, dir.x, dir.y, 250);
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
@@ -210,7 +216,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     for (float i = 0; i < 360; i += 5)
                     {
                         dir.setAngle(getRotation() + i);
-                        shoot(new DummyProjectile(this, 5, 5), dir.x, dir.y, 500);
+                        shoot(new DummyProjectile(this, 5, 5), dir.x, dir.y, 500).move(this.getMidX(), this.getMidY());
                     }
                     waits.put(t, 0f);
                     break;

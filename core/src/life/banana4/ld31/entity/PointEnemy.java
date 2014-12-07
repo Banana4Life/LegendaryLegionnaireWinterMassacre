@@ -65,7 +65,7 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
         waitedFor += delta;
         if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY && path.getCount() == 2)
         {
-            shoot(new AlienProjectile(this), dx, dy, 200);
+            shoot(new AlienProjectile(this), dx, dy, 200).move(this.getMidX(), this.getMidY());
             waitedFor = 0;
         }
     }
