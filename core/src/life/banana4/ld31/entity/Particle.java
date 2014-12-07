@@ -2,6 +2,7 @@ package life.banana4.ld31.entity;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 
@@ -24,6 +25,7 @@ public class Particle extends Entity
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
+        this.effect.setPosition(getX(), getY());
         if (effect.isComplete())
         {
             die();
@@ -34,6 +36,9 @@ public class Particle extends Entity
     public void draw(DrawContext ctx, float delta)
     {
         super.draw(ctx, delta);
-        this.effect.draw(ctx.getSpriteBatch(), delta);
+        SpriteBatch b = ctx.getSpriteBatch();
+        b.begin();
+        this.effect.draw(b, delta);
+        b.end();
     }
 }

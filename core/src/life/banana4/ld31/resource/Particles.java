@@ -8,11 +8,13 @@ import life.banana4.util.resourcebags.ResourceBag;
 
 public class Particles extends ResourceBag<ParticleEffect>
 {
+    public ParticleEffect explosion;
+
     @Override
     protected ParticleEffect load(FileRef basedir, Field field)
     {
         ParticleEffect effect = new ParticleEffect();
-        effect.load(Gdx.files.internal(fieldToFileRef(field, basedir).getPath() + ".p"), Gdx.files.internal("img"));
+        effect.load(Gdx.files.internal(fieldToFileRef(field, basedir).getPath() + ".p"), Gdx.files.internal("particles"));
         return effect;
     }
 }
