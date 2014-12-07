@@ -24,8 +24,8 @@ public class AlienProjectile extends Projectile
         Texture tex = this.getLevel().getGame().getDrawContext().resources.textures.alienprojectile;
         Vector2 rot = new Vector2(-4, -4).rotate(getRotation() - 45);
         b.begin();
-        b.draw(tex, getX() + getWidth() / 2 + rot.x, getY() + getHeight() / 2 + rot.y, 0, 0, 8, 8, 1, 1,
-               getRotation() - 45, 0, 0, 8, 8, false, false);
+        b.draw(tex, getX() + getWidth() / 2 + rot.x, getY() + getHeight() / 2 + rot.y, 0, 0, 8, 16, 1, 1,
+               getRotation() + 90, 0, 0, 8, 16, false, false);
         b.end();
     }
 
