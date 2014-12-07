@@ -242,7 +242,7 @@ public class Level
                 {
                     if (this.nodeAt(rX, rY).type != TileType.WALL)
                     {
-                        int bossChance = 100 - waveCount;
+                        int bossChance = 50 - waveCount;
                         if (bossChance <= 1)
                         {
                             bossChance = 1;
@@ -284,7 +284,7 @@ public class Level
                          Gdx.graphics.getHeight() / 2 - 64);
         bitmapFont.draw(spriteBatch,
                         "Score: " + scoreValue + " Multiplier: " + multiplier + "x  Health: " + player.getHealth() + "/"
-                            + player.getMaxHealth(), 10, 20);
+                            + player.getMaxHealth() + "  Wave " + waveCount + "/50" , 10, 20);
         ctx.camera.setToOrtho(true);
         spriteBatch.end();
     }
