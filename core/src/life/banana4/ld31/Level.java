@@ -156,24 +156,34 @@ public class Level
         }
     }
 
+    private int waveSpawn = 1;
+
     private void spawnEnemies(int curEnemyCount)
     {
-        if (curEnemyCount < 5)
+        if (waveSpawn > 0)
         {
-            float rX, rY;
-            int spawns = 0;
-            Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
             do
             {
+                float rX, rY;
                 rX = (random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
                 rY = (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
-                if (playerV.dst2(rX, rY) > 500 * 500)
+                Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
+
+                if (playerV.dst2(rX, rY) > 400 * 400)
                 {
-                    addEntity(new PointEnemy().move(rX, rY));
-                    spawns++;
+                    if (this.nodeAt(rX, rY).type != TileType.WALL)
+                    {
+                        addEntity(new PointEnemy().move(rX, rY));
+                        waveSpawn--;
+                        return;
+                    }
                 }
             }
-            while (spawns < enemiesKilled);
+            while (true);
+        }
+        if (curEnemyCount == 0)
+        {
+            waveSpawn = random.nextInt(enemiesKilled + 1) + enemiesKilled / 2;
         }
     }
 

@@ -21,7 +21,8 @@ public class Animations extends ResourceBag<Animation>
         TextureRegion[][] tmp = TextureRegion.split(tmpTexture, tmpTexture.getWidth(), tmpTexture.getWidth());
         TextureRegion[] frames = new TextureRegion[tmpTexture.getHeight() / tmpTexture.getWidth()];
 
-        for (int i = 0; i < frames.length; i++) {
+        for (int i = 0; i < frames.length; i++)
+        {
             frames[i] = tmp[i][0];
         }
 

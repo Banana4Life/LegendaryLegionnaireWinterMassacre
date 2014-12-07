@@ -14,7 +14,8 @@ public class Particles extends ResourceBag<ParticleEffect>
     protected ParticleEffect load(FileRef basedir, Field field)
     {
         ParticleEffect effect = new ParticleEffect();
-        effect.load(Gdx.files.internal(fieldToFileRef(field, basedir).getPath() + ".p"), Gdx.files.internal("particles"));
+        effect.load(Gdx.files.internal(fieldToFileRef(field, basedir).getPath() + ".p"), Gdx.files.internal(
+            "particles"));
         return effect;
     }
 }
