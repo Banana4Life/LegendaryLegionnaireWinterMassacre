@@ -16,7 +16,7 @@ import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
 
 public class PointEnemy extends Enemy implements CollisionSource, CollisionTarget
 {
-    private static final float SPEED = 75;
+    private static final float SPEED = 120;
     private static final float ATTACK_RANGE = 300;
     private static final float SHOT_DELAY = 0.65f;
 

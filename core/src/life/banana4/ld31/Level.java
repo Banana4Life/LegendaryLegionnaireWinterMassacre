@@ -131,7 +131,7 @@ public class Level
                     spawns++;
                 }
             }
-            while (spawns < 4);
+            while (spawns < 9);
         }
 
         drawLevel(ctx);
@@ -167,11 +167,6 @@ public class Level
 
     private void drawLevel(DrawContext ctx)
     {
-        ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
-        shapeRenderer.begin(ShapeType.Line);
-        showGrid(shapeRenderer);
-        shapeRenderer.end();
-
         //draw floor
         final SpriteBatch spriteBatch = ctx.getSpriteBatch();
         spriteBatch.begin();
