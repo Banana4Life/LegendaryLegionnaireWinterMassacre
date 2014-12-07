@@ -28,7 +28,7 @@ public abstract class Entity
         this.id = COUNTER.getAndIncrement();
         this.width = width;
         this.height = height;
-        this.depth = 1;
+        this.depth = 50;
     }
 
     public int getDepth()

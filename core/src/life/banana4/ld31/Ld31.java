@@ -30,7 +30,7 @@ public class Ld31 extends ApplicationAdapter
         Controllers.addListener(inputMultiplexer);
         Gdx.input.setCursorCatched(true);
 
-        this.resources = new Ld31Resources(this, camera);
+        this.resources = new Ld31Resources(this);
         resources.build();
         this.level = resources.levels.level1;
         this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), resources);

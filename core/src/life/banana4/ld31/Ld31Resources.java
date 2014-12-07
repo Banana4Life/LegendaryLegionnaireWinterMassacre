@@ -16,12 +16,12 @@ public class Ld31Resources extends Resources
     public Levels levels;
     public Particles particles;
 
-    public Ld31Resources(Ld31 ld31, OrthographicCamera camera)
+    public Ld31Resources(Ld31 ld31)
     {
         textures = new Textures();
         animations = new Animations();
         sounds = new Sounds();
-        levels = new Levels(ld31, camera, textures);
+        levels = new Levels(ld31, textures);
         particles = new Particles();
     }
 }

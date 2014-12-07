@@ -13,6 +13,7 @@ public class FootStep extends LivingEntity
     public FootStep(boolean left)
     {
         super(2, 2);
+        setDepth(25);
         this.left = left;
     }
 

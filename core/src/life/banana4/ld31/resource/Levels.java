@@ -20,7 +20,6 @@ import life.banana4.util.resourcebags.ResourceBag;
 public class Levels extends ResourceBag<Level>
 {
     private final Ld31 game;
-    private final OrthographicCamera camera;
     public final Textures textures;
 
     public static final int TILE_WIDTH = 32;
@@ -29,10 +28,9 @@ public class Levels extends ResourceBag<Level>
 
     public Level level1;
 
-    public Levels(Ld31 game, OrthographicCamera camera, Textures textures)
+    public Levels(Ld31 game, Textures textures)
     {
         this.game = game;
-        this.camera = camera;
         this.textures = textures;
     }
 
@@ -52,7 +50,7 @@ public class Levels extends ResourceBag<Level>
         TextureData map = new Texture(basedir.child(id + ".bmp").getPath()).getTextureData();
         map.prepare();
         Pixmap pixmap = map.consumePixmap();
-        Level level = new Level(game, camera, pixmap.getWidth(), pixmap.getHeight(), new TiledGraph(pixmap));
+        Level level = new Level(game, pixmap.getWidth(), pixmap.getHeight(), new TiledGraph(pixmap));
 
         int color;
         for (int x = 0; x < map.getWidth(); x++)

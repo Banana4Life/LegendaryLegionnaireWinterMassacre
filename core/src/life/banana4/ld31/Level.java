@@ -65,7 +65,6 @@ public class Level
     private final AlienShip alienShip;
     private Player player;
 
-    private final OrthographicCamera camera;
     private final int width;
     private final int height;
 
@@ -75,10 +74,9 @@ public class Level
     private int scoreValue = 0;
     private BitmapFont bitmapFont = new BitmapFont();
 
-    public Level(Ld31 game, OrthographicCamera camera, int width, int height, TiledGraph tiledGraph)
+    public Level(Ld31 game, int width, int height, TiledGraph tiledGraph)
     {
         this.game = game;
-        this.camera = camera;
         this.width = width;
         this.height = height;
 
