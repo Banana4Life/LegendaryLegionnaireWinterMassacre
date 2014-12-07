@@ -28,6 +28,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public static final float SPEED = 3.3f;
     public static final float MINIMUM_MOVE_MUL = 0.06f;
     private boolean isMouseControlled = false;
+    private float walkingAngle = 0;
 
     private float primaryStateTime = 0;
     private float secondaryStateTime = SECONDARY_COOLDOWN;
@@ -42,9 +43,15 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         waits.put(Type.TERTIARY_ATTACK, 0f);
     }
 
+    public float getWalkingAngle()
+    {
+        return walkingAngle;
+    }
+
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
+        super.update(camera, delta);
         secondaryStateTime += delta;
         if (secondaryStateTime > SECONDARY_COOLDOWN)
         {
@@ -66,8 +73,9 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         batch.begin();
 
         Vector2 offset = new Vector2(64, -64).rotate(getRotation() + 90);
-        batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true), getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0,
-                   128, 128, 1, 1, getRotation() + 180, true);
+        batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true),
+                   getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1,
+                   1, getRotation() + 180, true);
         if (secondaryStateTime <= SECONDARY_COOLDOWN) {
             batch.draw(ctx.resources.animations.charswordswing.getKeyFrame(secondaryStateTime),
                        getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
@@ -83,12 +91,13 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             ShapeRenderer r = ctx.getShapeRenderer();
             r.begin(ShapeType.Line);
             r.setColor(Color.CYAN);
-            Vector2 line = new Vector2(100, 0).setAngle(getRotation()).scl(100);
+            Vector2 line = new Vector2(100, 0).setAngle(getViewingAngle()).scl(100);
             r.line(getMidX(), getMidY(), getMidX() + line.x, getMidY() + line.y);
             r.end();
         }
     }
 
+    private static final Vector2 HELPER = new Vector2(0, 0);
     @Override
     public void reactTo(Intention intention, float delta)
     {
@@ -102,8 +111,10 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             {
                 return;
             }
-            dir.nor().scl(SPEED);
-            move(dir.x * scaleX, dir.y * scaleY);
+            dir.nor().scl(SPEED).scl(scaleX, scaleY);
+            move(dir.x, dir.y);
+            this.walkingAngle = HELPER.set(dir.scl(dir.len())).angle();
+            System.out.println("Walking angle -> " + walkingAngle);
         }
         else
         {

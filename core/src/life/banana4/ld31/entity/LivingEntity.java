@@ -9,6 +9,7 @@ public abstract class LivingEntity extends Entity
     protected float vx;
     protected float vy;
     private long aliveSince = -1;
+    private float viewingAngle = 0;
 
     private int health = 1;
 
@@ -36,9 +37,11 @@ public abstract class LivingEntity extends Entity
         aliveSince = System.currentTimeMillis();
     }
 
+    private static final Vector2 V = new Vector2(0, 0);
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
+        this.viewingAngle = V.set(vx, vy).angle();
         this.move(vx * delta, vy * delta);
         if (getHealth() <= 0)
         {
@@ -92,5 +95,10 @@ public abstract class LivingEntity extends Entity
     public long lifetime()
     {
         return System.currentTimeMillis() - this.aliveSince;
+    }
+
+    public float getViewingAngle()
+    {
+        return viewingAngle;
     }
 }
