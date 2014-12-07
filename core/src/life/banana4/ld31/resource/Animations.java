@@ -12,6 +12,7 @@ public class Animations extends ResourceBag<Animation>
     public Animation legs;
     public Animation charcrossload;
     public Animation charswordswing;
+    public Animation alien;
 
     @Override
     protected Animation load(FileRef basedir, Field field)
