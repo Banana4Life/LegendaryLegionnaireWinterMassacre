@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import life.banana4.ld31.ai.TiledNode;
-import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.input.Intention;
-import life.banana4.ld31.util.TileType;
 
 public abstract class Entity
 {
@@ -21,6 +18,7 @@ public abstract class Entity
     private float rotation = 0;
     private final float width;
     private final float height;
+    private boolean dead = false;
 
     public Entity(float width, float height)
     {
@@ -42,12 +40,16 @@ public abstract class Entity
     public void die()
     {
         getLevel().remove(this);
+        this.dead = true;
+    }
+
+    public boolean isDead()
+    {
+        return dead;
     }
 
     public Entity move(float x, float y)
     {
-        float xOld = this.x;
-        float yOld = this.y;
         this.x += x;
         this.y += y;
 
@@ -55,19 +57,6 @@ public abstract class Entity
         {
             this.die();
         }
-        /*else if (this.getLevel() != null && this instanceof Player)
-        {
-            TiledNode node = this.getLevel().nodeAt(this.x, this.y);
-            if (node.type == TileType.WALL)
-            {
-                if (this.getLevel().nodeAt(xOld, yOld).type != TileType.WALL)
-                {
-                    this.x = xOld;
-                    this.y = yOld;
-                    this.move(x * 0.9f, y * 0.9f);
-                }
-            }
-        }*/
         return this;
     }
 

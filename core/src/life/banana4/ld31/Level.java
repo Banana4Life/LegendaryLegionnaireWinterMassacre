@@ -224,7 +224,7 @@ public class Level
             for (int i = 0; i < check.size(); i++)
             {
                 final Entity a = check.get(i);
-                if (!(a instanceof CollisionSource))
+                if (a.isDead() || !(a instanceof CollisionSource))
                 {
                     continue;
                 }
@@ -232,11 +232,7 @@ public class Level
                 for (int j = 0; j < this.entities.size(); j++)
                 {
                     final Entity b = this.entities.get(j);
-                    if (a == b)
-                    {
-                        continue;
-                    }
-                    if (!(b instanceof CollisionTarget))
+                    if (a == b || b.isDead() || !(b instanceof CollisionTarget))
                     {
                         continue;
                     }
@@ -256,7 +252,7 @@ public class Level
                         float oldX = a.getX();
                         float oldY = a.getY();
                         source.onCollide(target, rect);
-                        if (oldX != a.getX() || oldY != a.getY())
+                        if (!a.isDead() && (oldX != a.getX() || oldY != a.getY()))
                         {
                             recheck.add(a);
                         }
@@ -264,7 +260,7 @@ public class Level
                         oldX = b.getX();
                         oldY = b.getY();
                         target.onCollide(source, rect);
-                        if (oldX != b.getX() || oldY != b.getY())
+                        if (!b.isDead() && (oldX != b.getX() || oldY != b.getY()))
                         {
                             recheck.add(b);
                         }
