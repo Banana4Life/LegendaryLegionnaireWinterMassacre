@@ -15,6 +15,8 @@ import life.banana4.ld31.Entity;
 import life.banana4.ld31.Ld31Resources;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
+import life.banana4.ld31.entity.projectile.BoltProjectile;
+import life.banana4.ld31.entity.projectile.DummyProjectile;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
 
@@ -128,7 +130,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     }
                     Ld31Resources resources = this.getLevel().getGame().getDrawContext().resources;
                     primaryStateTime = 0;
-                    shoot(Projectile.bolt(this.getLevel().getGame().getDrawContext().resources.textures.bolt, this),
+                    shoot(new BoltProjectile(this),
                           dir.x, dir.y, 600);
                     waits.put(t, 0f);
                     break;
@@ -149,7 +151,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     for (float i = 0; i < 360; i += 5)
                     {
                         dir.setAngle(getRotation() + i);
-                        shoot(new Projectile(this, 5, 5), dir.x, dir.y, 500);
+                        shoot(new DummyProjectile(this, 5, 5), dir.x, dir.y, 500);
                     }
                     waits.put(t, 0f);
                     break;

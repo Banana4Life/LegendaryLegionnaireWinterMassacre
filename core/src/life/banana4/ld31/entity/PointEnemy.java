@@ -10,6 +10,7 @@ import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
+import life.banana4.ld31.entity.projectile.AlienProjectile;
 
 import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
 import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
@@ -64,7 +65,7 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
         waitedFor += delta;
         if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY && path.getCount() == 2)
         {
-            shoot(Projectile.alien(this.getLevel().getGame().getDrawContext().resources.textures.alienprojectile, this), dx, dy, 200);
+            shoot(new AlienProjectile(this), dx, dy, 200);
             waitedFor = 0;
         }
     }
