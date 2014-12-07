@@ -11,6 +11,7 @@ public class Textures extends ResourceBag<Texture>
     public Texture floor;
     public Texture bolt;
     public Texture snowman;
+    public Texture alienprojectile;
 
     @Override
     protected Texture load(FileRef basedir, Field field)

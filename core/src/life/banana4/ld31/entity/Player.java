@@ -122,7 +122,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     {
                         break;
                     }
-                    shoot(Projectile.of(this.getLevel().getGame().getDrawContext().resources.textures.bolt, this),
+                    shoot(Projectile.bolt(this.getLevel().getGame().getDrawContext().resources.textures.bolt, this),
                           dir.x, dir.y, 600);
                     waits.put(t, 0f);
                     break;

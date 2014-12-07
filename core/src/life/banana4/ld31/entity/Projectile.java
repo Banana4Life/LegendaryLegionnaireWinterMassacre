@@ -65,12 +65,24 @@ public class Projectile extends LivingEntity implements CollisionSource
         }
         else
         {
+
             SpriteBatch spriteBatch = ctx.getSpriteBatch();
             spriteBatch.begin();
-            Vector2 rotate = new Vector2(-16, -6).rotate(getRotation() + 90);
-            spriteBatch.draw(texture, this.getX() + this.getWidth() / 2 + rotate.x,
-                             this.getY() + this.getHeight() / 2 + rotate.y, 0, 0, 32, 32, 1, 1, this.getRotation() + 90,
-                             0, 0, 32, 32, false, false);
+            if (texture == this.getLevel().getGame().getDrawContext().resources.textures.bolt)
+            {
+                Vector2 rotate = new Vector2(-16, -6).rotate(getRotation() + 90);
+                spriteBatch.draw(texture, this.getX() + this.getWidth() / 2 + rotate.x,
+                                 this.getY() + this.getHeight() / 2 + rotate.y, 0, 0, 32, 32, 1, 1, this.getRotation() + 90,
+                                 0, 0, 32, 32, false, false);
+            }
+            else
+            {
+                Vector2 rotate = new Vector2(-4,-4).rotate(getRotation() - 45);
+                spriteBatch.draw(texture, this.getX() + this.getWidth() / 2 + rotate.x,
+                                 this.getY() + this.getHeight() / 2 + rotate.y, 0, 0, 8, 8, 1, 1, this.getRotation() - 45,
+                                 0, 0, 8, 8, false, false);
+            }
+
             spriteBatch.end();
         }
     }
@@ -80,7 +92,7 @@ public class Projectile extends LivingEntity implements CollisionSource
     {
         if (target instanceof Wall)
         {
-            if (texture != null)
+            if (texture == this.getLevel().getGame().getDrawContext().resources.textures.bolt)
             {
                 this.setVelocity(0, 0);
                 this.move(vx, vy);
@@ -92,9 +104,14 @@ public class Projectile extends LivingEntity implements CollisionSource
         }
     }
 
-    public static Projectile of(Texture texture, Entity shooter)
+    public static Projectile bolt(Texture texture, Entity shooter)
     {
         return new Projectile(4, 4, shooter, texture);
+    }
+
+    public static Projectile alien(Texture texture, Entity shooter)
+    {
+        return new Projectile(8, 8, shooter, texture);
     }
 
     public Entity getShooter()
