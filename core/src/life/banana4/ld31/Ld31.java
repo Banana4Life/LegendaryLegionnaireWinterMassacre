@@ -28,7 +28,7 @@ public class Ld31 extends ApplicationAdapter
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(this, camera));
         Gdx.input.setInputProcessor(inputMultiplexer);
         Controllers.addListener(inputMultiplexer);
-        Gdx.input.setCursorCatched(!isDebug());
+        Gdx.input.setCursorCatched(true);
 
         this.resources = new Ld31Resources(this, camera);
         resources.build();

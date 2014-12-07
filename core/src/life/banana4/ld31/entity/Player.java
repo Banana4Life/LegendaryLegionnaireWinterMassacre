@@ -179,6 +179,10 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             r.setColor(Color.CYAN);
             Vector2 line = new Vector2(100, 0).setAngle(getRotation()).scl(100);
             r.line(getMidX(), getMidY(), getMidX() + line.x, getMidY() + line.y);
+
+            r.setColor(Color.RED);
+            r.line(getMidX(), getMidY(), getLevel().getCursor().getMidX(), getLevel().getCursor().getMidY());
+
             r.end();
 
             float rotation = this.getRotation();
