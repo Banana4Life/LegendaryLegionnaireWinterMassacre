@@ -24,6 +24,7 @@ public class ControllerIntentionDetector implements IntentionDetector
         buttons.put(XBox360Pad.BUTTON_R3, new Intention(Type.TERTIARY_ATTACK));
         buttons.put(XBox360Pad.BUTTON_BACK, new Intention(Type.EXIT_GAME));
         buttons.put(XBox360Pad.BUTTON_START, new Intention(Type.NEW_GAME));
+        buttons.put(XBox360Pad.BUTTON_L3, new Intention(Type.SPRINT));
     }
 
     @Override
@@ -49,6 +50,11 @@ public class ControllerIntentionDetector implements IntentionDetector
             {
                 intentions.add(entry.getValue());
             }
+        }
+
+        if (!mc.getButton(XBox360Pad.BUTTON_L3))
+        {
+            intentions.add(new Intention(Type.NO_SPRINT));
         }
 
         float leftX = mc.getAxis(XBox360Pad.AXIS_LEFT_X);

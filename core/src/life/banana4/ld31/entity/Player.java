@@ -22,6 +22,7 @@ import life.banana4.ld31.input.Intention.Type;
 import life.banana4.ld31.resource.Animations;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.exp;
 import static life.banana4.ld31.Ld31.isDebug;
 
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget
@@ -32,10 +33,14 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     private boolean isMouseControlled = false;
     private float walkingAngle = 0;
 
+    private float sprint = 1;
+    private boolean exhausted = false;
+
     private float primaryStateTime = 0;
     private float secondaryStateTime = SECONDARY_COOLDOWN;
 
     Map<Type, Float> waits = new HashMap<>();
+    private float sprintTime = 0f;
 
     public Player()
     {
@@ -61,6 +66,25 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
+        if (sprintTime >= 1)
+        {
+            exhausted = true;
+            sprintTime = 1;
+        }
+        if (sprint > 1)
+        {
+            sprintTime += delta;
+        }
+        else
+        {
+            sprintTime -= delta;
+            if (sprintTime < 0)
+            {
+                sprintTime = 0;
+                exhausted = false;
+            }
+        }
+
         super.update(camera, delta);
         secondaryStateTime += delta;
         if (secondaryStateTime > SECONDARY_COOLDOWN)
@@ -73,7 +97,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             waits.put(type, waits.get(type) + delta);
         }
 
-        System.out.println("Speed: " + Math.sqrt(vx * vx + vy * vy));
+        //System.out.println("Speed: " + Math.sqrt(vx * vx + vy * vy));
     }
 
     @Override
@@ -147,12 +171,20 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public void reactTo(Intention intention, float delta)
     {
         Type t = intention.getType();
+        if (t == Type.SPRINT)
+        {
+            sprint = 2f;
+        }
+        if (t == Type.NO_SPRINT)
+        {
+            sprint = 1f;
+        }
         if (t == Type.MOVE)
         {
             Vector2 dir = intention.getArgumentAs(Vector2.class);
             float scaleX = abs(dir.x);
             float scaleY = abs(dir.y);
-            dir.nor().scl(SPEED).scl(scaleX, scaleY);
+            dir.nor().scl(SPEED * (exhausted ? 1 : sprint)).scl(scaleX, scaleY);
             setVelocity(dir.x, dir.y);
             //move(dir.x, dir.y);
             this.walkingAngle = HELPER.set(dir.scl(dir.len())).angle();

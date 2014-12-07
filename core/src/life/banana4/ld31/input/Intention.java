@@ -49,6 +49,8 @@ public final class Intention
         SECONDARY_ATTACK,
         TERTIARY_ATTACK,
         EXIT_GAME,
-        NEW_GAME;
+        NEW_GAME,
+        SPRINT,
+        NO_SPRINT;
     }
 }

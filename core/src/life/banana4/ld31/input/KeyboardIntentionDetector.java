@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 import life.banana4.ld31.input.Intention.Type;
 
 public class KeyboardIntentionDetector implements IntentionDetector
@@ -20,6 +21,7 @@ public class KeyboardIntentionDetector implements IntentionDetector
     {
         keys.put(Keys.ESCAPE, new Intention(Type.EXIT_GAME));
         keys.put(Keys.R, new Intention(Type.NEW_GAME));
+        keys.put(Keys.SHIFT_LEFT, new Intention(Type.SPRINT));
 
         buttons.put(Buttons.LEFT, new Intention(Type.PRIMARY_ATTACK));
         buttons.put(Buttons.RIGHT, new Intention(Type.SECONDARY_ATTACK));
@@ -64,6 +66,10 @@ public class KeyboardIntentionDetector implements IntentionDetector
         if (Gdx.input.isKeyPressed(Keys.D))
         {
             dir.add(1, 0);
+        }
+        if (!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
+        {
+            intentions.add(new Intention(Type.NO_SPRINT));
         }
 
         if (!dir.equals(Vector2.Zero))
