@@ -14,6 +14,11 @@ import life.banana4.ld31.Entity;
 public class Cursor extends Entity
 {
     private static final Vector3 POS = new Vector3(0, 0, 0);
+    private int lastX = 0;
+    private int lastY = 0;
+
+    private int actualX = Gdx.input.getX();
+    private int actualY = Gdx.input.getY();
 
     public Cursor()
     {
@@ -22,10 +27,43 @@ public class Cursor extends Entity
     }
 
     @Override
+    public void onSpawn()
+    {
+        super.onSpawn();
+        setPosition(lastX, lastY);
+    }
+
+    @Override
     public void update(OrthographicCamera camera, float delta)
     {
-        camera.unproject(POS.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+        final int x = Gdx.input.getX();
+        final int y = Gdx.input.getY();
+
+        final int maxX = Gdx.graphics.getWidth() - 1;
+        final int maxY = Gdx.graphics.getHeight() - 1;
+
+        final int dx = x - lastX;
+        final int dy = y - lastY;
+
+        if (dx != 0 || dy != 0)
+        {
+            System.out.println(dx + ":" + dy);
+        }
+
+        this.actualX = between(this.actualX + dx, 0, maxX);
+        this.actualY = between(this.actualY - dy, 0, maxY);
+
+        camera.project(POS.set(actualX, actualY, 0));
+
         setPosition(POS.x, POS.y);
+
+        lastX = x;
+        lastY = y;
+    }
+
+    private static int between(int a, int min, int max)
+    {
+        return Math.max(min, Math.min(max, a));
     }
 
     @Override

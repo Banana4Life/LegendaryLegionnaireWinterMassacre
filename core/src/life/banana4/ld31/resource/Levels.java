@@ -2,12 +2,14 @@ package life.banana4.ld31.resource;
 
 import java.lang.reflect.Field;
 import java.util.Random;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.FloorTile;
+import life.banana4.ld31.Ld31;
 import life.banana4.ld31.Level;
 import life.banana4.ld31.ai.TiledGraph;
 import life.banana4.ld31.entity.Wall;
@@ -17,6 +19,8 @@ import life.banana4.util.resourcebags.ResourceBag;
 
 public class Levels extends ResourceBag<Level>
 {
+    private final Ld31 game;
+    private final OrthographicCamera camera;
     public final Textures textures;
 
     public static final int TILE_WIDTH = 32;
@@ -25,8 +29,10 @@ public class Levels extends ResourceBag<Level>
 
     public Level level1;
 
-    public Levels(Textures textures)
+    public Levels(Ld31 game, OrthographicCamera camera, Textures textures)
     {
+        this.game = game;
+        this.camera = camera;
         this.textures = textures;
     }
 
@@ -46,7 +52,7 @@ public class Levels extends ResourceBag<Level>
         TextureData map = new Texture(basedir.child(id + ".bmp").getPath()).getTextureData();
         map.prepare();
         Pixmap pixmap = map.consumePixmap();
-        Level level = new Level(pixmap.getWidth(), pixmap.getHeight(), new TiledGraph(pixmap));
+        Level level = new Level(game, camera, pixmap.getWidth(), pixmap.getHeight(), new TiledGraph(pixmap));
 
         int color;
         for (int x = 0; x < map.getWidth(); x++)

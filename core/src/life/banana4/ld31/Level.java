@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.PathSmoother;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -60,19 +61,23 @@ public class Level
     private final TiledManhattenDistance heuristic = new TiledManhattenDistance();
     private final PathSmoother<TiledNode, Vector2> smoother;
     private final IndexedAStarPathFinder<TiledNode> pathFinder;
+    private final Cursor cursor;
     private Player player;
 
+    private final OrthographicCamera camera;
     private final int width;
     private final int height;
 
-    Ld31 game;
+    private final Ld31 game;
 
     private Random random = new Random();
     private int scoreValue = 0;
     private BitmapFont bitmapFont = new BitmapFont();
 
-    public Level(int width, int height, TiledGraph tiledGraph)
+    public Level(Ld31 game, OrthographicCamera camera, int width, int height, TiledGraph tiledGraph)
     {
+        this.game = game;
+        this.camera = camera;
         this.width = width;
         this.height = height;
 
@@ -86,7 +91,7 @@ public class Level
         this.pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
 
         spawnPlayer();
-        addEntity(new Cursor());
+        this.cursor = addEntity(new Cursor());
     }
 
     private void spawnPlayer()
@@ -462,6 +467,11 @@ public class Level
         multiplierDelta = 0;
         this.scoreValue += scoreValue * multiplier++;
         enemiesKilled++;
+    }
+
+    public Cursor getCursor()
+    {
+        return cursor;
     }
 
     private static final class DepthComparator implements Comparator<Entity>

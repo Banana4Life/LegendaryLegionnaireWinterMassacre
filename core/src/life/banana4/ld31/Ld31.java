@@ -18,24 +18,25 @@ public class Ld31 extends ApplicationAdapter
     private Level level;
     private DrawContext drawContext;
     private Ld31Resources resources;
+    private InputMultiplexer inputMultiplexer;
 
     @Override
     public void create()
     {
-        this.resources = new Ld31Resources();
-        resources.build();
-        this.level = resources.levels.level1;
-        this.level.game = this;
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(true);
-        this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), resources);
-        InputMultiplexer inputMul = new InputMultiplexer(new GlobalInputProcessor(this, camera));
-        Gdx.input.setInputProcessor(inputMul);
+        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(this, camera));
+        Gdx.input.setInputProcessor(inputMultiplexer);
+        Controllers.addListener(inputMultiplexer);
         Gdx.input.setCursorCatched(!isDebug());
+
+        this.resources = new Ld31Resources(this, camera);
+        resources.build();
+        this.level = resources.levels.level1;
+        this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), resources);
 
         Pixmap cursor = new Pixmap(Gdx.files.internal("textures/cursor.png"));
         Gdx.input.setCursorImage(cursor, cursor.getWidth() / 2, cursor.getHeight() / 2);
-        Controllers.addListener(inputMul);
     }
 
     @Override
@@ -59,5 +60,10 @@ public class Ld31 extends ApplicationAdapter
     public static boolean isDebug()
     {
         return DEBUG;
+    }
+
+    public InputMultiplexer getInputMultiplexer()
+    {
+        return inputMultiplexer;
     }
 }

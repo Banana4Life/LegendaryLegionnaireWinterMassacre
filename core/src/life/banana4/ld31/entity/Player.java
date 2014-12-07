@@ -3,6 +3,7 @@ package life.banana4.ld31.entity;
 import java.util.HashMap;
 import java.util.Map;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -17,8 +18,12 @@ import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.projectile.BoltProjectile;
 import life.banana4.ld31.entity.projectile.DummyProjectile;
+import life.banana4.ld31.input.AllThemInputAdapter;
+import life.banana4.ld31.input.AllThemInputProcessor;
+import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
+import life.banana4.ld31.input.XBox360Pad;
 import life.banana4.ld31.resource.Animations;
 
 import static java.lang.Math.abs;
@@ -38,6 +43,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     private float primaryStateTime = 0;
     private float secondaryStateTime = SECONDARY_COOLDOWN;
     private float legStateTime = 0;
+    private final AllThemInputProcessor inputProcessor = new PlayerInputHandler();
 
     Map<Type, Float> waits = new HashMap<>();
     private float sprintTime = 0f;
@@ -45,11 +51,24 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public Player()
     {
         super(20, 20);
-        setHealth(100);
         setDepth(100);
         waits.put(Type.PRIMARY_ATTACK, 0f);
         waits.put(Type.SECONDARY_ATTACK, 0f);
         waits.put(Type.TERTIARY_ATTACK, 0f);
+    }
+
+    @Override
+    public void onSpawn()
+    {
+        super.onSpawn();
+        getLevel().getGame().getInputMultiplexer().append(inputProcessor);
+    }
+
+    @Override
+    public void onDeath()
+    {
+        super.onDeath();
+        getLevel().getGame().getInputMultiplexer().remove(inputProcessor);
     }
 
     public float getWalkingAngle()
@@ -98,7 +117,11 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             waits.put(type, waits.get(type) + delta);
         }
 
-        //System.out.println("Speed: " + Math.sqrt(vx * vx + vy * vy));
+        if (this.isMouseControlled)
+        {
+            Cursor c = getLevel().getCursor();
+            this.setRotation(new Vector2(c.getX() - getX(), c.getY() - getY()).angle());
+        }
     }
 
     @Override
@@ -297,27 +320,9 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         }
     }
 
-    @Override
-    public Entity move(float x, float y)
-    {
-        super.move(x, y);
-        if (this.isMouseControlled)
-        {
-            this.lookAt(Gdx.input.getX(), Gdx.input.getY());
-        }
-        return this;
-    }
-
     public void setMouseControlled(boolean mouseControlled)
     {
         this.isMouseControlled = mouseControlled;
-    }
-
-    public void lookAt(int screenX, int screenY)
-    {
-        OrthographicCamera camera = this.getLevel().getGame().getDrawContext().camera;
-        Vector3 pos = camera.unproject(new Vector3(screenX, screenY, 0));
-        this.setRotation(new Vector2(pos.x - this.getX(), pos.y - this.getY()).angle());
     }
 
     @Override
@@ -330,5 +335,39 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public boolean acceptsCollisionsFrom(CollisionSource source)
     {
         return true;
+    }
+
+    private final class PlayerInputHandler extends AllThemInputAdapter
+    {
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer)
+        {
+            Player.this.setMouseControlled(true);
+            return true;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY)
+        {
+            Player.this.setMouseControlled(true);
+            return true;
+        }
+
+        @Override
+        public boolean axisMoved(Controller c, int axisCode, float value)
+        {
+            if (Math.abs(value) < ControllerIntentionDetector.MINIMUM_MOVE)
+            {
+                return false;
+            }
+            if (axisCode == XBox360Pad.AXIS_RIGHT_X || axisCode == XBox360Pad.AXIS_RIGHT_Y)
+            {
+                Vector2 vec = new Vector2(c.getAxis(XBox360Pad.AXIS_RIGHT_X), c.getAxis(XBox360Pad.AXIS_RIGHT_Y));
+                Player.this.setRotation(vec.angle());
+            }
+            Player.this.setMouseControlled(false);
+            return true;
+        }
     }
 }

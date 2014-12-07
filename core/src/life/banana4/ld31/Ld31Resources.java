@@ -1,5 +1,6 @@
 package life.banana4.ld31;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import life.banana4.ld31.resource.Animations;
 import life.banana4.ld31.resource.Levels;
 import life.banana4.ld31.resource.Particles;
@@ -15,12 +16,12 @@ public class Ld31Resources extends Resources
     public Levels levels;
     public Particles particles;
 
-    public Ld31Resources()
+    public Ld31Resources(Ld31 ld31, OrthographicCamera camera)
     {
         textures = new Textures();
         animations = new Animations();
         sounds = new Sounds();
-        levels = new Levels(textures);
+        levels = new Levels(ld31, camera, textures);
         particles = new Particles();
     }
 }

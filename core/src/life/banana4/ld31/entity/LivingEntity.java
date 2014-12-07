@@ -16,6 +16,7 @@ public abstract class LivingEntity extends Entity
     public LivingEntity(float width, float height)
     {
         super(width, height);
+        setHealth(getMaxHealth());
     }
 
     public void accelerate(float x, float y)
