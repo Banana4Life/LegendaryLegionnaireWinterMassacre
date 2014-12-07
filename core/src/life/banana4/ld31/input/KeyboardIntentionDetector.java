@@ -19,10 +19,12 @@ public class KeyboardIntentionDetector implements IntentionDetector
 
     {
         keys.put(Keys.ESCAPE, new Intention(Type.EXIT_GAME));
+        keys.put(Keys.R, new Intention(Type.NEW_GAME));
 
         buttons.put(Buttons.LEFT, new Intention(Type.PRIMARY_ATTACK));
         buttons.put(Buttons.RIGHT, new Intention(Type.SECONDARY_ATTACK));
         buttons.put(Buttons.MIDDLE, new Intention(Type.TERTIARY_ATTACK));
+
     }
 
     @Override

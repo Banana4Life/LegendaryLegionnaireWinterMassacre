@@ -48,6 +48,7 @@ public final class Intention
         PRIMARY_ATTACK,
         SECONDARY_ATTACK,
         TERTIARY_ATTACK,
-        EXIT_GAME;
+        EXIT_GAME,
+        NEW_GAME;
     }
 }

@@ -23,6 +23,7 @@ public class ControllerIntentionDetector implements IntentionDetector
         buttons.put(XBox360Pad.BUTTON_RB, new Intention(Type.SECONDARY_ATTACK));
         buttons.put(XBox360Pad.BUTTON_R3, new Intention(Type.TERTIARY_ATTACK));
         buttons.put(XBox360Pad.BUTTON_BACK, new Intention(Type.EXIT_GAME));
+        buttons.put(XBox360Pad.BUTTON_START, new Intention(Type.NEW_GAME));
     }
 
     @Override

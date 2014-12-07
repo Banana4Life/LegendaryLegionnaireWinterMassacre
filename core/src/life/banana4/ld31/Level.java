@@ -21,8 +21,10 @@ import life.banana4.ld31.entity.AbilityEntity;
 import life.banana4.ld31.entity.BossEnemy;
 import life.banana4.ld31.entity.Cursor;
 import life.banana4.ld31.entity.Enemy;
+import life.banana4.ld31.entity.LivingEntity;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.PointEnemy;
+import life.banana4.ld31.entity.Projectile;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.ControllerIntentionDetector;
@@ -55,7 +57,7 @@ public class Level
     private final TiledManhattenDistance heuristic = new TiledManhattenDistance();
     private final PathSmoother<TiledNode, Vector2> smoother;
     private final IndexedAStarPathFinder<TiledNode> pathFinder;
-    private final Player player;
+    private Player player;
 
     private final int width;
     private final int height;
@@ -80,9 +82,14 @@ public class Level
         this.smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
         this.pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
 
+        spawnPlayer();
+        addEntity(new Cursor());
+    }
+
+    private void spawnPlayer()
+    {
         player = new Player();
         addEntity(player).move(550, 300);
-        addEntity(new Cursor());
     }
 
     public Player getPlayer()
@@ -171,6 +178,19 @@ public class Level
             case EXIT_GAME:
                 Gdx.app.exit();
                 break;
+            case NEW_GAME:
+                for (Entity entity : this.getEntities())
+                {
+                    if (entity instanceof LivingEntity || entity instanceof Projectile)
+                    {
+                        entity.kill();
+                    }
+                }
+                this.scoreValue = 0;
+                this.waveCount = 0;
+                this.waveSpawn = 1;
+                this.multiplier = 1;
+                spawnPlayer();
         }
     }
 
@@ -199,44 +219,45 @@ public class Level
 
     private void spawnEnemies(int curEnemyCount)
     {
-//        if (waveSpawn > 0 && curEnemyCount < 250)
-//        {
-//            do
-//            {
-//                float rX, rY;
-//                rX = (random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
-//                rY = (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
-//                Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
-//
-//                if (playerV.dst2(rX, rY) > SPAWN_DISTANCE * SPAWN_DISTANCE)
-//                {
-//                    if (this.nodeAt(rX, rY).type != TileType.WALL)
-//                    {
-//                        int bossChance = 100 - waveCount;
-//                        if (bossChance <= 1)
-//                        {
-//                            bossChance = 1;
-//                        }
-//                        if (random.nextInt(bossChance) == 0)
-//                        {
-//                            addEntity(new BossEnemy().move(rX, rY));
-//                        }
-//                        else
-//                        {
-//                            addEntity(new PointEnemy().move(rX, rY));
-//                        }
-//                        waveSpawn--;
-//                        return;
-//                    }
-//                }
-//            }
-//            while (true);
-//        }
-//        if (curEnemyCount == 0)
-//        {
-//            waveSpawn = 1 + random.nextInt(waveCount + 1) + waveCount / 2;
-//            waveCount++;
-//        }
+        //if (true) return;
+        if (waveSpawn > 0 && curEnemyCount < 250)
+        {
+            do
+            {
+                float rX, rY;
+                rX = (random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
+                rY = (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
+                Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
+
+                if (playerV.dst2(rX, rY) > SPAWN_DISTANCE * SPAWN_DISTANCE)
+                {
+                    if (this.nodeAt(rX, rY).type != TileType.WALL)
+                    {
+                        int bossChance = 100 - waveCount;
+                        if (bossChance <= 1)
+                        {
+                            bossChance = 1;
+                        }
+                        if (random.nextInt(bossChance) == 0)
+                        {
+                            addEntity(new BossEnemy().move(rX, rY));
+                        }
+                        else
+                        {
+                            addEntity(new PointEnemy().move(rX, rY));
+                        }
+                        waveSpawn--;
+                        return;
+                    }
+                }
+            }
+            while (true);
+        }
+        if (curEnemyCount == 0)
+        {
+            waveSpawn = 1 + random.nextInt(waveCount + 1) + waveCount / 2;
+            waveCount++;
+        }
     }
 
     private void drawLevel(DrawContext ctx)
