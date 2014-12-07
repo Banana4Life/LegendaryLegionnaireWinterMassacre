@@ -14,6 +14,7 @@ import life.banana4.ld31.input.Intention.Type;
 public class KeyboardIntentionDetector implements IntentionDetector
 {
     private boolean movingIntended = false;
+    private boolean noSprint = true;
     private final Map<Integer, Intention> keys = new HashMap<>();
     private final Map<Integer, Intention> buttons = new HashMap<>();
 
@@ -67,7 +68,15 @@ public class KeyboardIntentionDetector implements IntentionDetector
         }
         if (!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
         {
-            intentions.add(new Intention(Type.NO_SPRINT));
+            if (!noSprint)
+            {
+                intentions.add(new Intention(Type.NO_SPRINT));
+            }
+            noSprint = true;
+        }
+        else
+        {
+            noSprint = false;
         }
 
         if (!dir.equals(Vector2.Zero))

@@ -15,6 +15,7 @@ public class ControllerIntentionDetector implements IntentionDetector
 {
     public static final float MINIMUM_MOVE = 0.06f;
     private boolean movingIntended = false;
+    private boolean noSprint = true;
     private final Map<Integer, Intention> buttons = new HashMap<>();
 
     {
@@ -53,7 +54,15 @@ public class ControllerIntentionDetector implements IntentionDetector
 
         if (!mc.getButton(XBox360Pad.BUTTON_L3))
         {
-            intentions.add(new Intention(Type.NO_SPRINT));
+            if (!noSprint)
+            {
+                intentions.add(new Intention(Type.NO_SPRINT));
+            }
+            noSprint = true;
+        }
+        else
+        {
+            noSprint = false;
         }
 
         float leftX = mc.getAxis(XBox360Pad.AXIS_LEFT_X);
