@@ -28,6 +28,13 @@ public class Animations extends ResourceBag<Animation>
             frames[i] = tmp[i][0];
         }
 
-        return new Animation(0.1f, frames);
+        float speed;
+        switch (id) {
+            case "charswordswing":
+                speed = 0.05f; break;
+            default: speed = 0.1f;
+        }
+
+        return new Animation(speed, frames);
     }
 }

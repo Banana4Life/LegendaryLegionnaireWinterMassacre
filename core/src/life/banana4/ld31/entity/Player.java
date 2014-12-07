@@ -23,8 +23,8 @@ import static life.banana4.ld31.Ld31.isDebug;
 
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget
 {
-    private static final float PRIMARY_COOLDOWN = 0.7f;
-    private static final float SECONDARY_COOLDOWN = 0.6f;
+    private static final float PRIMARY_COOLDOWN = 0.9f;
+    private static final float SECONDARY_COOLDOWN = 0.45f;
     public static final float SPEED = 3.3f;
     public static final float MINIMUM_MOVE_MUL = 0.06f;
     private boolean isMouseControlled = false;
