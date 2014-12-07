@@ -22,7 +22,6 @@ import life.banana4.ld31.input.Intention.Type;
 import life.banana4.ld31.resource.Animations;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.exp;
 import static life.banana4.ld31.Ld31.isDebug;
 
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget

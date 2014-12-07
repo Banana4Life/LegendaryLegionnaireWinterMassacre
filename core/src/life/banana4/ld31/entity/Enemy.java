@@ -74,8 +74,8 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     @Override
     public void onDeath()
     {
-        getLevel().addEntity(new Particle(getLevel().getGame().getDrawContext().resources.particles.explosion)).move(
-            getX(), getY());
+        getLevel().addEntity(new Particle(
+            getLevel().getGame().getDrawContext().resources.particles.explosionPool.obtain()).move(getX(), getY()));
         this.getLevel().addScore(getPoints());
     }
 
