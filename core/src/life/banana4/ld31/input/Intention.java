@@ -43,26 +43,9 @@ public final class Intention
 
     public static enum Type
     {
-        MOVE_UP,
-        MOVE_DOWN,
-        MOVE_LEFT,
-        MOVE_RIGHT,
+        MOVE,
         PRIMARY_ATTACK,
         SECONDARY_ATTACK,
         TERTIARY_ATTACK;
-
-        public boolean isMove()
-        {
-            switch (this)
-            {
-                case MOVE_UP:
-                case MOVE_DOWN:
-                case MOVE_LEFT:
-                case MOVE_RIGHT:
-                    return true;
-                default:
-                    return false;
-            }
-        }
     }
 }

@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import life.banana4.ld31.input.Intention.Type;
 
@@ -50,22 +51,10 @@ public class ControllerIntentionDetector implements IntentionDetector
         float leftX = mc.getAxis(XBox360Pad.AXIS_LEFT_X);
         float leftY = mc.getAxis(XBox360Pad.AXIS_LEFT_Y);
 
-        if (leftX > 0)
+        Vector2 moveDirection = new Vector2(leftX, leftY);
+        if (!moveDirection.equals(Vector2.Zero))
         {
-            intentions.add(new Intention(Type.MOVE_RIGHT, abs(leftX)));
-        }
-        if (leftX < 0)
-        {
-            intentions.add(new Intention(Type.MOVE_LEFT, abs(leftX)));
-        }
-
-        if (leftY > 0)
-        {
-            intentions.add(new Intention(Type.MOVE_DOWN, abs(leftY)));
-        }
-        if (leftY < 0)
-        {
-            intentions.add(new Intention(Type.MOVE_UP, abs(leftY)));
+            intentions.add(new Intention(Type.MOVE, moveDirection));
         }
 
         return intentions;

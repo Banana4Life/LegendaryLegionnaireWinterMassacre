@@ -19,9 +19,11 @@ import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
 
+import static java.lang.Math.abs;
+
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget
 {
-    public static final float SPEED = 180;
+    public static final float SPEED = 4;
     public static final float MINIMUM_MOVE_MUL = 0.06f;
     private boolean isMouseControlled = false;
 
@@ -88,29 +90,17 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public void reactTo(Intention intention, float delta)
     {
         Type t = intention.getType();
-        if (t.isMove())
+        if (t == Type.MOVE)
         {
-            Float mul = intention.getArgumentOr(1f);
-            if (mul < MINIMUM_MOVE_MUL)
+            Vector2 dir = intention.getArgumentAs(Vector2.class);
+            float scaleX = abs(dir.x);
+            float scaleY = abs(dir.y);
+            if (dir.len2() < MINIMUM_MOVE_MUL * MINIMUM_MOVE_MUL)
             {
                 return;
             }
-            mul *= delta;
-            switch (t)
-            {
-                case MOVE_UP:
-                    move(0 * mul, -SPEED * mul);
-                    break;
-                case MOVE_DOWN:
-                    move(0 * mul, SPEED * mul);
-                    break;
-                case MOVE_LEFT:
-                    move(-SPEED * mul, 0 * mul);
-                    break;
-                case MOVE_RIGHT:
-                    move(SPEED * mul, 0 * mul);
-                    break;
-            }
+            dir.nor().scl(SPEED);
+            move(dir.x * scaleX, dir.y * scaleY);
         }
         else
         {
