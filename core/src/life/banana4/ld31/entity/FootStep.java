@@ -38,8 +38,8 @@ public class FootStep extends LivingEntity
         b.begin();
         Vector2 pos = new Vector2(8, left ? -8 : 0);
         pos.rotate(getRotation());
-        b.draw(t, getX() + pos.x, getY() + pos.y, 0, 0, t.getWidth(), t.getHeight(), 1, 1, getRotation() + 90, 0,
-               0, t.getWidth(), t.getHeight(), false, false);
+        b.draw(t, getX() + pos.x, getY() + pos.y, 0, 0, t.getWidth(), t.getHeight(), 1, 1, getRotation() + 90, 0, 0,
+               t.getWidth(), t.getHeight(), false, false);
         b.end();
     }
 }

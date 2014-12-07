@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 
-public class AlienShip extends LivingEntity {
+public class AlienShip extends LivingEntity
+{
 
     private static final float SCALE = 2;
     private static final float ANGULAR_VELOCITY = 8;
@@ -38,7 +39,8 @@ public class AlienShip extends LivingEntity {
         batch.begin();
         Vector2 pos = new Vector2(t.getWidth() * SCALE / 2, t.getHeight() * SCALE / 2);
         pos.rotate(getRotation());
-        batch.draw(t, getMidX() - pos.x, getMidY() - pos.y, 0, 0, 128, 128, SCALE, SCALE, getRotation(), 0, 0, 128, 128, false, true);
+        batch.draw(t, getMidX() - pos.x, getMidY() - pos.y, 0, 0, 128, 128, SCALE, SCALE, getRotation(), 0, 0, 128, 128,
+                   false, true);
         batch.end();
     }
 }

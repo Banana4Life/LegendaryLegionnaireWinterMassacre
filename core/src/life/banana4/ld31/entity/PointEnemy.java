@@ -29,8 +29,8 @@ public class PointEnemy extends Enemy
         SpriteBatch b = ctx.getSpriteBatch();
         b.begin();
         Vector2 v = new Vector2(64, -64).rotate(getViewingAngle());
-        b.draw(ctx.resources.animations.alien.getKeyFrame(stateTime, true), getMidX() + v.x, getMidY() + v.y, 0,
-               0, 128, 128, 1, 1, getViewingAngle() + 90);
+        b.draw(ctx.resources.animations.alien.getKeyFrame(stateTime, true), getMidX() + v.x, getMidY() + v.y, 0, 0, 128,
+               128, 1, 1, getViewingAngle() + 90);
         b.end();
     }
 }

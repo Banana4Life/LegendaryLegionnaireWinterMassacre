@@ -1,6 +1,5 @@
 package life.banana4.ld31;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import life.banana4.ld31.resource.Animations;
 import life.banana4.ld31.resource.Levels;
 import life.banana4.ld31.resource.Particles;

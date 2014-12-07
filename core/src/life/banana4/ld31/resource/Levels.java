@@ -2,7 +2,6 @@ package life.banana4.ld31.resource;
 
 import java.lang.reflect.Field;
 import java.util.Random;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
