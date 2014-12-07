@@ -19,6 +19,7 @@ import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.AbilityEntity;
+import life.banana4.ld31.entity.BossEnemy;
 import life.banana4.ld31.entity.Enemy;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.PointEnemy;
@@ -177,6 +178,9 @@ public class Level
 
     private int waveSpawn = 1;
 
+    private int waveCount = 0;
+
+
     private void spawnEnemies(int curEnemyCount)
     {
         if (waveSpawn > 0 && curEnemyCount < 250)
@@ -192,7 +196,19 @@ public class Level
                 {
                     if (this.nodeAt(rX, rY).type != TileType.WALL)
                     {
-                        addEntity(new PointEnemy().move(rX, rY));
+                        int bossChance = 100 - waveCount;
+                        if (bossChance <= 1)
+                        {
+                            bossChance = 1;
+                        }
+                        if (random.nextInt(bossChance) == 0)
+                        {
+                            addEntity(new BossEnemy().move(rX, rY));
+                        }
+                        else
+                        {
+                            addEntity(new PointEnemy().move(rX, rY));
+                        }
                         waveSpawn--;
                         return;
                     }
@@ -202,7 +218,8 @@ public class Level
         }
         if (curEnemyCount == 0)
         {
-            waveSpawn = random.nextInt(enemiesKilled + 1) + enemiesKilled / 2;
+            waveSpawn = 1 + random.nextInt(waveCount + 1) + waveCount / 2;
+            waveCount++;
         }
     }
 

@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
-import life.banana4.ld31.Ld31Resources;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.projectile.BoltProjectile;
@@ -29,7 +28,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 {
     private static final float PRIMARY_COOLDOWN = 0.9f;
     private static final float SECONDARY_COOLDOWN = 0.45f;
-    public static final float SPEED = 140f;
+    public static final float SPEED = 180f;
     private boolean isMouseControlled = false;
     private float walkingAngle = 0;
 
@@ -206,7 +205,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                                 float angle = tmp.angle();
                                 if (min < angle && max > angle)
                                 {
-                                    ((Enemy)entity).damage(1);
+                                    ((Enemy)entity).damage(25);
                                 }
                             }
                         }

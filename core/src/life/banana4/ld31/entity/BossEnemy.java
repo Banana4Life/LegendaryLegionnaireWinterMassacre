@@ -5,11 +5,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import life.banana4.ld31.DrawContext;
 
-public class PointEnemy extends Enemy
+public class BossEnemy extends Enemy
 {
-    public PointEnemy()
+    public BossEnemy()
     {
-        super(20, 20);
+        super(45, 45);
+        this.setHealth(20);
     }
 
     @Override
@@ -18,8 +19,14 @@ public class PointEnemy extends Enemy
         super.draw(ctx, delta);
         ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(Color.PURPLE);
-        shapeRenderer.circle(this.getMidX(), this.getMidY(), 10);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.circle(this.getMidX(), this.getMidY(), 22.5f);
         shapeRenderer.end();
+    }
+
+    @Override
+    public int getMaxHealth()
+    {
+        return 20;
     }
 }
