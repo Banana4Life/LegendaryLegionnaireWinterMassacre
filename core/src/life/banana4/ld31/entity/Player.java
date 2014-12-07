@@ -40,7 +40,8 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public Player()
     {
         super(20, 20);
-        this.setHealth(100);
+        setHealth(100);
+        setDepth(100);
         waits.put(Type.PRIMARY_ATTACK, 0f);
         waits.put(Type.SECONDARY_ATTACK, 0f);
         waits.put(Type.TERTIARY_ATTACK, 0f);

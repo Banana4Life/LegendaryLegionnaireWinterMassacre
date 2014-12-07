@@ -18,6 +18,7 @@ public class Cursor extends Entity
     public Cursor()
     {
         super(0, 0);
+        setDepth(Integer.MAX_VALUE);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package life.banana4.ld31;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -40,6 +42,7 @@ import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
 
 public class Level
 {
+    private static final DepthComparator BY_DEPTH_ORDER = new DepthComparator();
     public static final int SPAWN_DISTANCE = 400;
     private final List<Entity> entities;
     private final List<Entity> spawnQueue;
@@ -139,6 +142,7 @@ public class Level
         // spawn queued
         this.entities.addAll(this.spawnQueue);
         this.spawnQueue.clear();
+        Collections.sort(this.entities, BY_DEPTH_ORDER);
 
         Set<Intention> intentions = scanIntentions();
 
@@ -458,5 +462,23 @@ public class Level
         multiplierDelta = 0;
         this.scoreValue += scoreValue * multiplier++;
         enemiesKilled++;
+    }
+
+    private static final class DepthComparator implements Comparator<Entity>
+    {
+        @Override
+        public int compare(Entity a, Entity b)
+        {
+            int delta = a.getDepth() - b.getDepth();
+            if (delta == 0)
+            {
+                return 0;
+            }
+            if (delta > 0)
+            {
+                return 1;
+            }
+            return -1;
+        }
     }
 }

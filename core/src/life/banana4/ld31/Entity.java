@@ -21,12 +21,24 @@ public abstract class Entity
     private final float width;
     private final float height;
     private boolean dead = false;
+    private int depth;
 
     public Entity(float width, float height)
     {
         this.id = COUNTER.getAndIncrement();
         this.width = width;
         this.height = height;
+        this.depth = 1;
+    }
+
+    public int getDepth()
+    {
+        return depth;
+    }
+
+    public void setDepth(int depth)
+    {
+        this.depth = depth;
     }
 
     public Level getLevel()
