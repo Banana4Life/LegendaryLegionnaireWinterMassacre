@@ -12,8 +12,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import gnu.trove.set.TLongSet;
-import gnu.trove.set.hash.TLongHashSet;
 import life.banana4.ld31.ai.TiledGraph;
 import life.banana4.ld31.ai.TiledManhattenDistance;
 import life.banana4.ld31.ai.TiledNode;
@@ -230,24 +228,15 @@ public class Level
         }
     }
 
-    private static long pair(Entity a, Entity b)
-    {
-        return (((long)a.id) << 32) | b.id;
-    }
-
-    private static final TLongSet CHECKED_COLLISIONS = new TLongHashSet();
-
     private void detectCollisions()
     {
         List<Entity> recheck = new ArrayList<>();
         List<Entity> check = this.entities;
-        int collisionChecks = 0;
 
         int checkSize;
         final int entityCount = this.entities.size();
         do
         {
-            CHECKED_COLLISIONS.clear();
             recheck.clear();
             checkSize = check.size();
             for (int i = 0; i < checkSize; i++)
@@ -273,15 +262,6 @@ public class Level
                         continue;
                     }
 
-//                    final long id = pair(sourceEntities, targetEntity);
-//                    if (CHECKED_COLLISIONS.contains(id))
-//                    {
-//                        continue;
-//                    }
-//                    CHECKED_COLLISIONS.add(id);
-//                    CHECKED_COLLISIONS.add(pair(targetEntity, sourceEntities));
-
-                    collisionChecks++;
                     Vector2 rect = Collider.findCollision(sourceEntities, targetEntity);
                     if (rect != null)
                     {
