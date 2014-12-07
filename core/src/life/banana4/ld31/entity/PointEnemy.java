@@ -11,7 +11,7 @@ public class PointEnemy extends Enemy
 
     public PointEnemy()
     {
-        super(20, 20);
+        super(25, 25);
     }
 
     @Override
