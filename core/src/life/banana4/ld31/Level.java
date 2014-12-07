@@ -185,7 +185,7 @@ public class Level
             case NEW_GAME:
                 for (Entity entity : this.getEntities())
                 {
-                    if (entity instanceof LivingEntity || entity instanceof Projectile)
+                    if (entity instanceof LivingEntity)
                     {
                         entity.kill();
                     }
