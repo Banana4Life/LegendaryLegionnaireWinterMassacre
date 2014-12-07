@@ -33,7 +33,7 @@ public class Animations extends ResourceBag<Animation>
             case "charswordswing":
                 speed = 0.05f; break;
             case "legs":
-                speed = 0.06f; break;
+                speed = 0.05f; break;
             default: speed = 0.1f;
         }
 
