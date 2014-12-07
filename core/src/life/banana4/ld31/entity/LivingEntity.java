@@ -54,8 +54,11 @@ public abstract class LivingEntity extends Entity
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
-        this.viewingAngle = V.set(vx, vy).angle();
-        this.move(vx * delta, vy * delta);
+        if (vx != 0 || vy != 0)
+        {
+            this.viewingAngle = V.set(vx, vy).angle();
+            this.move(vx * delta, vy * delta);
+        }
         if (getHealth() <= 0)
         {
             this.kill();

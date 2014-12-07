@@ -12,7 +12,7 @@ public class FootStep extends LivingEntity
 
     public FootStep(boolean left)
     {
-        super(0, 0);
+        super(2, 2);
         this.left = left;
     }
 
@@ -20,7 +20,7 @@ public class FootStep extends LivingEntity
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);
-        if (lifetime() > 5000)
+        if (lifetime() > 2000)
         {
             kill();
         }
@@ -35,9 +35,10 @@ public class FootStep extends LivingEntity
         SpriteBatch b = ctx.getSpriteBatch();
 
         b.begin();
-        Vector2 pos = new Vector2(0, left ? -5 : 5);
+        Vector2 pos = new Vector2(8, left ? -8 : 0);
         pos.rotate(getRotation());
-        b.draw(t, getX() - (t.getWidth() / 2) + pos.x, getY() + pos.y - (t.getHeight() / 2), 0, 0, t.getWidth(), t.getHeight(), 1, 1, getRotation() + 90, 0, 0, t.getWidth(), t.getHeight(), false, false);
+        b.draw(t, getX() + pos.x, getY() + pos.y, 0, 0, t.getWidth(), t.getHeight(), 1, 1, getRotation() + 90, 0,
+               0, t.getWidth(), t.getHeight(), false, false);
         b.end();
     }
 }
