@@ -64,7 +64,7 @@ public class Levels extends ResourceBag<Level>
                         boolean flipY = random.nextInt(2) == 1;
                         int number = random.nextInt(10);
                         level.addEntity(new Wall(new TextureRegion(textures.floor, (flipX ? TILE_WIDTH : 0)
-                            + (number < 5 ? number < 2 ? 2 : 1 : 0) * TILE_WIDTH,
+                            + (number < 5 ? number < 2 ? 2 : 1 : 0) * TILE_WIDTH  + (color == 572536063 ? TILE_WIDTH * 3 : 0),
                                                                    (flipY ? TILE_WIDTH : 0) + 3 * TILE_WIDTH,
                                                                    flipX ? -TILE_WIDTH : TILE_WIDTH,
                                                                    flipY ? -TILE_WIDTH : TILE_WIDTH), TILE_WIDTH,

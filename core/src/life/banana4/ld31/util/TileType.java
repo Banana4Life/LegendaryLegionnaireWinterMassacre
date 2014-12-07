@@ -48,6 +48,7 @@ public enum TileType
 
     static
     {
+        LOOKUP.put(572536063, WALL);
         for (final TileType tileType : values())
         {
             LOOKUP.put(tileType.color, tileType);
