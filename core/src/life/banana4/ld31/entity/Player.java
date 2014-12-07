@@ -79,7 +79,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     @Override
     public int getMaxHealth()
     {
-        return 999999999;
+        return 100;
     }
 
     @Override
@@ -189,16 +189,16 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         Vector2 walkingOffset = new Vector2(64, -64).rotate(modifiedWalkingAngle + 90);
         batch.draw(animations.legs.getKeyFrame(legStateTime, true), getMidX() + walkingOffset.x,
                    getMidY() + walkingOffset.y, 0, 0, 128, 128, 1, 1, modifiedWalkingAngle + 180, true);
-//        if (secondaryStateTime <= SECONDARY_COOLDOWN)
-//        {
-//            batch.draw(animations.charswordswing.getKeyFrame(secondaryStateTime), getMidX() + offset.x,
-//                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
-//        }
-//        else
-//        {
-//            batch.draw(animations.charcrossload.getKeyFrame(primaryStateTime), getMidX() + offset.x,
-//                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
-//        }
+        if (secondaryStateTime <= SECONDARY_COOLDOWN)
+        {
+            batch.draw(animations.charswordswing.getKeyFrame(secondaryStateTime), getMidX() + offset.x,
+                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
+        }
+        else
+        {
+            batch.draw(animations.charcrossload.getKeyFrame(primaryStateTime), getMidX() + offset.x,
+                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
+        }
         batch.end();
 
         if (isDebug())
