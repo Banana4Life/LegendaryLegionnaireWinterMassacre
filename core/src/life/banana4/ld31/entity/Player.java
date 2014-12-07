@@ -26,6 +26,7 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     private boolean isMouseControlled = false;
 
     private TextureRegion texture;
+    private float stateTime = 0;
 
     Map<Type, Float> waits = new HashMap<>();
 
@@ -40,6 +41,7 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
+        stateTime += delta;
         for (Type type : waits.keySet())
         {
             waits.put(type, waits.get(type) + delta);
@@ -68,6 +70,8 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
         batch.begin();
 
         Vector2 offset = new Vector2(64, -64).rotate(getRotation() + 90);
+        batch.draw(ctx.resources.animations.legs.getKeyFrame(stateTime, true), getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0,
+                   128, 128, 1, 1, getRotation() + 180, true);
         batch.draw(texture, getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0,
                    128, 128, 1, 1, getRotation() + 180, true);
         batch.end();

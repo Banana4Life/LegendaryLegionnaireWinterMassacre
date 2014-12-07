@@ -9,13 +9,22 @@ import life.banana4.util.resourcebags.ResourceBag;
 
 public class Animations extends ResourceBag<Animation>
 {
-    public Animations legs;
+    public Animation legs;
 
     @Override
     protected Animation load(FileRef basedir, Field field)
     {
         final String id = field.getName();
         System.out.println(basedir.child(id + ".png").getPath());
-        return new Animation(0.1f, new TextureRegion(new Texture(basedir.child(id + ".png").getPath())));
+
+        Texture tmpTexture = new Texture(basedir.child(id + ".png").getPath());
+        TextureRegion[][] tmp = TextureRegion.split(tmpTexture, tmpTexture.getWidth(), tmpTexture.getWidth());
+        TextureRegion[] frames = new TextureRegion[tmpTexture.getHeight() / tmpTexture.getWidth()];
+
+        for (int i = 0; i < frames.length; i++) {
+            frames[i] = tmp[i][0];
+        }
+
+        return new Animation(0.1f, frames);
     }
 }
