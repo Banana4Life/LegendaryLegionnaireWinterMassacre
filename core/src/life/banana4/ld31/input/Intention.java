@@ -47,6 +47,7 @@ public final class Intention
         HALT,
         PRIMARY_ATTACK,
         SECONDARY_ATTACK,
-        TERTIARY_ATTACK;
+        TERTIARY_ATTACK,
+        EXIT_GAME;
     }
 }

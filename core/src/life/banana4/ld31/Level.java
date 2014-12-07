@@ -1,7 +1,6 @@
 package life.banana4.ld31;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -134,6 +133,11 @@ public class Level
 
         Set<Intention> intentions = scanIntentions();
 
+        for (Intention intention : intentions)
+        {
+            this.reactTo(intention, delta);
+        }
+
         // update living
         for (int i = 0; i < this.entities.size(); i++)
         {
@@ -155,6 +159,16 @@ public class Level
         for (final Entity e : this.entities)
         {
             e.draw(ctx, delta);
+        }
+    }
+
+    private void reactTo(Intention intention, float delta)
+    {
+        switch (intention.getType())
+        {
+            case EXIT_GAME:
+                Gdx.app.exit();
+                break;
         }
     }
 
@@ -236,7 +250,9 @@ public class Level
         ctx.getSpriteBatch();
         spriteBatch.draw(this.game.getDrawContext().resources.textures.snowman, Gdx.graphics.getWidth() / 2 - 64,
                          Gdx.graphics.getHeight() / 2 - 64);
-        bitmapFont.draw(spriteBatch, "Score: " + scoreValue + " Multiplier: " + multiplier + "x  Health: " + player.getHealth() + "/" + player.getMaxHealth(), 10, 20);
+        bitmapFont.draw(spriteBatch,
+                        "Score: " + scoreValue + " Multiplier: " + multiplier + "x  Health: " + player.getHealth() + "/"
+                            + player.getMaxHealth(), 10, 20);
         ctx.camera.setToOrtho(true);
         spriteBatch.end();
     }

@@ -147,5 +147,6 @@ public abstract class Entity
     }
 
     public void reactTo(Intention intention, float delta)
-    {}
+    {
+    }
 }

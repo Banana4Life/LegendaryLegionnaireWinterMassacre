@@ -18,7 +18,7 @@ public class KeyboardIntentionDetector implements IntentionDetector
     private final Map<Integer, Intention> buttons = new HashMap<>();
 
     {
-        //keys.put(Keys.W, new Intention(Type.MOVE));
+        keys.put(Keys.ESCAPE, new Intention(Type.EXIT_GAME));
 
         buttons.put(Buttons.LEFT, new Intention(Type.PRIMARY_ATTACK));
         buttons.put(Buttons.RIGHT, new Intention(Type.SECONDARY_ATTACK));

@@ -11,8 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import life.banana4.ld31.input.Intention.Type;
 
-import static java.lang.Math.abs;
-
 public class ControllerIntentionDetector implements IntentionDetector
 {
     public static final float MINIMUM_MOVE = 0.06f;
@@ -23,6 +21,7 @@ public class ControllerIntentionDetector implements IntentionDetector
         buttons.put(XBox360Pad.BUTTON_LB, new Intention(Type.PRIMARY_ATTACK));
         buttons.put(XBox360Pad.BUTTON_RB, new Intention(Type.SECONDARY_ATTACK));
         buttons.put(XBox360Pad.BUTTON_R3, new Intention(Type.TERTIARY_ATTACK));
+        buttons.put(XBox360Pad.BUTTON_BACK, new Intention(Type.EXIT_GAME));
     }
 
     @Override

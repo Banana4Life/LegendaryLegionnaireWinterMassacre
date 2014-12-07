@@ -29,12 +29,16 @@ public class Animations extends ResourceBag<Animation>
         }
 
         float speed;
-        switch (id) {
+        switch (id)
+        {
             case "charswordswing":
-                speed = 0.05f; break;
+                speed = 0.05f;
+                break;
             case "legs":
-                speed = 0.05f; break;
-            default: speed = 0.1f;
+                speed = 0.05f;
+                break;
+            default:
+                speed = 0.1f;
         }
 
         return new Animation(speed, frames);

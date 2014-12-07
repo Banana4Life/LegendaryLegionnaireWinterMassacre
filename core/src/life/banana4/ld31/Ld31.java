@@ -30,6 +30,7 @@ public class Ld31 extends ApplicationAdapter
         this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), ld31Resources);
         InputMultiplexer inputMul = new InputMultiplexer(new GlobalInputProcessor(this, camera));
         Gdx.input.setInputProcessor(inputMul);
+        Gdx.input.setCursorCatched(!isDebug());
         Controllers.addListener(inputMul);
     }
 
@@ -51,7 +52,8 @@ public class Ld31 extends ApplicationAdapter
         return drawContext;
     }
 
-    public static boolean isDebug() {
+    public static boolean isDebug()
+    {
         return DEBUG;
     }
 }
