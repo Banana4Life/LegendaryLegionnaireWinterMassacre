@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import gnu.trove.set.TLongSet;
+import gnu.trove.set.hash.TLongHashSet;
 import life.banana4.ld31.ai.TiledGraph;
 import life.banana4.ld31.ai.TiledManhattenDistance;
 import life.banana4.ld31.ai.TiledNode;
@@ -140,8 +142,9 @@ public class Level
         Set<Intention> intentions = scanIntentions();
 
         // update living
-        for (final Entity e : this.entities)
+        for (int i = 0; i < this.entities.size(); i++)
         {
+            final Entity e = this.entities.get(i);
             for (final Intention intention : intentions)
             {
                 e.reactTo(intention, delta);
@@ -208,29 +211,27 @@ public class Level
     {
         return (((long)a.id) << 32) | b.id;
     }
+    private static final TLongSet CHECKED_COLLISIONS = new TLongHashSet();
 
     private void detectCollisions()
     {
-        final Set<Long> checked = new HashSet<>();
-
         List<Entity> recheck = new ArrayList<>();
         List<Entity> check = this.entities;
         do
         {
-            checked.clear();
-            if (!recheck.isEmpty())
+            CHECKED_COLLISIONS.clear();
+            recheck.clear();
+            for (int i = 0; i < check.size(); i++)
             {
-                recheck = new ArrayList<>();
-            }
-            for (Entity a : check)
-            {
+                final Entity a = check.get(i);
                 if (!(a instanceof CollisionSource))
                 {
                     continue;
                 }
                 CollisionSource source = (CollisionSource)a;
-                for (Entity b : this.entities)
+                for (int j = 0; j < this.entities.size(); j++)
                 {
+                    final Entity b = this.entities.get(j);
                     if (a == b)
                     {
                         continue;
@@ -242,12 +243,12 @@ public class Level
                     CollisionTarget target = (CollisionTarget)b;
 
                     final long id = pair(a, b);
-                    if (checked.contains(id))
+                    if (CHECKED_COLLISIONS.contains(id))
                     {
                         continue;
                     }
-                    checked.add(id);
-                    checked.add(pair(b, a));
+                    CHECKED_COLLISIONS.add(id);
+                    CHECKED_COLLISIONS.add(pair(b, a));
 
                     Vector2 rect = Collider.findCollision(a, b);
                     if (rect != null)

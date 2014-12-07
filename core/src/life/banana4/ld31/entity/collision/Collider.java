@@ -12,6 +12,8 @@ public class Collider
     private static final Vector2 bmin = new Vector2(0, 0);
     private static final Vector2 bmax = new Vector2(0, 0);
 
+    private static final Vector2 mtv = new Vector2(0, 0);
+
     public static Vector2 findCollision(Entity a, Entity b)
     {
         amin.set(a.getX(), a.getY());
@@ -19,7 +21,7 @@ public class Collider
         bmin.set(b.getX(), b.getY());
         bmax.set(b.getX() + b.getWidth(), b.getY() + b.getHeight());
 
-        Vector2 mtv = new Vector2(0, 0);
+        mtv.set(0, 0);
 
         float left = bmin.x - amax.x;
         float right = bmax.x - amin.x;
