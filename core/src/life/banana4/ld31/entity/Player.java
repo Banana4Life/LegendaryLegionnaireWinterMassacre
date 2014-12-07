@@ -120,7 +120,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         if (this.isMouseControlled)
         {
             Cursor c = getLevel().getCursor();
-            this.setRotation(new Vector2(c.getX() - getX(), c.getY() - getY()).angle());
+            this.setRotation(new Vector2(c.getX() - getMidX(), c.getY() - getMidY()).angle());
         }
     }
 
