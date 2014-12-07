@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public abstract class Enemy extends MovingEntity
 {
-    private int scoreValue = 100;
+    private int scoreValue = 25;
 
     protected int health = 1;
 

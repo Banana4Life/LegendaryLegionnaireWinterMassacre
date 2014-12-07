@@ -110,6 +110,11 @@ public class Level
 
     public void render(DrawContext ctx, float delta)
     {
+        multiplierDelta += delta;
+        if (multiplierDelta >= 1.5f)
+        {
+            multiplier = 1;
+        }
         int enemyCount = 0;
         for (Entity entity : this.entities)
         {
@@ -180,7 +185,7 @@ public class Level
         ctx.getSpriteBatch();
         spriteBatch.draw(this.game.getDrawContext().resources.textures.snowman, Gdx.graphics.getWidth() / 2 - 64,
                          Gdx.graphics.getHeight() / 2 - 64);
-        bitmapFont.draw(spriteBatch, "Score: " + scoreValue, 10, 20);
+        bitmapFont.draw(spriteBatch, "Score: " + scoreValue + " Multiplier: " + multiplier + "x", 10, 20);
         ctx.camera.setToOrtho(true);
         spriteBatch.end();
     }
@@ -319,8 +324,12 @@ public class Level
         return random;
     }
 
+    private int multiplier = 1;
+    private float multiplierDelta = 0;
+
     public void addScore(int scoreValue)
     {
-        this.scoreValue += scoreValue;
+        multiplierDelta = 0;
+        this.scoreValue += scoreValue * multiplier++;
     }
 }
