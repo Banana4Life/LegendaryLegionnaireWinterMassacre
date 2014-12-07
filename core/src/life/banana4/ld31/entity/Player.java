@@ -38,6 +38,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 
     private float primaryStateTime = 0;
     private float secondaryStateTime = SECONDARY_COOLDOWN;
+    private float legStateTime = 0;
 
     Map<Type, Float> waits = new HashMap<>();
     private float sprintTime = 0f;
@@ -86,6 +87,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         }
 
         super.update(camera, delta);
+        legStateTime += delta;
         secondaryStateTime += delta;
         if (secondaryStateTime > SECONDARY_COOLDOWN)
         {
@@ -111,6 +113,16 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 
         Vector2 offset = new Vector2(64, -64).rotate(getRotation() + 90);
 
+        if (vx == 0 && vy == 0) {
+            legStateTime = 0;
+        }
+
+        if (!exhausted && sprint == 2f) {
+            animations.legs.setFrameDuration(0.025f);
+        } else {
+            animations.legs.setFrameDuration(0.05f);
+        }
+
         float modifiedWalkingAngle;
         float difference = Math.abs(getRotation() - getWalkingAngle());
         if (difference < 90 || difference > 270)
@@ -124,16 +136,16 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             modifiedWalkingAngle = getWalkingAngle() + 180;
         }
         Vector2 walkingOffset = new Vector2(64, -64).rotate(modifiedWalkingAngle + 90);
-        batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true), getMidX() + walkingOffset.x,
+        batch.draw(animations.legs.getKeyFrame(legStateTime, true), getMidX() + walkingOffset.x,
                    getMidY() + walkingOffset.y, 0, 0, 128, 128, 1, 1, modifiedWalkingAngle + 180, true);
         if (secondaryStateTime <= SECONDARY_COOLDOWN)
         {
-            batch.draw(ctx.resources.animations.charswordswing.getKeyFrame(secondaryStateTime), getMidX() + offset.x,
+            batch.draw(animations.charswordswing.getKeyFrame(secondaryStateTime), getMidX() + offset.x,
                        getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
         }
         else
         {
-            batch.draw(ctx.resources.animations.charcrossload.getKeyFrame(primaryStateTime), getMidX() + offset.x,
+            batch.draw(animations.charcrossload.getKeyFrame(primaryStateTime), getMidX() + offset.x,
                        getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
         }
         batch.end();
