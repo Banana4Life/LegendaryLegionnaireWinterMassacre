@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import life.banana4.ld31.input.GlobalInputProcessor;
@@ -16,21 +17,24 @@ public class Ld31 extends ApplicationAdapter
 
     private Level level;
     private DrawContext drawContext;
-    private Ld31Resources ld31Resources;
+    private Ld31Resources resources;
 
     @Override
     public void create()
     {
-        this.ld31Resources = new Ld31Resources();
-        ld31Resources.build();
-        this.level = ld31Resources.levels.level1;
+        this.resources = new Ld31Resources();
+        resources.build();
+        this.level = resources.levels.level1;
         this.level.game = this;
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(true);
-        this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), ld31Resources);
+        this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), resources);
         InputMultiplexer inputMul = new InputMultiplexer(new GlobalInputProcessor(this, camera));
         Gdx.input.setInputProcessor(inputMul);
         Gdx.input.setCursorCatched(!isDebug());
+
+        Pixmap cursor = new Pixmap(Gdx.files.internal("textures/cursor.png"));
+        Gdx.input.setCursorImage(cursor, cursor.getWidth() / 2, cursor.getHeight() / 2);
         Controllers.addListener(inputMul);
     }
 

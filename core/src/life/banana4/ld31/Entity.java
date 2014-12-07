@@ -59,6 +59,13 @@ public abstract class Entity
     {
     }
 
+    public Entity setPosition(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
     public Entity move(float x, float y)
     {
         this.x += x;

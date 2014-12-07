@@ -71,6 +71,8 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         {
             waits.put(type, waits.get(type) + delta);
         }
+
+        System.out.println("Speed: " + Math.sqrt(vx * vx + vy * vy));
     }
 
     @Override
