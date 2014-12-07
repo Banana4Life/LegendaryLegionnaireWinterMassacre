@@ -41,7 +41,7 @@ public abstract class Entity
     {
     }
 
-    public void die()
+    public void kill()
     {
         getLevel().remove(this);
         this.onDeath();
@@ -64,7 +64,7 @@ public abstract class Entity
 
         if (this.x < 0 || this.y < 0 || this.x > Gdx.graphics.getWidth() || this.y > Gdx.graphics.getHeight())
         {
-            this.die();
+            this.kill();
         }
         return this;
     }

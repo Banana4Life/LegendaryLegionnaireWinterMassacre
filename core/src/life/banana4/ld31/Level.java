@@ -100,7 +100,7 @@ public class Level
         {
             if (this.nodeAt(e.getX(), e.getY()).type == TileType.WALL)
             {
-                e.die();
+                e.kill();
             }
         }
         this.spawnQueue.add(e);

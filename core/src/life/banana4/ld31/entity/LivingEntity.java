@@ -4,12 +4,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.Entity;
 
-public abstract class MovingEntity extends Entity
+public abstract class LivingEntity extends Entity
 {
     protected float vx;
     protected float vy;
 
-    public MovingEntity(float width, float height)
+    private int health = 1;
+
+    public LivingEntity(float width, float height)
     {
         super(width, height);
     }
@@ -30,6 +32,10 @@ public abstract class MovingEntity extends Entity
     public void update(OrthographicCamera camera, float delta)
     {
         this.move(vx * delta, vy * delta);
+        if (getHealth() <= 0)
+        {
+            this.kill();
+        }
     }
 
     public Projectile shoot(Projectile p, float x, float y)
@@ -45,5 +51,33 @@ public abstract class MovingEntity extends Entity
     {
         float len = (float)Math.sqrt(x * x + y * y);
         return shoot(p, (x / len) * speed, (y / len) * speed);
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public void setHealth(int health)
+    {
+        this.health = health;
+    }
+
+    public int getMaxHealth()
+    {
+        return 1;
+    }
+
+    public int damage(int damage)
+    {
+        int newHealth = Math.max(0, getHealth() - damage);
+        int damageDealt = getHealth() - newHealth;
+        setHealth(newHealth);
+        return damageDealt;
+    }
+
+    public void heal(int health)
+    {
+        setHealth(Math.min(getMaxHealth(), getHealth() + health));
     }
 }

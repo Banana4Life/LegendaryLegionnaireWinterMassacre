@@ -19,7 +19,7 @@ import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
 
-public class Player extends MovingEntity implements CollisionSource, CollisionTarget
+public class Player extends LivingEntity implements CollisionSource, CollisionTarget
 {
     public static final float SPEED = 180;
     public static final float MINIMUM_MOVE_MUL = 0.06f;

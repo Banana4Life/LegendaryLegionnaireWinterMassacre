@@ -108,11 +108,7 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
     {
         if (source instanceof Projectile && ((Projectile)source).getShooter() instanceof Player)
         {
-            if (((Projectile)source).getDamagePotential() > 0)
-            {
-                this.health -= ((Projectile)source).getDamagePotential();
-                ((Projectile)source).setDamagePotential(-health);
-            }
+            ((Projectile)source).dealDamage(this);
         }
     }
 }

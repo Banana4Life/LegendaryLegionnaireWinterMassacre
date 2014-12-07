@@ -12,7 +12,7 @@ import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 
-public class Projectile extends MovingEntity implements CollisionSource
+public class Projectile extends LivingEntity implements CollisionSource
 {
     private int damagePotential = 3;
     private final Entity shooter;
@@ -36,7 +36,7 @@ public class Projectile extends MovingEntity implements CollisionSource
         super.update(camera, delta);
         if (damagePotential <= 0)
         {
-            this.die();
+            this.kill();
         }
     }
 
@@ -87,7 +87,7 @@ public class Projectile extends MovingEntity implements CollisionSource
             }
             else
             {
-                die();
+                kill();
             }
         }
     }
@@ -108,8 +108,12 @@ public class Projectile extends MovingEntity implements CollisionSource
         return damagePotential;
     }
 
-    public void setDamagePotential(int damagePotential)
+    public void dealDamage(LivingEntity e)
     {
-        this.damagePotential = damagePotential;
+        this.damagePotential -= e.damage(this.damagePotential);
+        if (this.damagePotential <= 0)
+        {
+            kill();
+        }
     }
 }

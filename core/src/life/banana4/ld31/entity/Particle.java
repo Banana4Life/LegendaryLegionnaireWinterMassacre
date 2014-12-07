@@ -28,7 +28,7 @@ public class Particle extends Entity
         this.effect.setPosition(getX(), getY());
         if (effect.isComplete())
         {
-            die();
+            kill();
         }
     }
 
