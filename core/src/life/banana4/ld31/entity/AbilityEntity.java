@@ -2,6 +2,7 @@ package life.banana4.ld31.entity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -29,12 +30,10 @@ public class AbilityEntity extends LivingEntity implements CollisionTarget
     public void draw(DrawContext ctx, float delta)
     {
         super.draw(ctx, delta);
-
-        ShapeRenderer r = ctx.getShapeRenderer();
-        r.begin(ShapeType.Filled);
-        r.setColor(Color.YELLOW);
-        r.circle(getX(), getY(), 3);
-        r.end();
+        SpriteBatch b = ctx.getSpriteBatch();
+        b.begin();
+        b.draw(this.getLevel().getGame().getDrawContext().resources.textures.pickup1, this.getX(), this.getY());
+        b.end();
     }
 
     @Override

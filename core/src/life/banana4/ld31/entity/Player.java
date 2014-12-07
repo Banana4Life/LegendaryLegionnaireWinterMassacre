@@ -168,8 +168,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                         min = max - min;
                         max -= min;
                     }
-                    System.out.println("SWING " + (int)min + "-" + (int)max);
-
                     for (Entity entity : this.getLevel().getEntities())
                     {
                         if (entity instanceof Enemy)
@@ -180,7 +178,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                             {
                                 tmp.set(vX, vY);
                                 float angle = tmp.angle();
-                                System.out.println((int)angle);
                                 if (min < angle && max > angle)
                                 {
                                     ((Enemy)entity).damage(1);
