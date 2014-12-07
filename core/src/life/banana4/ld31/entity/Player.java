@@ -5,6 +5,7 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -19,6 +20,7 @@ import life.banana4.ld31.entity.projectile.BoltProjectile;
 import life.banana4.ld31.entity.projectile.DummyProjectile;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
+import life.banana4.ld31.resource.Animations;
 
 import static java.lang.Math.abs;
 import static life.banana4.ld31.Ld31.isDebug;
@@ -72,14 +74,26 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         super.draw(ctx, delta);
 
         SpriteBatch batch = ctx.getSpriteBatch();
+        Animations animations = ctx.resources.animations;
         batch.begin();
 
         Vector2 offset = new Vector2(64, -64).rotate(getRotation() + 90);
-        batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true),
-                   getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1,
-                   1, getRotation() + 180, true);
-        if (secondaryStateTime <= SECONDARY_COOLDOWN)
+
+        float modifiedWalkingAngle;
+        float difference = Math.abs(getRotation() - getWalkingAngle());
+        if (difference < 90 || difference > 270) {
+            animations.legs.setPlayMode(PlayMode.NORMAL);
+            modifiedWalkingAngle = getWalkingAngle();
+        } else
         {
+            animations.legs.setPlayMode(PlayMode.REVERSED);
+            modifiedWalkingAngle = getWalkingAngle() + 180;
+        }
+        Vector2 walkingOffset = new Vector2(64, -64).rotate(modifiedWalkingAngle + 90);
+        batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true),
+                   getX() + this.getWidth() / 2 + walkingOffset.x, getY() + this.getHeight() / 2 + walkingOffset.y, 0, 0, 128, 128, 1,
+                   1, modifiedWalkingAngle + 180, true);
+        if (secondaryStateTime <= SECONDARY_COOLDOWN) {
             batch.draw(ctx.resources.animations.charswordswing.getKeyFrame(secondaryStateTime),
                        getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128,
                        128, 1, 1, getRotation() + 180, true);
@@ -132,7 +146,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             dir.nor().scl(SPEED).scl(scaleX, scaleY);
             move(dir.x, dir.y);
             this.walkingAngle = HELPER.set(dir.scl(dir.len())).angle();
-            System.out.println("Walking angle -> " + walkingAngle);
         }
         else
         {
