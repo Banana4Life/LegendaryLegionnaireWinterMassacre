@@ -93,7 +93,7 @@ public class Level
 
         spawnPlayer();
         this.cursor = addEntity(new Cursor());
-        this.alienShip = addEntity(new AlienShip(128, 128));
+        this.alienShip = addEntity(new AlienShip());
     }
 
     private void spawnPlayer()
