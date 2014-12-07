@@ -133,7 +133,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         int legState = (int)(legStateTime / animations.legs.getFrameDuration());
         legState %= animations.legs.getKeyFrames().length;
 
-
+        float footAngle = getWalkingAngle();
         if (lastLegState != legState)
         {
             lastLegState = legState;
@@ -141,13 +141,13 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             {
                 if (legStateTime == 0)
                 {
-                    getLevel().addEntity(new FootStep(true)).move(getMidX(), getMidY()).setRotation(getViewingAngle());
-                    getLevel().addEntity(new FootStep(false)).move(getMidX(), getMidY()).setRotation(getViewingAngle());
+                    getLevel().addEntity(new FootStep(true)).move(getMidX(), getMidY()).setRotation(footAngle);
+                    getLevel().addEntity(new FootStep(false)).move(getMidX(), getMidY()).setRotation(footAngle);
                     lastFootLeft = false;
                 }
                 else
                 {
-                    getLevel().addEntity(new FootStep(lastFootLeft)).move(getMidX(), getMidY()).setRotation(getViewingAngle());
+                    getLevel().addEntity(new FootStep(lastFootLeft)).move(getMidX(), getMidY()).setRotation(footAngle);
                     lastFootLeft = !lastFootLeft;
                 }
             }
