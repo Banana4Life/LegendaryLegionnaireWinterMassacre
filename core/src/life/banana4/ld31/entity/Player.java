@@ -23,7 +23,7 @@ import static java.lang.Math.abs;
 
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget
 {
-    public static final float SPEED = 4;
+    public static final float SPEED = 3.3f;
     public static final float MINIMUM_MOVE_MUL = 0.06f;
     private boolean isMouseControlled = false;
 
