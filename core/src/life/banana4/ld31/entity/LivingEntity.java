@@ -8,6 +8,7 @@ public abstract class LivingEntity extends Entity
 {
     protected float vx;
     protected float vy;
+    private long aliveSince = -1;
 
     private int health = 1;
 
@@ -26,6 +27,13 @@ public abstract class LivingEntity extends Entity
     {
         this.vx = vx;
         this.vy = vy;
+    }
+
+    @Override
+    public void onSpawn()
+    {
+        super.onSpawn();
+        aliveSince = System.currentTimeMillis();
     }
 
     @Override
@@ -79,5 +87,10 @@ public abstract class LivingEntity extends Entity
     public void heal(int health)
     {
         setHealth(Math.min(getMaxHealth(), getHealth() + health));
+    }
+
+    public long lifetime()
+    {
+        return System.currentTimeMillis() - this.aliveSince;
     }
 }
