@@ -31,7 +31,6 @@ public class PointEnemy extends Enemy
 
         SpriteBatch b = ctx.getSpriteBatch();
         b.begin();
-        System.out.println(getViewingAngle());
         Vector2 v = new Vector2(64, -64).rotate(getViewingAngle());
         b.draw(ctx.resources.animations.alien.getKeyFrame(primaryStateTime, true), getMidX() + v.x, getMidY() + v.y, 0,
                0, 128, 128, 1, 1, getViewingAngle() + 90);
