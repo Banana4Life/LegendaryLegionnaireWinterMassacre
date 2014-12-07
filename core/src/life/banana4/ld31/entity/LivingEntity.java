@@ -38,6 +38,7 @@ public abstract class LivingEntity extends Entity
     }
 
     private static final Vector2 V = new Vector2(0, 0);
+
     @Override
     public void update(OrthographicCamera camera, float delta)
     {

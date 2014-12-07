@@ -78,13 +78,17 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true),
                    getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1,
                    1, getRotation() + 180, true);
-        if (secondaryStateTime <= SECONDARY_COOLDOWN) {
+        if (secondaryStateTime <= SECONDARY_COOLDOWN)
+        {
             batch.draw(ctx.resources.animations.charswordswing.getKeyFrame(secondaryStateTime),
-                       getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
-        } else
+                       getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128,
+                       128, 1, 1, getRotation() + 180, true);
+        }
+        else
         {
             batch.draw(ctx.resources.animations.charcrossload.getKeyFrame(primaryStateTime),
-                       getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
+                       getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128,
+                       128, 1, 1, getRotation() + 180, true);
         }
         batch.end();
 
@@ -96,10 +100,20 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             Vector2 line = new Vector2(100, 0).setAngle(getViewingAngle()).scl(100);
             r.line(getMidX(), getMidY(), getMidX() + line.x, getMidY() + line.y);
             r.end();
+            float rotation = this.getRotation();
+            float min = rotation - 15;
+            float max = rotation + 75;
+
+            r.begin(ShapeType.Line);
+            r.setColor(Color.BLUE);
+            r.arc(this.getMidX(), this.getMidY(), 64, min, max - min);
+
+            r.end();
         }
     }
 
     private static final Vector2 HELPER = new Vector2(0, 0);
+
     @Override
     public void reactTo(Intention intention, float delta)
     {
@@ -141,6 +155,38 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     }
                     secondaryStateTime = 0;
                     waits.put(t, 0f);
+                    Vector2 tmp = new Vector2();
+
+                    float rotation = this.getRotation();
+                    float min = rotation - 15;
+                    float max = rotation + 75;
+                    if (max < min)
+                    {
+                        max += min;
+                        min = max - min;
+                        max -= min;
+                    }
+                    System.out.println("SWING " + (int)min + "-" + (int)max);
+
+                    for (Entity entity : this.getLevel().getEntities())
+                    {
+                        if (entity instanceof Enemy)
+                        {
+                            float vX = entity.getMidX() - this.getMidX();
+                            float vY = entity.getMidY() - this.getMidY();
+                            if (vX * vX + vY * vY <= 64 * 64)
+                            {
+                                tmp.set(vX, vY);
+                                float angle = tmp.angle();
+                                System.out.println((int)angle);
+                                if (min < angle && max > angle)
+                                {
+                                    entity.kill();
+                                }
+                            }
+                        }
+                    }
+
                     //radius -= 15 * delta;
                     break;
                 case TERTIARY_ATTACK:
