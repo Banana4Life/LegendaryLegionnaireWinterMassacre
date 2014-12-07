@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -23,6 +24,8 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     public static final float SPEED = 180;
     public static final float MINIMUM_MOVE_MUL = 0.06f;
     private boolean isMouseControlled = false;
+
+    private TextureRegion texture;
 
     Map<Type, Float> waits = new HashMap<>();
 
@@ -47,13 +50,26 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     public void draw(DrawContext ctx)
     {
         super.draw(ctx);
+
+        if (texture == null)
+        {
+            texture = new TextureRegion(ctx.resources.textures.torso);
+        }
+        if (waits.get(Type.PRIMARY_ATTACK) <= 1f)
+        {
+            texture.setRegion(0, 128, 128, 128);
+        }
+        else
+        {
+            texture.setRegion(0, 256, 128, 128);
+        }
+
         SpriteBatch batch = ctx.getSpriteBatch();
         batch.begin();
 
-        Vector2 offset = new Vector2(-64, -64).rotate(getRotation() + 90);
-        batch.draw(ctx.resources.textures.torso, getX() + this.getWidth() / 2 + offset.x,
-                   getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 90, 0, 0, 128, 128,
-                   false, false);
+        Vector2 offset = new Vector2(64, -64).rotate(getRotation() + 90);
+        batch.draw(texture, getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0,
+                   128, 128, 1, 1, getRotation() + 180, true);
         batch.end();
 
         ShapeRenderer r = ctx.getShapeRenderer();
@@ -129,7 +145,7 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
                     {
                         break;
                     }
-                    for (float i = 0; i < 360 ; i += 5)
+                    for (float i = 0; i < 360; i += 5)
                     {
                         dir.setAngle(getRotation() + i);
                         shoot(new Projectile(this, 5, 5), dir.x, dir.y, 500);
