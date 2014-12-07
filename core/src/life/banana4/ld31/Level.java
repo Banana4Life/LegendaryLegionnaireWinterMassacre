@@ -27,7 +27,6 @@ import life.banana4.ld31.entity.Enemy;
 import life.banana4.ld31.entity.LivingEntity;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.PointEnemy;
-import life.banana4.ld31.entity.Projectile;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.ControllerIntentionDetector;
@@ -284,7 +283,7 @@ public class Level
                          Gdx.graphics.getHeight() / 2 - 64);
         bitmapFont.draw(spriteBatch,
                         "Score: " + scoreValue + " Multiplier: " + multiplier + "x  Health: " + player.getHealth() + "/"
-                            + player.getMaxHealth() + "  Wave " + waveCount + "/50" , 10, 20);
+                            + player.getMaxHealth() + "  Wave " + waveCount + "/50", 10, 20);
         ctx.camera.setToOrtho(true);
         spriteBatch.end();
     }

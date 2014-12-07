@@ -45,11 +45,6 @@ public class Cursor extends Entity
         final int dx = x - lastX;
         final int dy = y - lastY;
 
-        if (dx != 0 || dy != 0)
-        {
-            System.out.println(dx + ":" + dy);
-        }
-
         this.actualX = between(this.actualX + dx, 0, maxX);
         this.actualY = between(this.actualY - dy, 0, maxY);
 

@@ -9,7 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 import life.banana4.ld31.input.Intention.Type;
 
 public class KeyboardIntentionDetector implements IntentionDetector
@@ -26,7 +25,6 @@ public class KeyboardIntentionDetector implements IntentionDetector
         buttons.put(Buttons.LEFT, new Intention(Type.PRIMARY_ATTACK));
         buttons.put(Buttons.RIGHT, new Intention(Type.SECONDARY_ATTACK));
         buttons.put(Buttons.MIDDLE, new Intention(Type.TERTIARY_ATTACK));
-
     }
 
     @Override

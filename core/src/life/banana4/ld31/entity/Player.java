@@ -2,7 +2,6 @@ package life.banana4.ld31.entity;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.collision.CollisionSource;
@@ -122,6 +120,11 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             Cursor c = getLevel().getCursor();
             this.setRotation(new Vector2(c.getX() - getMidX(), c.getY() - getMidY()).angle());
         }
+
+        if (vx == 0 && vy == 0)
+        {
+            legStateTime = 0;
+        }
     }
 
     @Override
@@ -135,13 +138,12 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 
         Vector2 offset = new Vector2(64, -64).rotate(getRotation() + 90);
 
-        if (vx == 0 && vy == 0) {
-            legStateTime = 0;
-        }
-
-        if (!exhausted && sprint == 2f) {
+        if (!exhausted && sprint == 2f)
+        {
             animations.legs.setFrameDuration(0.025f);
-        } else {
+        }
+        else
+        {
             animations.legs.setFrameDuration(0.05f);
         }
 
