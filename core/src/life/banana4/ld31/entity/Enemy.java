@@ -29,6 +29,7 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);
+
         this.getLevel().calculatePath(path, this);
         if (path.getCount() == 0)
         {

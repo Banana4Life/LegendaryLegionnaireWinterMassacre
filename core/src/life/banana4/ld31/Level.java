@@ -273,7 +273,7 @@ public class Level
     public void calculatePath(TiledSmoothableGraphPath path, Entity entity)
     {
         path.clear();
-        if (entity instanceof Enemy)
+        if (entity instanceof Enemy && !player.isDead())
         {
             pathFinder.searchNodePath(tiledGraph.getNode((int)(entity.getMidX() / TILE_WIDTH),
                                                          (int)(entity.getMidY() / TILE_WIDTH)), tiledGraph.getNode(
