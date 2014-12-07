@@ -1,5 +1,9 @@
 package life.banana4.ld31.ai;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import com.badlogic.gdx.ai.pfa.indexed.DefaultIndexedGraph;
 import com.badlogic.gdx.graphics.Pixmap;
 
@@ -11,6 +15,8 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
     private final int width;
     private final int height;
 
+    private final List<TiledNode> walkableNodes = new ArrayList<>();
+
     public TiledGraph(Pixmap map)
     {
         this.width = map.getWidth();
@@ -20,7 +26,12 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
         {
             for (int y = 0; y < map.getHeight(); y++)
             {
-                nodes.add(new TiledNode(x, y, getType(map.getPixel(x, y)), height));
+                TiledNode node = new TiledNode(x, y, getType(map.getPixel(x, y)), height);
+                nodes.add(node);
+                if (node.type.isWalkable())
+                {
+                    this.walkableNodes.add(node);
+                }
             }
         }
 
@@ -63,5 +74,10 @@ public class TiledGraph extends DefaultIndexedGraph<TiledNode>
     public TiledNode getNode(int x, int y)
     {
         return nodes.get(x * height + y);
+    }
+
+    public List<TiledNode> getWalkableNodes()
+    {
+        return walkableNodes;
     }
 }

@@ -17,6 +17,7 @@ import life.banana4.ld31.ai.TiledManhattenDistance;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
+import life.banana4.ld31.entity.AbilityEntity;
 import life.banana4.ld31.entity.Enemy;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.PointEnemy;
@@ -35,6 +36,7 @@ import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
 
 public class Level
 {
+    public static final int SPAWN_DISTANCE = 400;
     private final List<Entity> entities;
     private final List<Entity> spawnQueue;
     private final List<Entity> removalQueue;
@@ -122,6 +124,7 @@ public class Level
             }
         }
         spawnEnemies(enemyCount);
+        spawnAbility(delta);
 
         drawLevel(ctx);
         // spawn queued
@@ -154,6 +157,24 @@ public class Level
         }
     }
 
+    private float waited;
+
+    private void spawnAbility(float delta)
+    {
+        final float ABILITY_DELAY = 10f;
+
+        waited += delta;
+        if (waited < ABILITY_DELAY)
+        {
+            return;
+        }
+        waited = 0;
+
+        List<TiledNode> nodes = this.tiledGraph.getWalkableNodes();
+        TiledNode target = nodes.get(random.nextInt(nodes.size()));
+        addEntity(new AbilityEntity()).move(target.x * TILE_WIDTH, target.y * TILE_WIDTH);
+    }
+
     private int waveSpawn = 1;
 
     private void spawnEnemies(int curEnemyCount)
@@ -167,7 +188,7 @@ public class Level
                 rY = (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
                 Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
 
-                if (playerV.dst2(rX, rY) > 400 * 400)
+                if (playerV.dst2(rX, rY) > SPAWN_DISTANCE * SPAWN_DISTANCE)
                 {
                     if (this.nodeAt(rX, rY).type != TileType.WALL)
                     {
