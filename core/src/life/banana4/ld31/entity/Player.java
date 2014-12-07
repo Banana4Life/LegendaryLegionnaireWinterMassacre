@@ -84,24 +84,25 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         if (difference < 90 || difference > 270) {
             animations.legs.setPlayMode(PlayMode.NORMAL);
             modifiedWalkingAngle = getWalkingAngle();
-        } else
+        }
+        else
         {
             animations.legs.setPlayMode(PlayMode.REVERSED);
             modifiedWalkingAngle = getWalkingAngle() + 180;
         }
         Vector2 walkingOffset = new Vector2(64, -64).rotate(modifiedWalkingAngle + 90);
         batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true),
-                   getX() + this.getWidth() / 2 + walkingOffset.x, getY() + this.getHeight() / 2 + walkingOffset.y, 0, 0, 128, 128, 1,
+                   getX() + getWidth() / 2 + walkingOffset.x, getY() + getHeight() / 2 + walkingOffset.y, 0, 0, 128, 128, 1,
                    1, modifiedWalkingAngle + 180, true);
         if (secondaryStateTime <= SECONDARY_COOLDOWN) {
             batch.draw(ctx.resources.animations.charswordswing.getKeyFrame(secondaryStateTime),
-                       getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128,
+                       getX() + getWidth() / 2 + offset.x, getY() + getHeight() / 2 + offset.y, 0, 0, 128,
                        128, 1, 1, getRotation() + 180, true);
         }
         else
         {
             batch.draw(ctx.resources.animations.charcrossload.getKeyFrame(primaryStateTime),
-                       getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128,
+                       getX() + getWidth() / 2 + offset.x, getY() + getHeight() / 2 + offset.y, 0, 0, 128,
                        128, 1, 1, getRotation() + 180, true);
         }
         batch.end();
@@ -111,7 +112,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             ShapeRenderer r = ctx.getShapeRenderer();
             r.begin(ShapeType.Line);
             r.setColor(Color.CYAN);
-            Vector2 line = new Vector2(100, 0).setAngle(getViewingAngle()).scl(100);
+            Vector2 line = new Vector2(100, 0).setAngle(getRotation()).scl(100);
             r.line(getMidX(), getMidY(), getMidX() + line.x, getMidY() + line.y);
             r.end();
 
