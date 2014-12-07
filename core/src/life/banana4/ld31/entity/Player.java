@@ -100,8 +100,9 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             Vector2 line = new Vector2(100, 0).setAngle(getViewingAngle()).scl(100);
             r.line(getMidX(), getMidY(), getMidX() + line.x, getMidY() + line.y);
             r.end();
+
             float rotation = this.getRotation();
-            float min = rotation - 15;
+            float min = rotation - 75;
             float max = rotation + 75;
 
             r.begin(ShapeType.Line);
@@ -109,6 +110,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             r.arc(this.getMidX(), this.getMidY(), 64, min, max - min);
 
             r.end();
+
         }
     }
 
@@ -158,7 +160,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     Vector2 tmp = new Vector2();
 
                     float rotation = this.getRotation();
-                    float min = rotation - 15;
+                    float min = rotation - 75;
                     float max = rotation + 75;
                     if (max < min)
                     {
