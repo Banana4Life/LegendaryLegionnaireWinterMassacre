@@ -111,7 +111,7 @@ public class Level
     public void render(DrawContext ctx, float delta)
     {
         multiplierDelta += delta;
-        if (multiplierDelta >= 1.5f)
+        if (multiplierDelta >= 2f)
         {
             multiplier = 1;
         }
@@ -123,23 +123,7 @@ public class Level
                 enemyCount++;
             }
         }
-        if (enemyCount < 4)
-        {
-            float rX, rY;
-            int spawns = 0;
-            Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
-            do
-            {
-                rX = (random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
-                rY = (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
-                if (playerV.dst2(rX, rY) > 200 * 200)
-                {
-                    addEntity(new PointEnemy().move(rX, rY));
-                    spawns++;
-                }
-            }
-            while (spawns < 9);
-        }
+        spawnEnemies(enemyCount);
 
         drawLevel(ctx);
         // spawn queued
@@ -169,6 +153,27 @@ public class Level
         for (final Entity e : this.entities)
         {
             e.draw(ctx, delta);
+        }
+    }
+
+    private void spawnEnemies(int curEnemyCount)
+    {
+        if (curEnemyCount < 5)
+        {
+            float rX, rY;
+            int spawns = 0;
+            Vector2 playerV = new Vector2(this.player.getMidX(), this.player.getMidY());
+            do
+            {
+                rX = (random.nextInt(width - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
+                rY = (random.nextInt(height - 2) + 1) * TILE_WIDTH + TILE_WIDTH_2;
+                if (playerV.dst2(rX, rY) > 500 * 500)
+                {
+                    addEntity(new PointEnemy().move(rX, rY));
+                    spawns++;
+                }
+            }
+            while (spawns < enemiesKilled);
         }
     }
 
@@ -326,10 +331,12 @@ public class Level
 
     private int multiplier = 1;
     private float multiplierDelta = 0;
+    private int enemiesKilled = 0;
 
     public void addScore(int scoreValue)
     {
         multiplierDelta = 0;
         this.scoreValue += scoreValue * multiplier++;
+        enemiesKilled++;
     }
 }
