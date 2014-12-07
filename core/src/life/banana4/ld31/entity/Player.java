@@ -183,7 +183,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                                 System.out.println((int)angle);
                                 if (min < angle && max > angle)
                                 {
-                                    entity.kill();
+                                    ((Enemy)entity).damage(1);
                                 }
                             }
                         }
