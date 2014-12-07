@@ -39,4 +39,10 @@ public class Wall extends Entity implements CollisionTarget
     {
 
     }
+
+    @Override
+    public boolean acceptsCollisionsFrom(CollisionSource source)
+    {
+        return true;
+    }
 }

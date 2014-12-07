@@ -5,4 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 public interface CollisionTarget
 {
     void onCollide(CollisionSource source, Vector2 mtv);
+
+    boolean acceptsCollisionsFrom(CollisionSource source);
 }

@@ -7,7 +7,9 @@ import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import life.banana4.ld31.Entity;
 import life.banana4.ld31.Ld31;
+import life.banana4.ld31.entity.Enemy;
 import life.banana4.ld31.entity.Player;
 
 /**
@@ -40,6 +42,16 @@ public class GlobalInputProcessor implements AllThemInputProcessor
         {
             System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
             System.out.println("Living entities: " + game.getLevel().getEntities().size());
+        }
+        else if (keycode == Keys.K)
+        {
+            for (final Entity entity : game.getLevel().getEntities())
+            {
+                if (entity instanceof Enemy)
+                {
+                    entity.kill();
+                }
+            }
         }
         return false;
     }

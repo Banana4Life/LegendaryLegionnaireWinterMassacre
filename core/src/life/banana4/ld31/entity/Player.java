@@ -198,4 +198,16 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         Vector3 pos = camera.unproject(new Vector3(screenX, screenY, 0));
         this.setRotation(new Vector2(pos.x - this.getX(), pos.y - this.getY()).angle());
     }
+
+    @Override
+    public boolean mayCollideWith(CollisionTarget target)
+    {
+        return !(target instanceof Projectile && ((Projectile)target).getShooter() == this);
+    }
+
+    @Override
+    public boolean acceptsCollisionsFrom(CollisionSource source)
+    {
+        return false;
+    }
 }

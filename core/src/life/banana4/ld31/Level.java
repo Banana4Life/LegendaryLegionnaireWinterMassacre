@@ -241,52 +241,65 @@ public class Level
     {
         List<Entity> recheck = new ArrayList<>();
         List<Entity> check = this.entities;
+        int collisionChecks = 0;
+
+        int checkSize;
+        final int entityCount = this.entities.size();
         do
         {
             CHECKED_COLLISIONS.clear();
             recheck.clear();
-            for (int i = 0; i < check.size(); i++)
+            checkSize = check.size();
+            for (int i = 0; i < checkSize; i++)
             {
-                final Entity a = check.get(i);
-                if (a.isDead() || !(a instanceof CollisionSource))
+                final Entity sourceEntities = check.get(i);
+                if (sourceEntities.isDead() || !(sourceEntities instanceof CollisionSource))
                 {
                     continue;
                 }
-                CollisionSource source = (CollisionSource)a;
-                for (int j = 0; j < this.entities.size(); j++)
+                CollisionSource source = (CollisionSource)sourceEntities;
+                for (int j = 0; j < entityCount; j++)
                 {
-                    final Entity b = this.entities.get(j);
-                    if (a == b || b.isDead() || !(b instanceof CollisionTarget))
+                    final Entity targetEntity = this.entities.get(j);
+                    if (sourceEntities == targetEntity || targetEntity.isDead()
+                        || !(targetEntity instanceof CollisionTarget))
                     {
                         continue;
                     }
-                    CollisionTarget target = (CollisionTarget)b;
+                    CollisionTarget target = (CollisionTarget)targetEntity;
 
-                    final long id = pair(a, b);
-                    if (CHECKED_COLLISIONS.contains(id))
+                    if (!target.acceptsCollisionsFrom(source) || !source.mayCollideWith(target))
                     {
                         continue;
                     }
-                    CHECKED_COLLISIONS.add(id);
-                    CHECKED_COLLISIONS.add(pair(b, a));
 
-                    Vector2 rect = Collider.findCollision(a, b);
+//                    final long id = pair(sourceEntities, targetEntity);
+//                    if (CHECKED_COLLISIONS.contains(id))
+//                    {
+//                        continue;
+//                    }
+//                    CHECKED_COLLISIONS.add(id);
+//                    CHECKED_COLLISIONS.add(pair(targetEntity, sourceEntities));
+
+                    collisionChecks++;
+                    Vector2 rect = Collider.findCollision(sourceEntities, targetEntity);
                     if (rect != null)
                     {
-                        float oldX = a.getX();
-                        float oldY = a.getY();
+                        float oldX = sourceEntities.getX();
+                        float oldY = sourceEntities.getY();
                         source.onCollide(target, rect);
-                        if (!a.isDead() && (oldX != a.getX() || oldY != a.getY()))
+                        if (!sourceEntities.isDead() && (oldX != sourceEntities.getX()
+                            || oldY != sourceEntities.getY()))
                         {
-                            recheck.add(a);
+                            recheck.add(sourceEntities);
                         }
 
-                        oldX = b.getX();
-                        oldY = b.getY();
+                        oldX = targetEntity.getX();
+                        oldY = targetEntity.getY();
                         target.onCollide(source, rect);
-                        if (!b.isDead() && (oldX != b.getX() || oldY != b.getY()))
+                        if (!targetEntity.isDead() && (oldX != targetEntity.getX() || oldY != targetEntity.getY()))
                         {
-                            recheck.add(b);
+                            recheck.add(targetEntity);
                         }
                     }
                 }

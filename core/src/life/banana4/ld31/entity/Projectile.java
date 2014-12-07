@@ -116,4 +116,10 @@ public class Projectile extends LivingEntity implements CollisionSource
             kill();
         }
     }
+
+    @Override
+    public boolean mayCollideWith(CollisionTarget target)
+    {
+        return !(target instanceof Projectile);
+    }
 }

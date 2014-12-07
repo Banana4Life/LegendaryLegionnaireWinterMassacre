@@ -111,4 +111,16 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
             ((Projectile)source).dealDamage(this);
         }
     }
+
+    @Override
+    public boolean mayCollideWith(CollisionTarget target)
+    {
+        return !(target instanceof Projectile && ((Projectile)target).getShooter() instanceof Enemy);
+    }
+
+    @Override
+    public boolean acceptsCollisionsFrom(CollisionSource source)
+    {
+        return true;
+    }
 }
