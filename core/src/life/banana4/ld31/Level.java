@@ -73,6 +73,7 @@ public class Level
     private Random random = new Random();
     private int scoreValue = 0;
     private BitmapFont bitmapFont = new BitmapFont();
+    private final OrthographicCamera uiCamera = new OrthographicCamera();
 
     public Level(Ld31 game, int width, int height, TiledGraph tiledGraph)
     {
@@ -92,6 +93,7 @@ public class Level
         spawnPlayer();
         this.cursor = addEntity(new Cursor());
         this.alienShip = addEntity(new AlienShip());
+        this.uiCamera.setToOrtho(false);
     }
 
     private void spawnPlayer()
@@ -278,14 +280,13 @@ public class Level
         {
             t.draw(spriteBatch);
         }
-        ctx.camera.setToOrtho(false);
-        ctx.getSpriteBatch();
+        spriteBatch.setProjectionMatrix(this.uiCamera.combined);
+
         spriteBatch.draw(this.game.getDrawContext().resources.textures.snowman, Gdx.graphics.getWidth() / 2 - 64,
                          Gdx.graphics.getHeight() / 2 - 64);
         bitmapFont.draw(spriteBatch,
                         "Score: " + scoreValue + " Multiplier: " + multiplier + "x  Health: " + player.getHealth() + "/"
                             + player.getMaxHealth() + "  Wave " + waveCount + "/50", 10, 20);
-        ctx.camera.setToOrtho(true);
         spriteBatch.end();
     }
 
