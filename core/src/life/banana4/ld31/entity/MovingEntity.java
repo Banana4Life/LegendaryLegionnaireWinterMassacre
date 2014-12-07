@@ -1,6 +1,5 @@
 package life.banana4.ld31.entity;
 
-import java.util.Vector;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.Entity;
@@ -38,7 +37,7 @@ public abstract class MovingEntity extends Entity
         getLevel().addEntity(p);
         p.move(getMidX(), getMidY());
         p.setVelocity(x, y);
-        p.setRotation(new Vector2(x,y).angle());
+        p.setRotation(new Vector2(x, y).angle());
         return p;
     }
 

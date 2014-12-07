@@ -47,9 +47,9 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
     }
 
     @Override
-    public void draw(DrawContext ctx)
+    public void draw(DrawContext ctx, float delta)
     {
-        super.draw(ctx);
+        super.draw(ctx, delta);
 
         if (texture == null)
         {
@@ -118,7 +118,8 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
                     {
                         break;
                     }
-                    shoot(Projectile.of(this.getLevel().getGame().getDrawContext().resources.textures.bolt, this), dir.x, dir.y, 600);
+                    shoot(Projectile.of(this.getLevel().getGame().getDrawContext().resources.textures.bolt, this),
+                          dir.x, dir.y, 600);
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:

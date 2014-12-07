@@ -12,6 +12,7 @@ import life.banana4.ld31.entity.collision.CollisionTarget;
 public class Wall extends Entity implements CollisionTarget
 {
     private TextureRegion texture;
+
     public Wall(TextureRegion texture, float width, float height)
     {
         super(width, height);
@@ -25,7 +26,7 @@ public class Wall extends Entity implements CollisionTarget
     }
 
     @Override
-    public void draw(DrawContext ctx)
+    public void draw(DrawContext ctx, float delta)
     {
         SpriteBatch spriteBatch = ctx.getSpriteBatch();
         spriteBatch.begin();

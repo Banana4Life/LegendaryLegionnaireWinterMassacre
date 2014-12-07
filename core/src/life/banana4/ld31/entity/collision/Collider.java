@@ -28,8 +28,6 @@ public class Collider
         float top = bmin.y - amax.y;
         float bottom = bmax.y - amin.y;
 
-
-
         if (left > 0 || right < 0 || top > 0 || bottom < 0)
         {
             return null;

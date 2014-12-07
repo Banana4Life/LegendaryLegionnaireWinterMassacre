@@ -1,7 +1,6 @@
 package life.banana4.ld31;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import gnu.trove.set.TLongSet;
 import gnu.trove.set.hash.TLongHashSet;
@@ -103,6 +101,7 @@ public class Level
             }
         }
         this.spawnQueue.add(e);
+        e.onSpawn();
         return e;
     }
 
@@ -161,7 +160,7 @@ public class Level
         // draw living
         for (final Entity e : this.entities)
         {
-            e.draw(ctx);
+            e.draw(ctx, delta);
         }
     }
 
@@ -206,6 +205,7 @@ public class Level
     {
         return (((long)a.id) << 32) | b.id;
     }
+
     private static final TLongSet CHECKED_COLLISIONS = new TLongHashSet();
 
     private void detectCollisions()

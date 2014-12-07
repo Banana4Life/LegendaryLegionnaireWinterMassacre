@@ -36,9 +36,9 @@ public class Projectile extends MovingEntity implements CollisionSource
     }
 
     @Override
-    public void draw(DrawContext ctx)
+    public void draw(DrawContext ctx, float delta)
     {
-        super.draw(ctx);
+        super.draw(ctx, delta);
 
         if (texture == null)
         {
@@ -63,8 +63,8 @@ public class Projectile extends MovingEntity implements CollisionSource
             SpriteBatch spriteBatch = ctx.getSpriteBatch();
             spriteBatch.begin();
             Vector2 rotate = new Vector2(-16, 0).rotate(getRotation() + 90);
-            spriteBatch.draw(texture, this.getX() + rotate.x, this.getY() + rotate.y, 0, 0, 32, 32, 1, 1, this.getRotation() + 90, 0, 0, 32, 32,
-                             false, false);
+            spriteBatch.draw(texture, this.getX() + rotate.x, this.getY() + rotate.y, 0, 0, 32, 32, 1, 1,
+                             this.getRotation() + 90, 0, 0, 32, 32, false, false);
             spriteBatch.end();
         }
     }

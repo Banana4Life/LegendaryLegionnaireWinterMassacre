@@ -70,9 +70,9 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
     }
 
     @Override
-    public void draw(DrawContext ctx)
+    public void draw(DrawContext ctx, float delta)
     {
-        super.draw(ctx);
+        super.draw(ctx, delta);
         ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(Color.PINK);

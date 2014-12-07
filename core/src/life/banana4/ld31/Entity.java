@@ -37,15 +37,24 @@ public abstract class Entity
         this.level = level;
     }
 
+    public void onSpawn()
+    {
+    }
+
     public void die()
     {
         getLevel().remove(this);
+        this.onDeath();
         this.dead = true;
     }
 
     public boolean isDead()
     {
         return dead;
+    }
+
+    public void onDeath()
+    {
     }
 
     public Entity move(float x, float y)
@@ -102,14 +111,14 @@ public abstract class Entity
 
     public abstract void update(OrthographicCamera camera, float delta);
 
-    public void draw(DrawContext ctx)
+    public void draw(DrawContext ctx, float delta)
     {
         if (this.getLevel().isDebug())
         {
             ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
             shapeRenderer.begin(ShapeType.Line);
             shapeRenderer.setColor(Color.BLACK);
-            shapeRenderer.box(this.getX(), this.getY(), 0,this.getWidth(), this.getHeight(),0);
+            shapeRenderer.box(this.getX(), this.getY(), 0, this.getWidth(), this.getHeight(), 0);
             shapeRenderer.end();
         }
     }
