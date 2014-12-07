@@ -70,8 +70,8 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
         batch.begin();
 
         Vector2 offset = new Vector2(64, -64).rotate(getRotation() + 90);
-        batch.draw(ctx.resources.animations.legs.getKeyFrame(stateTime, true), getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0,
-                   128, 128, 1, 1, getRotation() + 180, true);
+        batch.draw(ctx.resources.animations.legs.getKeyFrame(stateTime, true), getX() + this.getWidth() / 2 + offset.x,
+                   getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
         batch.draw(texture, getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0,
                    128, 128, 1, 1, getRotation() + 180, true);
         batch.end();

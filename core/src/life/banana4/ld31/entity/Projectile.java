@@ -14,6 +14,7 @@ import life.banana4.ld31.entity.collision.CollisionTarget;
 
 public class Projectile extends MovingEntity implements CollisionSource
 {
+    private int damagePotential = 3;
     private final Entity shooter;
     private final Texture texture;
 
@@ -33,6 +34,10 @@ public class Projectile extends MovingEntity implements CollisionSource
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);
+        if (damagePotential <= 0)
+        {
+            this.die();
+        }
     }
 
     @Override
@@ -62,9 +67,10 @@ public class Projectile extends MovingEntity implements CollisionSource
         {
             SpriteBatch spriteBatch = ctx.getSpriteBatch();
             spriteBatch.begin();
-            Vector2 rotate = new Vector2(-16, 0).rotate(getRotation() + 90);
-            spriteBatch.draw(texture, this.getX() + rotate.x, this.getY() + rotate.y, 0, 0, 32, 32, 1, 1,
-                             this.getRotation() + 90, 0, 0, 32, 32, false, false);
+            Vector2 rotate = new Vector2(-16, -6).rotate(getRotation() + 90);
+            spriteBatch.draw(texture, this.getX() + this.getWidth() / 2 + rotate.x,
+                             this.getY() + this.getHeight() / 2 + rotate.y, 0, 0, 32, 32, 1, 1, this.getRotation() + 90,
+                             0, 0, 32, 32, false, false);
             spriteBatch.end();
         }
     }
@@ -74,17 +80,36 @@ public class Projectile extends MovingEntity implements CollisionSource
     {
         if (target instanceof Wall)
         {
-            die();
-        }
-        if (shooter instanceof Player && target instanceof Enemy)
-        {
-            ((Enemy)target).die();
-            die();
+            if (texture != null)
+            {
+                this.setVelocity(0, 0);
+                this.move(vx, vy);
+            }
+            else
+            {
+                die();
+            }
         }
     }
 
     public static Projectile of(Texture texture, Entity shooter)
     {
         return new Projectile(4, 4, shooter, texture);
+    }
+
+    public Entity getShooter()
+    {
+        return shooter;
+    }
+
+
+    public int getDamagePotential()
+    {
+        return damagePotential;
+    }
+
+    public void setDamagePotential(int damagePotential)
+    {
+        this.damagePotential = damagePotential;
     }
 }

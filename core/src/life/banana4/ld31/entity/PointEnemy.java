@@ -106,6 +106,13 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
     @Override
     public void onCollide(CollisionSource source, Vector2 mtv)
     {
-
+        if (source instanceof Projectile && ((Projectile)source).getShooter() instanceof Player)
+        {
+            if (((Projectile)source).getDamagePotential() > 0)
+            {
+                this.health -= ((Projectile)source).getDamagePotential();
+                ((Projectile)source).setDamagePotential(-health);
+            }
+        }
     }
 }

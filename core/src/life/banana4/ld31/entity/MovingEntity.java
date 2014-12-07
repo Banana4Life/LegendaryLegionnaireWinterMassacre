@@ -6,8 +6,8 @@ import life.banana4.ld31.Entity;
 
 public abstract class MovingEntity extends Entity
 {
-    private float vx;
-    private float vy;
+    protected float vx;
+    protected float vy;
 
     public MovingEntity(float width, float height)
     {
