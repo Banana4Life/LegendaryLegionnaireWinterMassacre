@@ -9,6 +9,7 @@ public class Textures extends ResourceBag<Texture>
 {
     public Texture torso;
     public Texture floor;
+    public Texture bolt;
 
     @Override
     protected Texture load(FileRef basedir, Field field)
