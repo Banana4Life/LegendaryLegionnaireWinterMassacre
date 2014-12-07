@@ -17,7 +17,7 @@ import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
 
 public class PointEnemy extends Enemy implements CollisionSource, CollisionTarget
 {
-    private static final float SPEED = 120;
+    private static final float SPEED = 120f;
     private static final float ATTACK_RANGE = 300;
     private static final float SHOT_DELAY = 0.65f;
 
@@ -65,7 +65,7 @@ public class PointEnemy extends Enemy implements CollisionSource, CollisionTarge
         waitedFor += delta;
         if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY && path.getCount() == 2)
         {
-            shoot(new AlienProjectile(this), dx, dy, 200).move(this.getMidX(), this.getMidY());
+            shoot(new AlienProjectile(this), dx, dy).move(this.getMidX(), this.getMidY());
             waitedFor = 0;
         }
     }

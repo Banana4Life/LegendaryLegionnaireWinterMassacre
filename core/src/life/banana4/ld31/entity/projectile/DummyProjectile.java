@@ -37,4 +37,10 @@ public class DummyProjectile extends Projectile
 
         r.end();
     }
+
+    @Override
+    public float getSpeed()
+    {
+        return 400;
+    }
 }

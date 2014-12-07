@@ -61,4 +61,6 @@ public abstract class Projectile extends LivingEntity implements CollisionSource
     {
         return !(target instanceof Projectile);
     }
+
+    public abstract float getSpeed();
 }

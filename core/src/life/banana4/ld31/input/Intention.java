@@ -44,6 +44,7 @@ public final class Intention
     public static enum Type
     {
         MOVE,
+        HALT,
         PRIMARY_ATTACK,
         SECONDARY_ATTACK,
         TERTIARY_ATTACK;

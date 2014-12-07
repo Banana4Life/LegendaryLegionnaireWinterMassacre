@@ -15,6 +15,8 @@ import static java.lang.Math.abs;
 
 public class ControllerIntentionDetector implements IntentionDetector
 {
+    public static final float MINIMUM_MOVE = 0.06f;
+    private boolean movingIntended = false;
     private final Map<Integer, Intention> buttons = new HashMap<>();
 
     {
@@ -51,10 +53,16 @@ public class ControllerIntentionDetector implements IntentionDetector
         float leftX = mc.getAxis(XBox360Pad.AXIS_LEFT_X);
         float leftY = mc.getAxis(XBox360Pad.AXIS_LEFT_Y);
 
-        Vector2 moveDirection = new Vector2(leftX, leftY);
-        if (!moveDirection.equals(Vector2.Zero))
+        Vector2 dir = new Vector2(leftX, leftY);
+        if (dir.x * dir.x + dir.y * dir.y > MINIMUM_MOVE * MINIMUM_MOVE)
         {
-            intentions.add(new Intention(Type.MOVE, moveDirection));
+            intentions.add(new Intention(Type.MOVE, dir));
+            this.movingIntended = true;
+        }
+        else if (this.movingIntended)
+        {
+            intentions.add(new Intention(Type.HALT));
+            this.movingIntended = false;
         }
 
         return intentions;

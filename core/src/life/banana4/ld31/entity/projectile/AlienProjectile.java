@@ -28,4 +28,10 @@ public class AlienProjectile extends Projectile
                          0, 0, 8, 8, false, false);
         b.end();
     }
+
+    @Override
+    public float getSpeed()
+    {
+        return 500;
+    }
 }

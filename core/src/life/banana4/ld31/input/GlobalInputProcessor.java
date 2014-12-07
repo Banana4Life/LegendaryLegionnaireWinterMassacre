@@ -125,7 +125,7 @@ public class GlobalInputProcessor implements AllThemInputProcessor
     @Override
     public boolean axisMoved(Controller c, int axisCode, float value)
     {
-        if (Math.abs(value) < Player.MINIMUM_MOVE_MUL)
+        if (Math.abs(value) < ControllerIntentionDetector.MINIMUM_MOVE)
         {
             return false;
         }

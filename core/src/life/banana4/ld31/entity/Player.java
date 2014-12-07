@@ -29,8 +29,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 {
     private static final float PRIMARY_COOLDOWN = 0.9f;
     private static final float SECONDARY_COOLDOWN = 0.45f;
-    public static final float SPEED = 3.3f;
-    public static final float MINIMUM_MOVE_MUL = 0.06f;
+    public static final float SPEED = 140f;
     private boolean isMouseControlled = false;
     private float walkingAngle = 0;
 
@@ -144,13 +143,14 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             Vector2 dir = intention.getArgumentAs(Vector2.class);
             float scaleX = abs(dir.x);
             float scaleY = abs(dir.y);
-            if (dir.len2() < MINIMUM_MOVE_MUL * MINIMUM_MOVE_MUL)
-            {
-                return;
-            }
             dir.nor().scl(SPEED).scl(scaleX, scaleY);
-            move(dir.x, dir.y);
+            setVelocity(dir.x, dir.y);
+            //move(dir.x, dir.y);
             this.walkingAngle = HELPER.set(dir.scl(dir.len())).angle();
+        }
+        else if (t == Type.HALT)
+        {
+            setVelocity(0, 0);
         }
         else
         {
@@ -162,12 +162,11 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     {
                         break;
                     }
-                    Ld31Resources resources = this.getLevel().getGame().getDrawContext().resources;
                     primaryStateTime = 0;
                     Vector2 rotate = new Vector2(32, 3).rotate(this.getRotation());
                     BoltProjectile bolt = new BoltProjectile(this);
                     bolt.move(this.getMidX() + rotate.x, this.getMidY() + rotate.y);
-                    shoot(bolt, dir.x, dir.y, 250);
+                    shoot(bolt, dir.x, dir.y);
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
@@ -213,10 +212,10 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     {
                         break;
                     }
-                    for (float i = 0; i < 360; i += 5)
+                    for (float i = 0; i < 360; i += 3)
                     {
                         dir.setAngle(getRotation() + i);
-                        shoot(new DummyProjectile(this, 5, 5), dir.x, dir.y, 500).move(this.getMidX(), this.getMidY());
+                        shoot(new DummyProjectile(this, 5, 5), dir.x, dir.y).move(this.getMidX(), this.getMidY());
                     }
                     waits.put(t, 0f);
                     break;

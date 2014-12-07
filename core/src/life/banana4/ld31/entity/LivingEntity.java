@@ -30,6 +30,17 @@ public abstract class LivingEntity extends Entity
         this.vy = vy;
     }
 
+    public void setSpeed(float vx, float vy, float speed)
+    {
+        if (speed == 1)
+        {
+            setVelocity(vx, vy);
+            return;
+        }
+        float len = (float)Math.sqrt(vx * vx + vy * vy);
+        setVelocity((vx / len) * speed, (vy / len) * speed);
+    }
+
     @Override
     public void onSpawn()
     {
@@ -53,15 +64,9 @@ public abstract class LivingEntity extends Entity
     public Projectile shoot(Projectile p, float x, float y)
     {
         getLevel().addEntity(p);
-        p.setVelocity(x, y);
+        p.setSpeed(x, y, p.getSpeed());
         p.setRotation(new Vector2(x, y).angle());
         return p;
-    }
-
-    public Projectile shoot(Projectile p, float x, float y, float speed)
-    {
-        float len = (float)Math.sqrt(x * x + y * y);
-        return shoot(p, (x / len) * speed, (y / len) * speed);
     }
 
     public int getHealth()

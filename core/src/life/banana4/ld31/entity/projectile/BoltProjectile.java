@@ -41,4 +41,10 @@ public class BoltProjectile extends Projectile
             move(vx, vy);
         }
     }
+
+    @Override
+    public float getSpeed()
+    {
+        return 600;
+    }
 }
