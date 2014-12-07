@@ -2,18 +2,17 @@ package life.banana4.ld31.entity;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
+import life.banana4.ld31.Ld31Resources;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.Intention;
@@ -23,12 +22,14 @@ import static java.lang.Math.abs;
 
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget
 {
+    private static final float PRIMARY_COOLDOWN = 0.7f;
+    private static final float SECONDARY_COOLDOWN = 0.6f;
     public static final float SPEED = 3.3f;
     public static final float MINIMUM_MOVE_MUL = 0.06f;
     private boolean isMouseControlled = false;
 
-    private TextureRegion texture;
-    private float stateTime = 0;
+    private float primaryStateTime = 0;
+    private float secondaryStateTime = SECONDARY_COOLDOWN;
 
     Map<Type, Float> waits = new HashMap<>();
 
@@ -43,7 +44,12 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
-        stateTime += delta;
+        secondaryStateTime += delta;
+        if (secondaryStateTime > SECONDARY_COOLDOWN)
+        {
+            primaryStateTime += delta;
+        }
+
         for (Type type : waits.keySet())
         {
             waits.put(type, waits.get(type) + delta);
@@ -55,27 +61,20 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     {
         super.draw(ctx, delta);
 
-        if (texture == null)
-        {
-            texture = new TextureRegion(ctx.resources.textures.torso);
-        }
-        if (waits.get(Type.PRIMARY_ATTACK) <= 1f)
-        {
-            texture.setRegion(0, 128, 128, 128);
-        }
-        else
-        {
-            texture.setRegion(0, 256, 128, 128);
-        }
-
         SpriteBatch batch = ctx.getSpriteBatch();
         batch.begin();
 
         Vector2 offset = new Vector2(64, -64).rotate(getRotation() + 90);
-        batch.draw(ctx.resources.animations.legs.getKeyFrame(stateTime, true), getX() + this.getWidth() / 2 + offset.x,
-                   getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
-        batch.draw(texture, getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0,
+        batch.draw(ctx.resources.animations.legs.getKeyFrame(primaryStateTime, true), getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0,
                    128, 128, 1, 1, getRotation() + 180, true);
+        if (secondaryStateTime <= SECONDARY_COOLDOWN) {
+            batch.draw(ctx.resources.animations.charswordswing.getKeyFrame(secondaryStateTime),
+                       getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
+        } else
+        {
+            batch.draw(ctx.resources.animations.charcrossload.getKeyFrame(primaryStateTime),
+                       getX() + this.getWidth() / 2 + offset.x, getY() + this.getHeight() / 2 + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
+        }
         batch.end();
 
         ShapeRenderer r = ctx.getShapeRenderer();
@@ -108,30 +107,22 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             switch (t)
             {
                 case PRIMARY_ATTACK:
-                    if (waits.get(t) <= 1.15f)
+                    if (waits.get(t) <= PRIMARY_COOLDOWN || waits.get(Type.SECONDARY_ATTACK) <= SECONDARY_COOLDOWN)
                     {
                         break;
                     }
+                    Ld31Resources resources = this.getLevel().getGame().getDrawContext().resources;
+                    primaryStateTime = 0;
                     shoot(Projectile.bolt(this.getLevel().getGame().getDrawContext().resources.textures.bolt, this),
                           dir.x, dir.y, 600);
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
-                    if (waits.get(t) <= 2f)
+                    if (waits.get(t) <= SECONDARY_COOLDOWN)
                     {
                         break;
                     }
-                    Random random = this.getLevel().getRandom();
-                    dir.setAngle(getRotation() - (random.nextInt(8) + 13));
-                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
-                    dir.setAngle(getRotation() - (random.nextInt(8) + 5));
-                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
-                    dir.setAngle(getRotation() + (random.nextInt(11) - 5));
-                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
-                    dir.setAngle(getRotation() + (random.nextInt(8) + 5));
-                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
-                    dir.setAngle(getRotation() + (random.nextInt(8) + 13));
-                    shoot(new Projectile(this, 2, 2), dir.x, dir.y, 200);
+                    secondaryStateTime = 0;
                     waits.put(t, 0f);
                     //radius -= 15 * delta;
                     break;

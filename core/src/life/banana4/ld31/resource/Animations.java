@@ -10,6 +10,8 @@ import life.banana4.util.resourcebags.ResourceBag;
 public class Animations extends ResourceBag<Animation>
 {
     public Animation legs;
+    public Animation charcrossload;
+    public Animation charswordswing;
 
     @Override
     protected Animation load(FileRef basedir, Field field)
