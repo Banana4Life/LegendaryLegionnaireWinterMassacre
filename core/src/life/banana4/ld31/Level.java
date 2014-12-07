@@ -21,6 +21,7 @@ import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.AbilityEntity;
+import life.banana4.ld31.entity.AlienShip;
 import life.banana4.ld31.entity.BossEnemy;
 import life.banana4.ld31.entity.Cursor;
 import life.banana4.ld31.entity.Enemy;
@@ -61,6 +62,7 @@ public class Level
     private final PathSmoother<TiledNode, Vector2> smoother;
     private final IndexedAStarPathFinder<TiledNode> pathFinder;
     private final Cursor cursor;
+    private final AlienShip alienShip;
     private Player player;
 
     private final OrthographicCamera camera;
@@ -91,6 +93,7 @@ public class Level
 
         spawnPlayer();
         this.cursor = addEntity(new Cursor());
+        this.alienShip = addEntity(new AlienShip(128, 128));
     }
 
     private void spawnPlayer()

@@ -14,6 +14,7 @@ public class Textures extends ResourceBag<Texture>
     public Texture pickup1;
     public Texture cursor;
     public Texture footstep;
+    public Texture ship;
 
     @Override
     protected Texture load(FileRef basedir, Field field)
