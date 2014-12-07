@@ -179,7 +179,7 @@ public class Level
 
     private void spawnEnemies(int curEnemyCount)
     {
-        if (waveSpawn > 0)
+        if (waveSpawn > 0 && curEnemyCount < 250)
         {
             do
             {
@@ -219,7 +219,7 @@ public class Level
         ctx.getSpriteBatch();
         spriteBatch.draw(this.game.getDrawContext().resources.textures.snowman, Gdx.graphics.getWidth() / 2 - 64,
                          Gdx.graphics.getHeight() / 2 - 64);
-        bitmapFont.draw(spriteBatch, "Score: " + scoreValue + " Multiplier: " + multiplier + "x", 10, 20);
+        bitmapFont.draw(spriteBatch, "Score: " + scoreValue + " Multiplier: " + multiplier + "x  Health: " + player.getHealth() + "/" + player.getMaxHealth(), 10, 20);
         ctx.camera.setToOrtho(true);
         spriteBatch.end();
     }

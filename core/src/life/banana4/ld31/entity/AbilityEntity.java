@@ -1,10 +1,7 @@
 package life.banana4.ld31.entity;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.collision.CollisionSource;
@@ -14,13 +11,13 @@ public class AbilityEntity extends LivingEntity implements CollisionTarget
 {
     public AbilityEntity()
     {
-        super(4, 4);
+        super(31, 31);
     }
 
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
-        if (lifetime() > 3000)
+        if (lifetime() > 10000)
         {
             kill();
         }
@@ -39,6 +36,10 @@ public class AbilityEntity extends LivingEntity implements CollisionTarget
     @Override
     public void onCollide(CollisionSource source, Vector2 mtv)
     {
+        if (source instanceof Player)
+        {
+            ((Player)source).heal(25);
+        }
         kill();
     }
 

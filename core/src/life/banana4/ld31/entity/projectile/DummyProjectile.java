@@ -13,13 +13,13 @@ public class DummyProjectile extends Projectile
     public DummyProjectile(Entity shooter, float width, float height)
     {
         super(shooter, width, height);
+        this.damagePotential = 250;
     }
 
     @Override
     public void draw(DrawContext ctx, float delta)
     {
         super.draw(ctx, delta);
-
 
         ShapeRenderer r = ctx.getShapeRenderer();
 

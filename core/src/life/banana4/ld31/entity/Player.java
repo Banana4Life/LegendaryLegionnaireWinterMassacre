@@ -41,6 +41,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public Player()
     {
         super(20, 20);
+        this.setHealth(100);
         waits.put(Type.PRIMARY_ATTACK, 0f);
         waits.put(Type.SECONDARY_ATTACK, 0f);
         waits.put(Type.TERTIARY_ATTACK, 0f);
@@ -49,6 +50,12 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public float getWalkingAngle()
     {
         return walkingAngle;
+    }
+
+    @Override
+    public int getMaxHealth()
+    {
+        return 100;
     }
 
     @Override
@@ -230,12 +237,19 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         {
             move(mtv.x, mtv.y);
         }
+        else if (target instanceof Enemy)
+        {
+            this.damage(1);
+        }
     }
 
     @Override
     public void onCollide(CollisionSource source, Vector2 mtv)
     {
-
+        if (source instanceof Projectile && ((Projectile)source).getShooter() instanceof Enemy)
+        {
+            ((Projectile)source).dealDamage(this);
+        }
     }
 
     @Override
@@ -270,6 +284,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     @Override
     public boolean acceptsCollisionsFrom(CollisionSource source)
     {
-        return false;
+        return true;
     }
 }

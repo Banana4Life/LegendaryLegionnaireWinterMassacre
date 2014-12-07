@@ -26,10 +26,10 @@ public class BoltProjectile extends Projectile
         Texture tex = this.getLevel().getGame().getDrawContext().resources.textures.bolt;
         Vector2 rotate = new Vector2(-16, -6).rotate(getRotation() + 90);
         b.begin();
-        b.draw(tex, getX() + getWidth() / 2 + rotate.x,
-                         getY() + getHeight() / 2 + rotate.y, 0, 0, 32, 32, 1, 1, getRotation() + 90,
-                         0, 0, 32, 32, false, false);
+        b.draw(tex, getX() + getWidth() / 2 + rotate.x, getY() + getHeight() / 2 + rotate.y, 0, 0, 32, 32, 1, 1,
+               getRotation() + 90, 0, 0, 32, 32, false, false);
         b.end();
+        this.damagePotential = 5;
     }
 
     @Override
