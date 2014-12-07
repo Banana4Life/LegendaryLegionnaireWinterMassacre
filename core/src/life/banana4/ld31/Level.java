@@ -173,6 +173,10 @@ public class Level
         {
             t.draw(spriteBatch);
         }
+        ctx.camera.setToOrtho(false);
+        ctx.getSpriteBatch();
+        spriteBatch.draw(this.game.getDrawContext().resources.textures.snowman, Gdx.graphics.getWidth() / 2 - 64, Gdx.graphics.getHeight() / 2 - 64);
+        ctx.camera.setToOrtho(true);
         spriteBatch.end();
     }
 
