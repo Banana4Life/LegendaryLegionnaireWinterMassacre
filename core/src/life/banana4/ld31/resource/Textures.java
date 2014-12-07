@@ -13,6 +13,7 @@ public class Textures extends ResourceBag<Texture>
     public Texture alienprojectile;
     public Texture pickup1;
     public Texture cursor;
+    public Texture footstep;
 
     @Override
     protected Texture load(FileRef basedir, Field field)

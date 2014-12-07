@@ -41,6 +41,8 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     private float primaryStateTime = 0;
     private float secondaryStateTime = SECONDARY_COOLDOWN;
     private float legStateTime = 0;
+    private int lastLegState = 0;
+    private boolean lastFootLeft = false;
     private final AllThemInputProcessor inputProcessor = new PlayerInputHandler();
 
     Map<Type, Float> waits = new HashMap<>();
@@ -77,7 +79,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     @Override
     public int getMaxHealth()
     {
-        return 100;
+        return 999999999;
     }
 
     @Override
@@ -125,6 +127,22 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         {
             legStateTime = 0;
         }
+
+        Animations animations = getLevel().getGame().getDrawContext().resources.animations;
+
+        int legState = (int)(legStateTime / animations.legs.getFrameDuration());
+        legState %= animations.legs.getKeyFrames().length;
+
+
+        if (lastLegState != legState)
+        {
+            lastLegState = legState;
+            if (legState % 7 == 0)
+            {
+                getLevel().addEntity(new FootStep(lastFootLeft)).move(getMidX(), getMidY()).setRotation(getViewingAngle());
+                lastFootLeft = !lastFootLeft;
+            }
+        }
     }
 
     @Override
@@ -162,16 +180,16 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         Vector2 walkingOffset = new Vector2(64, -64).rotate(modifiedWalkingAngle + 90);
         batch.draw(animations.legs.getKeyFrame(legStateTime, true), getMidX() + walkingOffset.x,
                    getMidY() + walkingOffset.y, 0, 0, 128, 128, 1, 1, modifiedWalkingAngle + 180, true);
-        if (secondaryStateTime <= SECONDARY_COOLDOWN)
-        {
-            batch.draw(animations.charswordswing.getKeyFrame(secondaryStateTime), getMidX() + offset.x,
-                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
-        }
-        else
-        {
-            batch.draw(animations.charcrossload.getKeyFrame(primaryStateTime), getMidX() + offset.x,
-                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
-        }
+//        if (secondaryStateTime <= SECONDARY_COOLDOWN)
+//        {
+//            batch.draw(animations.charswordswing.getKeyFrame(secondaryStateTime), getMidX() + offset.x,
+//                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
+//        }
+//        else
+//        {
+//            batch.draw(animations.charcrossload.getKeyFrame(primaryStateTime), getMidX() + offset.x,
+//                       getMidY() + offset.y, 0, 0, 128, 128, 1, 1, getRotation() + 180, true);
+//        }
         batch.end();
 
         if (isDebug())
