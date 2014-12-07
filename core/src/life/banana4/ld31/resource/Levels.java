@@ -1,6 +1,7 @@
 package life.banana4.ld31.resource;
 
 import java.lang.reflect.Field;
+import java.util.Random;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
@@ -39,6 +40,7 @@ public class Levels extends ResourceBag<Level>
     @Override
     protected Level load(FileRef basedir, Field field)
     {
+        Random random = new Random(System.currentTimeMillis());
         final String id = field.getName();
         System.out.println(basedir.child(id + ".bmp").getPath());
         TextureData map = new Texture(basedir.child(id + ".bmp").getPath()).getTextureData();
@@ -58,52 +60,115 @@ public class Levels extends ResourceBag<Level>
                 switch (TileType.getType(color))
                 {
                     case WALL:
-                        level.addEntity(new Wall(TILE_WIDTH, TILE_WIDTH).move(x * TILE_WIDTH, y * TILE_WIDTH));
+                        boolean flipX = random.nextInt(2) == 1;
+                        boolean flipY = random.nextInt(2) == 1;
+                        int number = random.nextInt(10);
+                        level.addEntity(new Wall(new TextureRegion(textures.floor,
+                                                                   (flipX ? TILE_WIDTH : 0) + (number < 5 ? number < 2 ? 2 : 1 : 0)
+                                                                       * TILE_WIDTH,
+                                                                   (flipY ? TILE_WIDTH : 0) + 3 * TILE_WIDTH,
+                                                                   flipX ? -TILE_WIDTH : TILE_WIDTH,
+                                                                   flipY ? -TILE_WIDTH : TILE_WIDTH), TILE_WIDTH,
+                                                 TILE_WIDTH).move(x * TILE_WIDTH, y * TILE_WIDTH));
                         break;
                     case SNOW_TOP_LEFT:
-                    xRegion = 0; yRegion = 2; break;
+                        xRegion = 0;
+                        yRegion = 2;
+                        break;
                     case SNOW_TOP:
-                        xRegion = 1; yRegion = 2; break;
+                        if (random.nextInt(2) == 1)
+                        {
+                            xRegion = 1;
+                            yRegion = 2;
+                        }
+                        else
+                        {
+                            xRegion = 4;
+                            yRegion = 0;
+                        }
+                        break;
                     case SNOW_TOP_RIGHT:
-                        xRegion = 2; yRegion = 2; break;
+                        xRegion = 2;
+                        yRegion = 2;
+                        break;
                     case SNOW_LEFT:
-                        xRegion = 0; yRegion = 1; break;
+                        xRegion = (random.nextInt(2) == 1) ? 0 : 5;
+                        yRegion = 1;
+                        break;
                     case SNOW:
-                        xRegion = 4; yRegion = 1; break;
+                        xRegion = 4;
+                        yRegion = 1;
+                        break;
                     case SNOW_RIGHT:
-                        xRegion = 2; yRegion = 1; break;
+                        xRegion = (random.nextInt(2) == 1) ? 2 : 3;
+                        yRegion = 1;
+                        break;
                     case SNOW_BOTTOM_LEFT:
-                        xRegion = 0; yRegion = 0; break;
+                        xRegion = 0;
+                        yRegion = 0;
+                        break;
                     case SNOW_BOTTOM:
-                        xRegion = 1; yRegion = 0; break;
+                        if (random.nextInt(2) == 1)
+                        {
+                            xRegion = 1;
+                            yRegion = 0;
+                        }
+                        else
+                        {
+                            xRegion = 4;
+                            yRegion = 2;
+                        }
+                        break;
                     case SNOW_BOTTOM_RIGHT:
-                        xRegion = 2; yRegion = 0; break;
+                        xRegion = 2;
+                        yRegion = 0;
+                        break;
                     case DIRT_TOP_LEFT:
-                        xRegion = 3; yRegion = 2; break;
+                        xRegion = 3;
+                        yRegion = 2;
+                        break;
                     case DIRT_TOP:
-                        xRegion = 4; yRegion = 2; break;
+                        xRegion = 4;
+                        yRegion = 2;
+                        break;
                     case DIRT_TOP_RIGHT:
-                        xRegion = 5; yRegion = 2; break;
+                        xRegion = 5;
+                        yRegion = 2;
+                        break;
                     case DIRT_LEFT:
-                        xRegion = 3; yRegion = 1; break;
+                        xRegion = 3;
+                        yRegion = 1;
+                        break;
                     case DIRT:
-                        xRegion = 1; yRegion = 1; break;
+                        xRegion = 1;
+                        yRegion = 1;
+                        break;
                     case DIRT_RIGHT:
-                        xRegion = 5; yRegion = 1; break;
+                        xRegion = 5;
+                        yRegion = 1;
+                        break;
                     case DIRT_BOTTOM_LEFT:
-                        xRegion = 3; yRegion = 0; break;
+                        xRegion = 3;
+                        yRegion = 0;
+                        break;
                     case DIRT_BOTTOM:
-                        xRegion = 4; yRegion = 0; break;
+                        xRegion = 4;
+                        yRegion = 0;
+                        break;
                     case DIRT_BOTTOM_RIGHT:
-                        xRegion = 5; yRegion = 0; break;
+                        xRegion = 5;
+                        yRegion = 0;
+                        break;
                     case NONE:
                         System.out.println("No type for that color");
                         break;
                 }
                 if (xRegion != -1 && yRegion != -1)
                 {
-                    level.getFloor().add(new FloorTile(new TextureRegion(textures.floor, xRegion * TILE_WIDTH, yRegion * TILE_WIDTH, TILE_WIDTH,
-                                                                         TILE_WIDTH)).setPosition(new Vector2(x * TILE_WIDTH, y * TILE_WIDTH)));
+                    level.getFloor().add(new FloorTile(new TextureRegion(textures.floor, xRegion * TILE_WIDTH,
+                                                                         yRegion * TILE_WIDTH, TILE_WIDTH,
+                                                                         TILE_WIDTH)).setPosition(new Vector2(
+                        x * TILE_WIDTH, y * TILE_WIDTH)));
                 }
             }
         }
