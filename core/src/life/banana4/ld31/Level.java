@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.PathSmoother;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -61,6 +62,8 @@ public class Level
 
     private boolean debug = true; // TODO debug
     private Random random = new Random();
+    private int scoreValue = 0;
+    private BitmapFont bitmapFont = new BitmapFont();
 
     public Level(int width, int height, TiledGraph tiledGraph)
     {
@@ -175,7 +178,9 @@ public class Level
         }
         ctx.camera.setToOrtho(false);
         ctx.getSpriteBatch();
-        spriteBatch.draw(this.game.getDrawContext().resources.textures.snowman, Gdx.graphics.getWidth() / 2 - 64, Gdx.graphics.getHeight() / 2 - 64);
+        spriteBatch.draw(this.game.getDrawContext().resources.textures.snowman, Gdx.graphics.getWidth() / 2 - 64,
+                         Gdx.graphics.getHeight() / 2 - 64);
+        bitmapFont.draw(spriteBatch, "Score: " + scoreValue, 10, 20);
         ctx.camera.setToOrtho(true);
         spriteBatch.end();
     }
@@ -312,5 +317,10 @@ public class Level
     public Random getRandom()
     {
         return random;
+    }
+
+    public void addScore(int scoreValue)
+    {
+        this.scoreValue += scoreValue;
     }
 }
