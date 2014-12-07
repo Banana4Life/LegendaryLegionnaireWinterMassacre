@@ -139,8 +139,17 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             lastLegState = legState;
             if (legState % 7 == 0)
             {
-                getLevel().addEntity(new FootStep(lastFootLeft)).move(getMidX(), getMidY()).setRotation(getViewingAngle());
-                lastFootLeft = !lastFootLeft;
+                if (legStateTime == 0)
+                {
+                    getLevel().addEntity(new FootStep(true)).move(getMidX(), getMidY()).setRotation(getViewingAngle());
+                    getLevel().addEntity(new FootStep(false)).move(getMidX(), getMidY()).setRotation(getViewingAngle());
+                    lastFootLeft = false;
+                }
+                else
+                {
+                    getLevel().addEntity(new FootStep(lastFootLeft)).move(getMidX(), getMidY()).setRotation(getViewingAngle());
+                    lastFootLeft = !lastFootLeft;
+                }
             }
         }
     }
