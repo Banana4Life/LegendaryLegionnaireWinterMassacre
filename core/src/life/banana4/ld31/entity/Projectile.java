@@ -59,7 +59,7 @@ public abstract class Projectile extends LivingEntity implements CollisionSource
     @Override
     public boolean mayCollideWith(CollisionTarget target)
     {
-        return !(target instanceof Projectile);
+        return !(target instanceof Projectile) && this.vx != 0 && this.vy != 0;
     }
 
     public abstract float getSpeed();
