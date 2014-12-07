@@ -114,7 +114,7 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
             switch (t)
             {
                 case PRIMARY_ATTACK:
-                    if (waits.get(t) <= 0f)
+                    if (waits.get(t) <= 1.15f)
                     {
                         break;
                     }

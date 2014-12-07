@@ -85,6 +85,6 @@ public class Projectile extends MovingEntity implements CollisionSource
 
     public static Projectile of(Texture texture, Entity shooter)
     {
-        return new Projectile(4, 20, shooter, texture);
+        return new Projectile(4, 4, shooter, texture);
     }
 }
