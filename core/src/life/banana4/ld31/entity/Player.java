@@ -114,11 +114,11 @@ public class Player extends MovingEntity implements CollisionSource, CollisionTa
             switch (t)
             {
                 case PRIMARY_ATTACK:
-                    if (waits.get(t) <= 1f)
+                    if (waits.get(t) <= 0f)
                     {
                         break;
                     }
-                    shoot(new Projectile(this, 3, 3), dir.x, dir.y, 600);
+                    shoot(Projectile.of(this.getLevel().getGame().getDrawContext().resources.textures.bolt, this), dir.x, dir.y, 600);
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
