@@ -12,9 +12,10 @@ import life.banana4.ld31.input.InputMultiplexer;
 
 public class Ld31 extends ApplicationAdapter
 {
+    private static boolean DEBUG = System.getProperties().contains("debug");
+
     private Level level;
     private DrawContext drawContext;
-
     private Ld31Resources ld31Resources;
 
     @Override
@@ -48,5 +49,9 @@ public class Ld31 extends ApplicationAdapter
     public DrawContext getDrawContext()
     {
         return drawContext;
+    }
+
+    public static boolean isDebug() {
+        return DEBUG;
     }
 }

@@ -19,6 +19,7 @@ import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
 
 import static java.lang.Math.abs;
+import static life.banana4.ld31.Ld31.isDebug;
 
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget
 {
@@ -77,12 +78,15 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         }
         batch.end();
 
-        ShapeRenderer r = ctx.getShapeRenderer();
-        r.begin(ShapeType.Line);
-        r.setColor(Color.CYAN);
-        Vector2 line = new Vector2(100, 0).setAngle(getRotation()).scl(100);
-        r.line(getMidX(), getMidY(), getMidX() + line.x, getMidY() + line.y);
-        r.end();
+        if (isDebug())
+        {
+            ShapeRenderer r = ctx.getShapeRenderer();
+            r.begin(ShapeType.Line);
+            r.setColor(Color.CYAN);
+            Vector2 line = new Vector2(100, 0).setAngle(getRotation()).scl(100);
+            r.line(getMidX(), getMidY(), getMidX() + line.x, getMidY() + line.y);
+            r.end();
+        }
     }
 
     @Override

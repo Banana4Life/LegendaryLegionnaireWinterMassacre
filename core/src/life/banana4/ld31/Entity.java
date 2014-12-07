@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import life.banana4.ld31.input.Intention;
 
+import static life.banana4.ld31.Ld31.isDebug;
+
 public abstract class Entity
 {
     private static final AtomicInteger COUNTER = new AtomicInteger(0);
@@ -113,7 +115,7 @@ public abstract class Entity
 
     public void draw(DrawContext ctx, float delta)
     {
-        if (this.getLevel().isDebug())
+        if (isDebug())
         {
             ShapeRenderer shapeRenderer = ctx.getShapeRenderer();
             shapeRenderer.begin(ShapeType.Line);

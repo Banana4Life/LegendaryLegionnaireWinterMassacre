@@ -60,7 +60,6 @@ public class Level
 
     Ld31 game;
 
-    private boolean debug = true; // TODO debug
     private Random random = new Random();
     private int scoreValue = 0;
     private BitmapFont bitmapFont = new BitmapFont();
@@ -381,11 +380,6 @@ public class Level
     public TiledNode nodeAt(float x, float y)
     {
         return this.tiledGraph.getNode((int)(x / TILE_WIDTH), (int)(y / TILE_WIDTH));
-    }
-
-    public boolean isDebug()
-    {
-        return debug;
     }
 
     public Ld31 getGame()
