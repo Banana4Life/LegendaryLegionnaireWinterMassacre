@@ -3,6 +3,7 @@ package life.banana4.ld31.entity;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -55,6 +56,8 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 
     Map<Type, Float> waits = new HashMap<>();
     private float stamina = 0f;
+    private long fireballoutId = -1;
+    private boolean fireballStarted = false;
 
     public Player()
     {
@@ -210,6 +213,30 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                 }
             }
         }
+
+        Sound fireballout = getLevel().getGame().getDrawContext().resources.sounds.fireballout;
+        if (fireballoutId != -1)
+        {
+            int fireProjectiles = 0;
+            for (final Entity entity : getLevel().getEntities())
+            {
+                if (entity instanceof FireProjectile)
+                {
+                    fireProjectiles++;
+                }
+            }
+            System.out.println(fireProjectiles);
+            if (fireProjectiles == 0 && !fireballStarted)
+            {
+                fireballStarted = true;
+            }
+            else if (fireProjectiles == 0 && fireballStarted)
+            {
+                fireballout.stop(fireballoutId);
+                fireballoutId = -1;
+                fireballStarted = false;
+            }
+        }
     }
 
     @Override
@@ -363,6 +390,9 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     this.addBombs(-1);
                     getLevel().getGame().shakeScreen(1, 1, 2f, 200);
                     waits.put(t, 0f);
+                    getLevel().getGame().getDrawContext().resources.sounds.fireballin.play(.1f);
+                    this.fireballoutId = getLevel().getGame().getDrawContext().resources.sounds.fireballout.play(.1f);
+                    System.out.println(fireballoutId);
                     break;
             }
         }
@@ -405,11 +435,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         return true;
     }
 
-    public int getBombs()
-    {
-        return bombs;
-    }
-
     public void addBombs(int bombs)
     {
         this.bombs += bombs;
@@ -427,6 +452,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             x = y = .5f;
         }
         getLevel().getGame().shakeScreen(x, y, .1f, 100 * (1 + (damageDealt/10f)));
+        getLevel().getGame().getDrawContext().resources.sounds.legionhit.play(.2f);
     }
 
     private final class PlayerInputHandler extends AllThemInputAdapter

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.LivingEntity;
-import life.banana4.ld31.entity.projectile.Projectile;
 import life.banana4.ld31.util.TileType;
 
 public class Unicorn extends Enemy
@@ -63,6 +62,7 @@ public class Unicorn extends Enemy
                 this.getLevel().addEntity(new EnemyWalker().move(getX(), getY()));
             }
         }
+        getLevel().getGame().getDrawContext().resources.sounds.unicorndeath.play();
     }
 
     @Override

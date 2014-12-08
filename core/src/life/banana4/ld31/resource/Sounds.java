@@ -16,6 +16,10 @@ public class Sounds extends ResourceBag<Sound>
     public Sound rocketdeath;
     public Sound swordswing;
     public Sound crossbow;
+    public Sound fireballin;
+    public Sound fireballout;
+    public Sound legionhit;
+    public Sound unicorndeath;
 
     @Override
     protected Sound load(FileRef basedir, Field field)
