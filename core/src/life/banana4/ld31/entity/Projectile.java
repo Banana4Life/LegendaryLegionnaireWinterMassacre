@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
+import life.banana4.ld31.entity.projectile.Bolt;
+import life.banana4.ld31.entity.projectile.ShipLaser;
 
 public abstract class Projectile extends LivingEntity implements CollisionSource
 {
@@ -54,7 +56,7 @@ public abstract class Projectile extends LivingEntity implements CollisionSource
     @Override
     public boolean mayCollideWith(CollisionTarget target)
     {
-        return !(target instanceof Projectile) && this.vx != 0 && this.vy != 0;
+        return !(target instanceof Projectile && !(target instanceof ShipLaser)) && this.vx != 0 && this.vy != 0;
     }
 
     public abstract float getSpeed();

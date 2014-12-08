@@ -70,8 +70,7 @@ public class AlienShip extends LivingEntity implements CollisionTarget
                 if (waitedSpawn >= SPAWN_DELAY)
                 {
                     waitedSpawn = 0;
-                    PointEnemy e = getLevel().addEntity(new PointEnemy(0));
-                    e.move(getMidX(), getMidY());
+                    getLevel().addEntity(new PointEnemy(0).move(getMidX(), getMidY()));
 
                 }
                 if (waitedRocket >= ROCKET_DELAY)

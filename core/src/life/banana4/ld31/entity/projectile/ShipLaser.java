@@ -7,19 +7,20 @@ import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.AlienShip;
+import life.banana4.ld31.entity.LivingEntity;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.Projectile;
 import life.banana4.ld31.entity.Snowman;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 
-public class ShipLaser extends Projectile implements CollisionSource
+public class ShipLaser extends Projectile implements CollisionTarget
 {
     private Entity target;
 
     public ShipLaser(AlienShip ship, Entity target)
     {
-        super(ship, 100, 10, 10);
+        super(ship, 30, 10, 10);
         this.target = target;
     }
 
@@ -30,7 +31,7 @@ public class ShipLaser extends Projectile implements CollisionSource
 
         SpriteBatch batch = ctx.getSpriteBatch();
         Texture tex = this.getLevel().getGame().getDrawContext().resources.textures.shipprojectile;
-        Vector2 rotate = new Vector2(-24, -8).rotate(getViewingAngle() + 90);
+        Vector2 rotate = new Vector2(-9, -8).rotate(getViewingAngle() + 90);
         batch.begin();
         batch.draw(tex, getX() + getWidth() / 2 + rotate.x, getY() + getHeight() / 2 + rotate.y, 0, 0, 16, 48, 1, 1,
                    getViewingAngle() + 90, 0, 0, 16, 48, false, false);
@@ -66,7 +67,22 @@ public class ShipLaser extends Projectile implements CollisionSource
         }
         if (target instanceof Player)
         {
-            kill();
+            dealDamage((Player)target);
         }
+    }
+
+    @Override
+    public void onCollide(CollisionSource source, Vector2 mtv)
+    {
+        if (source instanceof Bolt)
+        {
+            this.kill();
+        }
+    }
+
+    @Override
+    public boolean acceptsCollisionsFrom(CollisionSource source)
+    {
+        return source instanceof Bolt;
     }
 }
