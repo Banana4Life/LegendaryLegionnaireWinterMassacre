@@ -54,6 +54,10 @@ public class Cursor extends Entity
 
         lastX = x;
         lastY = y;
+
+        System.out.println("Cursor:          "  + getX() + " - " + getY());
+        System.out.println("Cursor (actual): "  + actualX + " - " + actualY);
+        System.out.println("Cursor (screen): "  + x + " - " + y);
     }
 
     private static int between(int a, int min, int max)

@@ -115,4 +115,11 @@ public abstract class LivingEntity extends Entity
     {
         return viewingAngle;
     }
+
+    @Override
+    public void onOutsideWorld()
+    {
+        super.onOutsideWorld();
+        kill();
+    }
 }

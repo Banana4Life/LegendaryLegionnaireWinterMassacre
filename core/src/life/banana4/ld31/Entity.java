@@ -99,7 +99,6 @@ public abstract class Entity
 
     public void onOutsideWorld()
     {
-        kill();
     }
 
     public float getX()
