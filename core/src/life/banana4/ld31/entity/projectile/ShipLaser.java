@@ -8,6 +8,7 @@ import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.AlienShip;
 import life.banana4.ld31.entity.LivingEntity;
+import life.banana4.ld31.entity.Particle;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.Projectile;
 import life.banana4.ld31.entity.Snowman;
@@ -68,6 +69,8 @@ public class ShipLaser extends Projectile implements CollisionTarget
         if (target instanceof Player)
         {
             dealDamage((Player)target);
+            getLevel().addEntity(new Particle(
+                getLevel().getGame().getDrawContext().resources.particles.rocketexplosion).move(getMidX(), getMidY()));
         }
     }
 
