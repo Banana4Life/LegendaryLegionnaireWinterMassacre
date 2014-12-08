@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity.projectile;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -13,6 +14,17 @@ public class AlienLaser extends Projectile
     {
         super(shooter, 8, 8);
         this.damagePotential = 1;
+    }
+
+    @Override
+    public void update(OrthographicCamera camera, float delta)
+    {
+        super.update(camera, delta);
+
+        if (lifetime() > 650)
+        {
+            kill();
+        }
     }
 
     @Override
