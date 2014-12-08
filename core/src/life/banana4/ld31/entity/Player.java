@@ -117,7 +117,10 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         }
         else
         {
-            stamina -= delta / 3;
+            if (secondaryStateTime > SECONDARY_COOLDOWN) // not during swordswing
+            {
+                stamina -= delta / 2;
+            }
             if (stamina < 0)
             {
                 stamina = 0;
