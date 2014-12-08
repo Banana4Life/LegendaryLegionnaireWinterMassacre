@@ -14,6 +14,11 @@ public class PointEnemy extends Enemy
         super(25, 25);
     }
 
+    public PointEnemy(float damageDelay)
+    {
+        super(25, 25, damageDelay);
+    }
+
     @Override
     public void update(OrthographicCamera camera, float delta)
     {

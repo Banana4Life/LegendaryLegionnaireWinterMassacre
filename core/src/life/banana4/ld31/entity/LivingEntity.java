@@ -65,7 +65,7 @@ public abstract class LivingEntity extends Entity
         }
     }
 
-    public Projectile shoot(Projectile p, float x, float y)
+    public <T extends Projectile> T shoot(T p, float x, float y)
     {
         getLevel().addEntity(p);
         p.setSpeed(x, y, p.getSpeed());

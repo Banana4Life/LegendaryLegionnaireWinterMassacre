@@ -45,6 +45,7 @@ import static life.banana4.ld31.resource.LevelLoader.TILE_WIDTH_2;
 
 public class Level
 {
+    private static final int MAX_WAVE = 2;
     private static final DepthComparator BY_DEPTH_ORDER = new DepthComparator();
     public static final int SPAWN_DISTANCE = 400;
     private final List<Entity> entities;
@@ -153,6 +154,11 @@ public class Level
             spawnAbility(delta);
         }
 
+        if (waveNumber == MAX_WAVE)
+        {
+            this.alienShip.startEndFight();
+        }
+
         draw(ctx);
         // spawn queued
         this.entities.addAll(this.spawnQueue);
@@ -228,17 +234,18 @@ public class Level
     }
 
     private int waveSpawn = 1;
-
-    private int waveCount = 0;
-
+    private int waveNumber = 0;
 
     private void spawnEnemies(int curEnemyCount)
     {
-        //if (true) return;
+        if (waveNumber == MAX_WAVE)
+        {
+            return;
+        }
         if (waveSpawn > 0 && curEnemyCount < 250)
         {
             Enemy enemy;
-            int bossChance = 50 - waveCount;
+            int bossChance = MAX_WAVE - waveNumber;
             if (bossChance <= 1)
             {
                 bossChance = 1;
@@ -275,8 +282,8 @@ public class Level
         }
         if (curEnemyCount == 0)
         {
-            waveSpawn = 1 + random.nextInt(waveCount + 1) + waveCount / 2;
-            waveCount++;
+            waveSpawn = 1 + random.nextInt(waveNumber + 1) + waveNumber / 2;
+            waveNumber++;
         }
     }
 
@@ -296,7 +303,7 @@ public class Level
 
         String t = "Score: " + scoreValue;
         t += "  Multiplier: " + multiplier + "x";
-        t += "  Wave " + waveCount + "/50";
+        t += "  Wave " + waveNumber + "/" + MAX_WAVE;
         spriteBatch.setProjectionMatrix(this.uiCamera.combined);
         bitmapFont.draw(spriteBatch, t, 10, 20);
 

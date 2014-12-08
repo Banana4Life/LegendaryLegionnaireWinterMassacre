@@ -41,7 +41,8 @@ public class ShipLaser extends Projectile implements CollisionSource
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);
-        this.setSpeed(target.getMidX() - getMidX(), target.getMidY() - getMidY(), getSpeed());
+        float speed = (float)Math.sqrt(vx * vx + vy * vy);
+        this.setSpeed(target.getMidX() - getMidX(), target.getMidY() - getMidY(), speed);
     }
 
     @Override
