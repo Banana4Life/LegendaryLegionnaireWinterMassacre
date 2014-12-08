@@ -9,9 +9,9 @@ import life.banana4.ld31.entity.Projectile;
 import life.banana4.ld31.entity.Wall;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 
-public class BoltProjectile extends Projectile
+public class Bolt extends Projectile
 {
-    public BoltProjectile(Entity shooter)
+    public Bolt(Entity shooter)
     {
         super(shooter, 4, 4);
     }

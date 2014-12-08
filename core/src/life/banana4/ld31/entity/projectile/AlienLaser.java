@@ -7,9 +7,9 @@ import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.Projectile;
 
-public class AlienProjectile extends Projectile
+public class AlienLaser extends Projectile
 {
-    public AlienProjectile(Entity shooter)
+    public AlienLaser(Entity shooter)
     {
         super(shooter, 8, 8);
         this.damagePotential = 1;

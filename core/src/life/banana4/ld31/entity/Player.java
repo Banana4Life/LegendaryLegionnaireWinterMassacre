@@ -14,7 +14,7 @@ import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
-import life.banana4.ld31.entity.projectile.BoltProjectile;
+import life.banana4.ld31.entity.projectile.Bolt;
 import life.banana4.ld31.entity.projectile.DummyProjectile;
 import life.banana4.ld31.input.AllThemInputAdapter;
 import life.banana4.ld31.input.AllThemInputProcessor;
@@ -272,7 +272,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     }
                     primaryStateTime = 0;
                     Vector2 rotate = new Vector2(32, 3).rotate(this.getRotation());
-                    BoltProjectile bolt = new BoltProjectile(this);
+                    Bolt bolt = new Bolt(this);
                     bolt.move(this.getMidX() + rotate.x, this.getMidY() + rotate.y);
                     shoot(bolt, dir.x, dir.y);
                     waits.put(t, 0f);

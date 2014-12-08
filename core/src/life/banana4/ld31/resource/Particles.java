@@ -7,25 +7,16 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import life.banana4.util.resourcebags.FileRef;
 import life.banana4.util.resourcebags.ResourceBag;
 
-public class Particles extends ResourceBag<ParticleEffect>
+public class Particles extends ResourceBag<ParticleEffectPool>
 {
-    public ParticleEffect explosion;
-
-    public ParticleEffectPool explosionPool;
+    public ParticleEffectPool explosion;
 
     @Override
-    protected ParticleEffect load(FileRef basedir, Field field)
+    protected ParticleEffectPool load(FileRef basedir, Field field)
     {
         ParticleEffect effect = new ParticleEffect();
         effect.load(Gdx.files.internal(fieldToFileRef(field, basedir).getPath() + ".p"), Gdx.files.internal(
             "particles"));
-        return effect;
-    }
-
-    @Override
-    public void build()
-    {
-        super.build();
-        explosionPool = new ParticleEffectPool(explosion, 0, 250);
+        return new ParticleEffectPool(effect, 0, 250);
     }
 }

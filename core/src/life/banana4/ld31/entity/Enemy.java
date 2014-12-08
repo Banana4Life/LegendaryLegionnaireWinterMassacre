@@ -6,7 +6,7 @@ import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
-import life.banana4.ld31.entity.projectile.AlienProjectile;
+import life.banana4.ld31.entity.projectile.AlienLaser;
 
 import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
 import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
@@ -66,7 +66,7 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
         waitedFor += delta;
         if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY && path.getCount() == 2)
         {
-            shoot(new AlienProjectile(this), dx, dy).move(this.getMidX(), this.getMidY());
+            shoot(new AlienLaser(this), dx, dy).move(this.getMidX(), this.getMidY());
             waitedFor = 0;
         }
     }
@@ -75,7 +75,7 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     public void onDeath()
     {
         getLevel().addEntity(new Particle(
-            getLevel().getGame().getDrawContext().resources.particles.explosionPool.obtain()).move(getX(), getY()));
+            getLevel().getGame().getDrawContext().resources.particles.explosion.obtain()).move(getX(), getY()));
         this.getLevel().addScore(getPoints());
     }
 

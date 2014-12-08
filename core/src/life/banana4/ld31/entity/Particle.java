@@ -29,7 +29,7 @@ public class Particle extends Entity
         if (effect.isComplete())
         {
             kill();
-            this.getLevel().getGame().getDrawContext().resources.particles.explosionPool.free(effect);
+            this.getLevel().getGame().getDrawContext().resources.particles.explosion.free(effect);
         }
     }
 
