@@ -145,7 +145,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             }
             for (Entity entity : this.getLevel().getEntities())
             {
-                if (entity instanceof Enemy)
+                if (entity instanceof Enemy || entity instanceof ShipLaser)
                 {
                     float vX = entity.getMidX() - this.getMidX();
                     float vY = entity.getMidY() - this.getMidY();
@@ -155,12 +155,12 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                         float angle = tmp.angle();
                         if (min < angle && max > angle)
                         {
-                            ((Enemy)entity).damage(5);
+                            ((LivingEntity)entity).damage(5);
                         }
                     }
                     else if (vX * vX + vY * vY <= 24 * 24)
                     {
-                        ((Enemy)entity).damage(5);
+                        ((LivingEntity)entity).damage(5);
                     }
                 }
             }
