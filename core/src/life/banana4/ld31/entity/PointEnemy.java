@@ -27,6 +27,14 @@ public class PointEnemy extends Enemy
     }
 
     @Override
+    public void onDeath()
+    {
+        super.onDeath();
+
+        getLevel().getGame().getDrawContext().resources.sounds.aliendeath.play();
+    }
+
+    @Override
     public void draw(DrawContext ctx, float delta)
     {
         super.draw(ctx, delta);
