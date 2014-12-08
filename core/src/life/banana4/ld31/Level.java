@@ -145,8 +145,11 @@ public class Level
                 enemyCount++;
             }
         }
-        spawnEnemies(enemyCount);
-        spawnAbility(delta);
+        if (!this.player.isDead())
+        {
+            spawnEnemies(enemyCount);
+            spawnAbility(delta);
+        }
 
         draw(ctx);
         // spawn queued

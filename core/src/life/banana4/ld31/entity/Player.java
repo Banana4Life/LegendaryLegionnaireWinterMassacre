@@ -70,6 +70,14 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     {
         super.onDeath();
         getLevel().getGame().getInputMultiplexer().remove(inputProcessor);
+
+        for (final Entity entity : getLevel().getEntities())
+        {
+            if (entity instanceof Enemy || entity instanceof Projectile)
+            {
+                entity.kill();
+            }
+        }
     }
 
     public float getWalkingAngle()
