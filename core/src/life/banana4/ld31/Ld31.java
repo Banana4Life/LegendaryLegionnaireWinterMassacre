@@ -82,6 +82,10 @@ public class Ld31 extends ApplicationAdapter
 
     public void reset()
     {
+        if (level != null)
+        {
+            level.shutdown();
+        }
         this.level = null;
     }
 }

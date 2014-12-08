@@ -481,6 +481,14 @@ public class Level
         return cursor;
     }
 
+    public void shutdown()
+    {
+        for (final Entity entity : entities)
+        {
+            entity.kill();
+        }
+    }
+
     private static final class DepthComparator implements Comparator<Entity>
     {
         @Override
