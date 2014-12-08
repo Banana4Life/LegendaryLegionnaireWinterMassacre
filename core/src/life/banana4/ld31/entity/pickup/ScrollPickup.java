@@ -12,9 +12,7 @@ public class ScrollPickup extends Pickup
     {
         if (source instanceof Player)
         {
-            ((Player)source).heal(25);
-            getLevel().addEntity(new Particle(
-                getLevel().getGame().getDrawContext().resources.particles.heal).move(((Player)source).getMidX(), ((Player)source).getMidY()));
+            ((Player)source).addBombs(1);
         }
         kill();
     }
@@ -23,6 +21,6 @@ public class ScrollPickup extends Pickup
     public void onSpawn()
     {
         super.onSpawn();
-        texture = getLevel().getGame().getDrawContext().resources.textures.pickup1;
+        texture = getLevel().getGame().getDrawContext().resources.textures.pickup2;
     }
 }
