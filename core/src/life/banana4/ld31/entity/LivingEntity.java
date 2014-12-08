@@ -89,16 +89,16 @@ public abstract class LivingEntity extends Entity
         return 1;
     }
 
-    public int damage(int damage)
+    public int damage(int damage, LivingEntity e)
     {
         int newHealth = Math.max(0, getHealth() - damage);
         int damageDealt = getHealth() - newHealth;
         setHealth(newHealth);
-        this.onDamage(damageDealt);
+        this.onDamage(damageDealt, e);
         return damageDealt;
     }
 
-    public void onDamage(int damageDealt)
+    public void onDamage(int damageDealt, LivingEntity e)
     {}
 
     public void heal(int health)

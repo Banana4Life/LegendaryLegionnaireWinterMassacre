@@ -125,7 +125,7 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
 
     public void melee(LivingEntity target)
     {
-        target.damage(1);
+        target.damage(1, this);
         melee = 0.5f;
     }
 
@@ -142,12 +142,12 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     }
 
     @Override
-    public int damage(int damage)
+    public int damage(int damage, LivingEntity e)
     {
         if (damageDelay < 0)
         {
             damageDelay = Player.SECONDARY_COOLDOWN;
-            return super.damage(damage);
+            return super.damage(damage, e);
         }
         return 0;
     }

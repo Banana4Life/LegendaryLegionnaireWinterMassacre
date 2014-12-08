@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.LivingEntity;
+import life.banana4.ld31.entity.projectile.Projectile;
 import life.banana4.ld31.util.TileType;
 
 public class Unicorn extends Enemy
@@ -68,7 +69,7 @@ public class Unicorn extends Enemy
     public void melee(LivingEntity target)
     {
         super.melee(target);
-        target.damage(4);
+        target.damage(4, this);
     }
 
     @Override
@@ -78,9 +79,9 @@ public class Unicorn extends Enemy
     }
 
     @Override
-    public int damage(int damage)
+    public int damage(int damage, LivingEntity e)
     {
         this.damaged = true;
-        return super.damage(damage);
+        return super.damage(damage, e);
     }
 }

@@ -46,7 +46,7 @@ public abstract class Projectile extends LivingEntity implements CollisionSource
 
     public void dealDamage(LivingEntity e)
     {
-        this.damagePotential -= e.damage(this.damagePotential);
+        this.damagePotential -= e.damage(this.damagePotential, this);
         if (this.damagePotential <= 0)
         {
             kill();

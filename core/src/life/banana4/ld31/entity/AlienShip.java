@@ -175,9 +175,9 @@ public class AlienShip extends LivingEntity implements CollisionTarget
     }
 
     @Override
-    public int damage(int damage)
+    public int damage(int damage, LivingEntity e)
     {
         this.damaged = true;
-        return super.damage(damage);
+        return super.damage(damage, e);
     }
 }

@@ -159,12 +159,12 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                         float angle = tmp.angle();
                         if (min < angle && max > angle)
                         {
-                            ((LivingEntity)entity).damage(8);
+                            ((LivingEntity)entity).damage(8, this);
                         }
                     }
                     else if (vX * vX + vY * vY <= 24 * 24)
                     {
-                        ((LivingEntity)entity).damage(8);
+                        ((LivingEntity)entity).damage(8, this);
                     }
                 }
             }
@@ -333,6 +333,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     Bolt bolt = new Bolt(this);
                     bolt.move(this.getMidX() + rotate.x, this.getMidY() + rotate.y);
                     shoot(bolt, dir.x, dir.y);
+                    getLevel().getGame().shakeScreen(-dir.x, -dir.y, .1f, 200);
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
@@ -348,7 +349,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     //radius -= 15 * delta;
                     break;
                 case TERTIARY_ATTACK:
-                    if (waits.get(t) <= TERTIARY_COOLDOWN || bombs <= 0)
+                    if (waits.get(t) <= TERTIARY_COOLDOWN || (bombs <= 0 && !isDebug()))
                     {
                         break;
                     }
@@ -359,6 +360,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                         shoot(new FireProjectile(this, 5, 5, getLevel().getGame().getDrawContext().resources.particles.fire), dir.x, dir.y).move(this.getMidX() + random.nextInt(20) - 10, this.getMidY() + random.nextInt(20) - 10);
                     }
                     this.addBombs(-1);
+                    getLevel().getGame().shakeScreen(1, 1, 2f, 200);
                     waits.put(t, 0f);
                     break;
             }
@@ -413,17 +415,17 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     }
 
     @Override
-    public void onDamage(int damageDealt)
+    public void onDamage(int damageDealt, LivingEntity e)
     {
-        super.onDamage(damageDealt);
+        super.onDamage(damageDealt, e);
 
-        float x = -vx;
-        float y = -vy;
+        float x = -e.vx;
+        float y = -e.vy;
         if (x + y == 0)
         {
             x = y = .5f;
         }
-        getLevel().getGame().shakeScreen(x, y, .1f, 100 * damageDealt);
+        getLevel().getGame().shakeScreen(x, y, .1f, 100 * (1 + (damageDealt/10f)));
     }
 
     private final class PlayerInputHandler extends AllThemInputAdapter
