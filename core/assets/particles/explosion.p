@@ -132,4 +132,4 @@ additive: false
 behind: false
 premultipliedAlpha: false
 - Image Path -
-C:\Users\Jonas\git\gamedev\LD31\core\assets\particles\particle.png
+C:\Users\Jonas\git\gamedev\LD31\core\assets\particles\particle1.png
