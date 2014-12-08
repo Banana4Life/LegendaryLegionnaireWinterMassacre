@@ -9,12 +9,12 @@ import life.banana4.ld31.entity.projectile.ShipLaser;
 
 public class AlienShip extends LivingEntity
 {
-
     private static final float SCALE = 2;
     private static final float ANGULAR_VELOCITY = 16;
     private final Snowman snowman;
 
     private boolean laserShot = false;
+    private boolean passed = false;
 
     public AlienShip(Snowman snowman)
     {
@@ -23,6 +23,11 @@ public class AlienShip extends LivingEntity
         setDepth(200);
         setPosition(-getWidth(), 25);
         setVelocity(180, 0);
+    }
+
+    public boolean hasPassed()
+    {
+        return passed;
     }
 
     @Override
@@ -61,7 +66,8 @@ public class AlienShip extends LivingEntity
     {
         if (getX() > 0)
         {
-            super.onOutsideWorld();
+            this.passed = true;
+            setVelocity(0, 0);
         }
     }
 }

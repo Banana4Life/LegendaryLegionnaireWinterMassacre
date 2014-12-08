@@ -34,6 +34,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 {
     public static final float PRIMARY_COOLDOWN = 0.9f;
     public static final float SECONDARY_COOLDOWN = 0.45f;
+    public static final float TERTIARY_COOLDOWN = 2f;
     public static final float SPEED = 180f;
     public static final float SECONDARY_RADIUS = 72f;
     private boolean isMouseControlled = false;
@@ -48,6 +49,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     private int lastLegState = 0;
     private boolean lastFootLeft = false;
     private final AllThemInputProcessor inputProcessor = new PlayerInputHandler();
+    private int bombs = 0;
 
     Map<Type, Float> waits = new HashMap<>();
     private float sprintTime = 0f;
@@ -56,9 +58,9 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     {
         super(20, 20);
         setDepth(100);
-        waits.put(Type.PRIMARY_ATTACK, 0f);
-        waits.put(Type.SECONDARY_ATTACK, 0f);
-        waits.put(Type.TERTIARY_ATTACK, 0f);
+        waits.put(Type.PRIMARY_ATTACK, PRIMARY_COOLDOWN);
+        waits.put(Type.SECONDARY_ATTACK, SECONDARY_COOLDOWN);
+        waits.put(Type.TERTIARY_ATTACK, TERTIARY_COOLDOWN);
     }
 
     @Override
@@ -335,7 +337,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     //radius -= 15 * delta;
                     break;
                 case TERTIARY_ATTACK:
-                    if (waits.get(t) <= 10f)
+                    if (waits.get(t) <= TERTIARY_COOLDOWN || bombs <= 0)
                     {
                         break;
                     }
@@ -386,6 +388,16 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     public boolean acceptsCollisionsFrom(CollisionSource source)
     {
         return true;
+    }
+
+    public int getBombs()
+    {
+        return bombs;
+    }
+
+    public void addBombs(int bombs)
+    {
+        this.bombs += bombs;
     }
 
     private final class PlayerInputHandler extends AllThemInputAdapter

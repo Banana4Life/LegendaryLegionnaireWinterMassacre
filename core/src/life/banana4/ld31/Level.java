@@ -145,7 +145,7 @@ public class Level
                 enemyCount++;
             }
         }
-        if (!this.player.isDead() && alienShip.isDead())
+        if (!this.player.isDead() && alienShip.hasPassed())
         {
             spawnEnemies(enemyCount);
             spawnAbility(delta);
@@ -427,7 +427,7 @@ public class Level
 
     private Set<Intention> scanIntentions()
     {
-        if (!alienShip.isDead())
+        if (!alienShip.hasPassed())
         {
             return NO_INTENTIONS;
         }
