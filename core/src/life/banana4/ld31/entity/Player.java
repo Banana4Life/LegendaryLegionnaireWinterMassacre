@@ -54,7 +54,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     private int bombs = 0;
 
     Map<Type, Float> waits = new HashMap<>();
-    private float sprintTime = 0f;
+    private float stamina = 0f;
 
     public Player()
     {
@@ -99,28 +99,28 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     }
 
     public float getStamina() {
-        return sprintTime;
+        return stamina;
     }
 
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
         exhausted = false;
-        if (sprintTime >= 1)
+        if (stamina >= 1)
         {
             exhausted = true;
-            sprintTime = 1;
+            stamina = 1;
         }
         if (sprint > 1)
         {
-            sprintTime += delta;
+            stamina += delta;
         }
         else
         {
-            sprintTime -= delta;
-            if (sprintTime < 0)
+            stamina -= delta / 3;
+            if (stamina < 0)
             {
-                sprintTime = 0;
+                stamina = 0;
             }
         }
 
@@ -333,10 +333,11 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
-                    if (waits.get(t) <= SECONDARY_COOLDOWN)
+                    if (waits.get(t) <= SECONDARY_COOLDOWN || exhausted)
                     {
                         break;
                     }
+                    stamina += 0.2f;
                     secondaryStateTime = 0;
                     waits.put(t, 0f);
 
