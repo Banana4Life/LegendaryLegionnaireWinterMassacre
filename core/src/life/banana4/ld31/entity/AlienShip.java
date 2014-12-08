@@ -19,7 +19,7 @@ import life.banana4.ld31.entity.projectile.ShipRocket;
 public class AlienShip extends LivingEntity implements CollisionTarget
 {
     private static final float SCALE = 2;
-    private static final float ANGULAR_VELOCITY = 16;
+    private float ANGULAR_VELOCITY = 16;
     private float SPAWN_DELAY = 1f;
     private float ROCKET_DELAY = 5f;
     private final Snowman snowman;
@@ -87,6 +87,7 @@ public class AlienShip extends LivingEntity implements CollisionTarget
                         System.out.println(getHealth());
                         endFight2 = true;
                         ROCKET_DELAY = 3f;
+                        ANGULAR_VELOCITY = 160;
                     }
                     waitedRocket += delta;
                     waitedSpawn += delta;
