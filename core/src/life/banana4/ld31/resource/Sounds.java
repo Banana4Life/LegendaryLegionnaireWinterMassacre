@@ -14,6 +14,7 @@ public class Sounds extends ResourceBag<Sound>
 {
     public Sound aliendeath;
     public Sound rocketdeath;
+    public Sound swordswing;
 
     @Override
     protected Sound load(FileRef basedir, Field field)
@@ -25,6 +26,12 @@ public class Sounds extends ResourceBag<Sound>
             ext = annotation.value();
         }
         return Gdx.audio.newSound(Gdx.files.internal(fieldToFileRef(field, basedir).getPath() + "." + ext));
+    }
+
+    @Override
+    public void build()
+    {
+        super.build();
     }
 
     @Target(ElementType.FIELD)

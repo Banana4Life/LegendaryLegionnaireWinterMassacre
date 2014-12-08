@@ -343,6 +343,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     stamina += 0.2f;
                     secondaryStateTime = 0;
                     waits.put(t, 0f);
+                    getLevel().getGame().getDrawContext().resources.sounds.swordswing.play(.1f);
 
                     //radius -= 15 * delta;
                     break;
