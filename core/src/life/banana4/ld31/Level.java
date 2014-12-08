@@ -22,7 +22,6 @@ import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.pickup.HealthPickup;
-import life.banana4.ld31.entity.pickup.Pickup;
 import life.banana4.ld31.entity.AlienShip;
 import life.banana4.ld31.entity.BossEnemy;
 import life.banana4.ld31.entity.Cursor;
@@ -168,17 +167,7 @@ public class Level
         Collections.sort(this.entities, BY_DEPTH_ORDER);
 
         Set<Intention> intentions = scanIntentions();
-
-        if (!alienShip.hasPassed())
-        {
-            for (Iterator<Intention> it = intentions.iterator(); it.hasNext(); )
-            {
-                if (it.next().getType() != Type.EXIT_GAME)
-                {
-                    it.remove();
-                }
-            }
-        }
+        filterIntentions(intentions);
 
         for (Intention intention : intentions)
         {
@@ -207,6 +196,20 @@ public class Level
         for (final Entity e : this.entities)
         {
             e.draw(ctx, delta);
+        }
+    }
+
+    private void filterIntentions(Set<Intention> intentions)
+    {
+        if (!alienShip.hasPassed())
+        {
+            for (Iterator<Intention> it = intentions.iterator(); it.hasNext(); )
+            {
+                if (it.next().getType() != Type.EXIT_GAME)
+                {
+                    it.remove();
+                }
+            }
         }
     }
 
