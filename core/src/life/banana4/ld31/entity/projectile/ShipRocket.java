@@ -38,6 +38,14 @@ public class ShipRocket extends Projectile implements CollisionTarget
     }
 
     @Override
+    public void onDeath()
+    {
+        super.onDeath();
+
+        getLevel().getGame().getDrawContext().resources.sounds.rocketdeath.play();
+    }
+
+    @Override
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);
