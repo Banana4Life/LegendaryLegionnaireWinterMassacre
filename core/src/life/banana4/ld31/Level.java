@@ -106,7 +106,7 @@ public class Level
     private void spawnPlayer()
     {
         player = new Player();
-        addEntity(player).move(800, 90);
+        addEntity(player).move(450, 540);
     }
 
     public Player getPlayer()

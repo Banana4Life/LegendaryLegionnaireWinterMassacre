@@ -25,7 +25,7 @@ public class AlienShip extends LivingEntity implements CollisionTarget
     private final Snowman snowman;
     private static final Vector2 TARGET = new Vector2(540, 100);
 
-    private boolean laserShot = false;
+    private boolean rocketShot = false;
     private boolean passed = false;
     private boolean endFight = false;
     private boolean endFight2 = false;
@@ -39,8 +39,8 @@ public class AlienShip extends LivingEntity implements CollisionTarget
         super(size(128 * SCALE), size(128 * SCALE));
         this.snowman = snowman;
         setDepth(200);
-        setPosition(-getWidth(), 25 * SCALE);
-        setVelocity(180, 0);
+        setPosition(Gdx.graphics.getWidth() / 2, -getHeight());
+        setSpeed(3, 2, 180);
     }
 
     private static float size(float d)
@@ -65,9 +65,9 @@ public class AlienShip extends LivingEntity implements CollisionTarget
     {
         super.update(camera, delta);
 
-        if (getMidX() + 100 >= snowman.getMidX() && !laserShot)
+        if (getMidX() >= Gdx.graphics.getWidth() / 4 * 3 && !rocketShot)
         {
-            this.laserShot = true;
+            this.rocketShot = true;
             shoot(new ShipRocket(this, snowman), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(),
                                                                                                           getMidY());
         }
