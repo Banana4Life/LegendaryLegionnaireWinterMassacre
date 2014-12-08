@@ -93,7 +93,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     @Override
     public int getMaxHealth()
     {
-        return Ld31.isDebug() ? Integer.MAX_VALUE : 100;
+        return Ld31.isDebug() ? 999999999 : 100;
     }
 
     @Override
