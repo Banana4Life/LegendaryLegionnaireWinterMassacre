@@ -39,6 +39,8 @@ public class Pickup extends LivingEntity implements CollisionTarget
         if (source instanceof Player)
         {
             ((Player)source).heal(25);
+            getLevel().addEntity(new Particle(
+                getLevel().getGame().getDrawContext().resources.particles.heal).move(((Player)source).getMidX(), ((Player)source).getMidY()));
         }
         kill();
     }
