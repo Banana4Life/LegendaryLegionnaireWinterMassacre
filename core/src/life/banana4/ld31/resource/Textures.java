@@ -25,6 +25,14 @@ public class Textures extends ResourceBag<Texture>
     public Texture lost;
     public Texture bosshealthbar;
     public Texture bosshealth;
+    public Texture crossbowbutton;
+    public Texture crossbowbuttoncont;
+    public Texture swordbutton;
+    public Texture swordbuttoncont;
+    public Texture tertiarybutton;
+    public Texture tertiarybuttoncont;
+    public Texture walkbutton;
+    public Texture runbutton;
 
     @Override
     protected Texture load(FileRef basedir, Field field)

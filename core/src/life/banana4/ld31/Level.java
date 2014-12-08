@@ -316,6 +316,20 @@ public class Level
         spriteBatch.draw(ctx.resources.textures.uibar, 0, Gdx.graphics.getHeight() - 48, 1280, 48, 0, 0, 1280, 48, false, true);
         spriteBatch.draw(ctx.resources.textures.healthbar, 8, Gdx.graphics.getHeight() - 40, 87 * player.getHealth() / player.getMaxHealth(), 13, 0, 0, 1, 13, false, true);
         spriteBatch.draw(ctx.resources.textures.staminabar, 8, Gdx.graphics.getHeight() - 21, 87 * Math.max(1 - player.getStamina(), 0), 13, 0, 0, 1, 13, false, true);
+        if (player.isMouseControlled())
+        {
+            spriteBatch.draw(ctx.resources.textures.crossbowbutton, 180, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+            spriteBatch.draw(ctx.resources.textures.swordbutton, 217, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+            spriteBatch.draw(ctx.resources.textures.tertiarybutton, 254, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+            spriteBatch.draw(ctx.resources.textures.walkbutton, 291, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+            spriteBatch.draw(ctx.resources.textures.runbutton, 328, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+        } else {
+            spriteBatch.draw(ctx.resources.textures.crossbowbuttoncont, 180, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+            spriteBatch.draw(ctx.resources.textures.swordbuttoncont, 217, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+            spriteBatch.draw(ctx.resources.textures.tertiarybuttoncont, 254, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+            spriteBatch.draw(ctx.resources.textures.tertiarybuttoncont, 291, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+            spriteBatch.draw(ctx.resources.textures.tertiarybuttoncont, 328, Gdx.graphics.getHeight() - 19, 16, 16, 0, 0, 16, 16, false, true);
+        }
 
         spriteBatch.setProjectionMatrix(this.uiCamera.combined);
         bitmapFont.draw(spriteBatch, "" + scoreValue, 480, 38);

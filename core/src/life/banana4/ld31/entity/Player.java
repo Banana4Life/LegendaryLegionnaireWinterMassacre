@@ -68,6 +68,11 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         waits.put(Type.TERTIARY_ATTACK, TERTIARY_COOLDOWN);
     }
 
+    public boolean isMouseControlled()
+    {
+        return isMouseControlled;
+    }
+
     @Override
     public void onSpawn()
     {
