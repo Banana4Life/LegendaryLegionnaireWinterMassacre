@@ -282,6 +282,8 @@ public class Level
             t.draw(spriteBatch);
         }
 
+        spriteBatch.draw(ctx.resources.textures.uibar, 0, Gdx.graphics.getHeight() - 48, 1280, 48, 0, 0, 1280, 48, false, true);
+
         String t = "Score: " + scoreValue;
         t += "  Multiplier: " + multiplier + "x";
         t += "  Health: " + player.getHealth() + "/"+ player.getMaxHealth();
