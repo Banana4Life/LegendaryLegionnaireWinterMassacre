@@ -30,8 +30,6 @@ public class LevelLoader
             for (int y = 0; y < map.getHeight(); y++)
             {
                 color = map.getPixel(x, y);
-                System.out.println(color);
-                //System.out.println(TileType.getType(color));
                 int xRegion = -1, yRegion = -1;
                 switch (TileType.getType(color))
                 {
@@ -135,7 +133,7 @@ public class LevelLoader
                         yRegion = 0;
                         break;
                     case NONE:
-                        System.out.println("No type for that color");
+                        System.out.println("No type for that color: " + Integer.toHexString(color));
                         break;
                 }
                 if (xRegion != -1 && yRegion != -1)
