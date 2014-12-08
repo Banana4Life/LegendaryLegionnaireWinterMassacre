@@ -7,9 +7,9 @@ import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 
-public class AbilityEntity extends LivingEntity implements CollisionTarget
+public class Pickup extends LivingEntity implements CollisionTarget
 {
-    public AbilityEntity()
+    public Pickup()
     {
         super(31, 31);
     }

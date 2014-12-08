@@ -20,7 +20,7 @@ import life.banana4.ld31.ai.TiledManhattenDistance;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
-import life.banana4.ld31.entity.AbilityEntity;
+import life.banana4.ld31.entity.Pickup;
 import life.banana4.ld31.entity.AlienShip;
 import life.banana4.ld31.entity.BossEnemy;
 import life.banana4.ld31.entity.Cursor;
@@ -28,6 +28,7 @@ import life.banana4.ld31.entity.Enemy;
 import life.banana4.ld31.entity.LivingEntity;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.PointEnemy;
+import life.banana4.ld31.entity.Snowman;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.input.ControllerIntentionDetector;
@@ -63,6 +64,7 @@ public class Level
     private final IndexedAStarPathFinder<TiledNode> pathFinder;
     private final Cursor cursor;
     private final AlienShip alienShip;
+    private final Snowman snowman;
     private Player player;
 
     private final int width;
@@ -89,11 +91,13 @@ public class Level
         this.tiledGraph = tiledGraph;
         this.smoother = new PathSmoother<>(new TiledRaycastCollisionDetector(tiledGraph));
         this.pathFinder = new IndexedAStarPathFinder<>(tiledGraph);
+        this.uiCamera.setToOrtho(false);
 
         spawnPlayer();
         this.cursor = addEntity(new Cursor());
+        this.snowman = addEntity(new Snowman());
         this.alienShip = addEntity(new AlienShip());
-        this.uiCamera.setToOrtho(false);
+        this.snowman.move(540, 285);
     }
 
     private void spawnPlayer()
@@ -145,7 +149,7 @@ public class Level
         spawnEnemies(enemyCount);
         spawnAbility(delta);
 
-        drawLevel(ctx);
+        draw(ctx);
         // spawn queued
         this.entities.addAll(this.spawnQueue);
         this.spawnQueue.clear();
@@ -220,7 +224,7 @@ public class Level
 
         List<TiledNode> nodes = this.tiledGraph.getWalkableNodes();
         TiledNode target = nodes.get(random.nextInt(nodes.size()));
-        addEntity(new AbilityEntity()).move(target.x * TILE_WIDTH, target.y * TILE_WIDTH);
+        addEntity(new Pickup()).move(target.x * TILE_WIDTH, target.y * TILE_WIDTH);
     }
 
     private int waveSpawn = 1;
@@ -271,7 +275,7 @@ public class Level
         }
     }
 
-    private void drawLevel(DrawContext ctx)
+    private void draw(DrawContext ctx)
     {
         //draw floor
         final SpriteBatch spriteBatch = ctx.getSpriteBatch();
@@ -280,13 +284,14 @@ public class Level
         {
             t.draw(spriteBatch);
         }
-        spriteBatch.setProjectionMatrix(this.uiCamera.combined);
 
-        spriteBatch.draw(this.game.getDrawContext().resources.textures.snowman, Gdx.graphics.getWidth() / 2 - 64,
-                         Gdx.graphics.getHeight() / 2 - 64);
-        bitmapFont.draw(spriteBatch,
-                        "Score: " + scoreValue + " Multiplier: " + multiplier + "x  Health: " + player.getHealth() + "/"
-                            + player.getMaxHealth() + "  Wave " + waveCount + "/50", 10, 20);
+        String t = "Score: " + scoreValue;
+        t += "  Multiplier: " + multiplier + "x";
+        t += "  Health: " + player.getHealth() + "/"+ player.getMaxHealth();
+        t += "  Wave " + waveCount + "/50";
+        spriteBatch.setProjectionMatrix(this.uiCamera.combined);
+        bitmapFont.draw(spriteBatch, t, 10, 20);
+
         spriteBatch.end();
     }
 
