@@ -19,6 +19,7 @@ import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.projectile.Bolt;
 import life.banana4.ld31.entity.projectile.FireProjectile;
+import life.banana4.ld31.entity.projectile.ShipLaser;
 import life.banana4.ld31.input.AllThemInputAdapter;
 import life.banana4.ld31.input.AllThemInputProcessor;
 import life.banana4.ld31.input.ControllerIntentionDetector;

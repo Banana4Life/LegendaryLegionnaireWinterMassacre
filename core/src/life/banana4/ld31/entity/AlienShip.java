@@ -65,21 +65,23 @@ public class AlienShip extends LivingEntity implements CollisionTarget
             setVelocity(0, 0);
             if (endFight)
             {
-                waitedRocket += delta;
-                waitedSpawn += delta;
-                if (waitedSpawn >= SPAWN_DELAY)
+                Player p = getLevel().getPlayer();
+                if (!p.isDead())
                 {
-                    waitedSpawn = 0;
-                    getLevel().addEntity(new PointEnemy(0).move(getMidX(), getMidY()));
-
-                }
-                if (waitedRocket >= ROCKET_DELAY)
-                {
-                    waitedRocket = 0;
-                    Player p = getLevel().getPlayer();
-                    ShipLaser rocket = shoot(new ShipLaser(this, p), 0, 0);
-                    rocket.move(getMidX(), getMidY());
-                    rocket.setSpeed(p.getMidX() - getMidX(), p.getMidY() - getMidY(), 300);
+                    waitedRocket += delta;
+                    waitedSpawn += delta;
+                    if (waitedSpawn >= SPAWN_DELAY)
+                    {
+                        waitedSpawn = 0;
+                        getLevel().addEntity(new PointEnemy(0).move(getMidX(), getMidY()));
+                    }
+                    if (waitedRocket >= ROCKET_DELAY)
+                    {
+                        waitedRocket = 0;
+                        ShipLaser rocket = shoot(new ShipLaser(this, p), 0, 0);
+                        rocket.move(getMidX(), getMidY());
+                        rocket.setSpeed(p.getMidX() - getMidX(), p.getMidY() - getMidY(), 300);
+                    }
                 }
             }
         }
