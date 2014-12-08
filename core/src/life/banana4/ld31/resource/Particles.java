@@ -10,6 +10,7 @@ import life.banana4.util.resourcebags.ResourceBag;
 public class Particles extends ResourceBag<ParticleEffectPool>
 {
     public ParticleEffectPool explosion;
+    public ParticleEffectPool snowmanexplosion;
 
     @Override
     protected ParticleEffectPool load(FileRef basedir, Field field)

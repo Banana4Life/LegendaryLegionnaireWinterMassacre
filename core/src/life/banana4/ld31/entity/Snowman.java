@@ -27,6 +27,15 @@ public class Snowman extends LivingEntity implements CollisionTarget
     }
 
     @Override
+    public void onDeath()
+    {
+        super.onDeath();
+
+        getLevel().addEntity(new Particle(
+            getLevel().getGame().getDrawContext().resources.particles.snowmanexplosion.obtain()).move(getMidX(), getMidY()));
+    }
+
+    @Override
     public void onCollide(CollisionSource source, Vector2 mtv)
     {
         kill();
