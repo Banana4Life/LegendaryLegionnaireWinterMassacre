@@ -3,7 +3,7 @@ package life.banana4.ld31.ai;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
 import com.badlogic.gdx.utils.Array;
-import life.banana4.ld31.resource.Levels;
+import life.banana4.ld31.resource.LevelLoader;
 import life.banana4.ld31.util.TileType;
 
 public class TiledNode implements IndexedNode<TiledNode>
@@ -39,11 +39,11 @@ public class TiledNode implements IndexedNode<TiledNode>
 
     public float getTileX()
     {
-        return this.x * Levels.TILE_WIDTH;
+        return this.x * LevelLoader.TILE_WIDTH;
     }
 
     public float getTileY()
     {
-        return this.y * Levels.TILE_WIDTH;
+        return this.y * LevelLoader.TILE_WIDTH;
     }
 }

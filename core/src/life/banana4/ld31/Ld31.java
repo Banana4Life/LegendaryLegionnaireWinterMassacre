@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import life.banana4.ld31.input.GlobalInputProcessor;
 import life.banana4.ld31.input.InputMultiplexer;
+import life.banana4.ld31.resource.LevelLoader;
 
 public class Ld31 extends ApplicationAdapter
 {
@@ -31,9 +32,8 @@ public class Ld31 extends ApplicationAdapter
         Controllers.addListener(inputMultiplexer);
         Gdx.input.setCursorCatched(true);
 
-        this.resources = new Ld31Resources(this);
+        this.resources = new Ld31Resources();
         resources.build();
-        this.level = resources.levels.level1;
         this.drawContext = new DrawContext(camera, new SpriteBatch(), new ShapeRenderer(), resources);
 
         Pixmap cursor = new Pixmap(Gdx.files.internal("textures/cursor.png"));
@@ -51,6 +51,10 @@ public class Ld31 extends ApplicationAdapter
     @Override
     public void render()
     {
+        if (level == null)
+        {
+            level = LevelLoader.load(this, resources.textures);
+        }
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.level.render(drawContext, Gdx.graphics.getDeltaTime());
@@ -74,5 +78,10 @@ public class Ld31 extends ApplicationAdapter
     public InputMultiplexer getInputMultiplexer()
     {
         return inputMultiplexer;
+    }
+
+    public void reset()
+    {
+        this.level = null;
     }
 }

@@ -25,7 +25,6 @@ import life.banana4.ld31.entity.AlienShip;
 import life.banana4.ld31.entity.BossEnemy;
 import life.banana4.ld31.entity.Cursor;
 import life.banana4.ld31.entity.Enemy;
-import life.banana4.ld31.entity.LivingEntity;
 import life.banana4.ld31.entity.Player;
 import life.banana4.ld31.entity.PointEnemy;
 import life.banana4.ld31.entity.Snowman;
@@ -39,8 +38,8 @@ import life.banana4.ld31.util.TileType;
 
 import static java.lang.Math.abs;
 import static life.banana4.ld31.input.IntentionDetector.NO_INTENTIONS;
-import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
-import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
+import static life.banana4.ld31.resource.LevelLoader.TILE_WIDTH;
+import static life.banana4.ld31.resource.LevelLoader.TILE_WIDTH_2;
 
 public class Level
 {
@@ -198,18 +197,7 @@ public class Level
                 Gdx.app.exit();
                 break;
             case NEW_GAME:
-                for (Entity entity : this.getEntities())
-                {
-                    if (entity instanceof LivingEntity)
-                    {
-                        entity.kill();
-                    }
-                }
-                this.scoreValue = 0;
-                this.waveCount = 0;
-                this.waveSpawn = 1;
-                this.multiplier = 1;
-                spawnPlayer();
+                this.game.reset();
         }
     }
 

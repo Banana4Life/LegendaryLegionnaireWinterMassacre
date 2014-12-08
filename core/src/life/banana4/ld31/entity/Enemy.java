@@ -8,8 +8,8 @@ import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.projectile.AlienLaser;
 
-import static life.banana4.ld31.resource.Levels.TILE_WIDTH;
-import static life.banana4.ld31.resource.Levels.TILE_WIDTH_2;
+import static life.banana4.ld31.resource.LevelLoader.TILE_WIDTH;
+import static life.banana4.ld31.resource.LevelLoader.TILE_WIDTH_2;
 
 public abstract class Enemy extends LivingEntity implements CollisionSource, CollisionTarget
 {
