@@ -412,6 +412,20 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         this.bombs += bombs;
     }
 
+    @Override
+    public void onDamage(int damageDealt)
+    {
+        super.onDamage(damageDealt);
+
+        float x = -vx;
+        float y = -vy;
+        if (x + y == 0)
+        {
+            x = y = .5f;
+        }
+        getLevel().getGame().shakeScreen(x, y, .1f, 100 * damageDealt);
+    }
+
     private final class PlayerInputHandler extends AllThemInputAdapter
     {
 
