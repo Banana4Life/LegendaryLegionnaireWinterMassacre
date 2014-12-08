@@ -12,7 +12,7 @@ public class BossEnemy extends Enemy
     public BossEnemy()
     {
         super(45, 45);
-        this.setHealth(20);
+        this.setHealth(15);
     }
 
     @Override
@@ -38,6 +38,13 @@ public class BossEnemy extends Enemy
     @Override
     public int getMaxHealth()
     {
-        return 20;
+        return 15;
+    }
+
+    @Override
+    public void onDeath()
+    {
+        super.onDeath();
+        this.getLevel().addEntity(new PointEnemy().move(getX(),getY()));
     }
 }

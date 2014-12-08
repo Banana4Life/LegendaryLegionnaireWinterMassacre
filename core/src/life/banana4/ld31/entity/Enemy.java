@@ -20,7 +20,7 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     private static final float ATTACK_RANGE = 300;
     private static final float SHOT_DELAY = 0.65f;
 
-    private float damageable = 0;
+    private float damageable = Player.SECONDARY_COOLDOWN;
 
 
     public Enemy(float width, float height)
