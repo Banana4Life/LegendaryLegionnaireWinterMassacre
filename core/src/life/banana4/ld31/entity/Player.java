@@ -159,12 +159,12 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                         float angle = tmp.angle();
                         if (min < angle && max > angle)
                         {
-                            ((LivingEntity)entity).damage(5);
+                            ((LivingEntity)entity).damage(8);
                         }
                     }
                     else if (vX * vX + vY * vY <= 24 * 24)
                     {
-                        ((LivingEntity)entity).damage(5);
+                        ((LivingEntity)entity).damage(8);
                     }
                 }
             }
@@ -347,11 +347,10 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     //radius -= 15 * delta;
                     break;
                 case TERTIARY_ATTACK:
-                    if (waits.get(t) <= TERTIARY_COOLDOWN || (bombs <= 0 && !isDebug()))
+                    if (waits.get(t) <= TERTIARY_COOLDOWN || bombs <= 0)
                     {
                         break;
                     }
-                    this.bombs--;
                     Random random = new Random(System.currentTimeMillis());
                     for (float i = 0; i < 360; i += 1.5f)
                     {
