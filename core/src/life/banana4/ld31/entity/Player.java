@@ -32,6 +32,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     private static final float PRIMARY_COOLDOWN = 0.9f;
     private static final float SECONDARY_COOLDOWN = 0.45f;
     public static final float SPEED = 180f;
+    public static final float SECONDARY_RADIUS = 72f;
     private boolean isMouseControlled = false;
     private float walkingAngle = 0;
 
@@ -220,8 +221,8 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
 
             r.begin(ShapeType.Line);
             r.setColor(Color.BLUE);
-            r.arc(this.getMidX(), this.getMidY(), 64, min, max - min);
-
+            r.arc(this.getMidX(), this.getMidY(), SECONDARY_RADIUS, min, max - min);
+            r.circle(this.getMidX(), this.getMidY(), 24);
             r.end();
 
             r.begin(ShapeType.Filled);
@@ -301,7 +302,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                         {
                             float vX = entity.getMidX() - this.getMidX();
                             float vY = entity.getMidY() - this.getMidY();
-                            if (vX * vX + vY * vY <= 64 * 64)
+                            if (vX * vX + vY * vY <= SECONDARY_RADIUS * SECONDARY_RADIUS)
                             {
                                 tmp.set(vX, vY);
                                 float angle = tmp.angle();
@@ -309,6 +310,9 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                                 {
                                     ((Enemy)entity).damage(25);
                                 }
+                            } else if (vX * vX + vY * vY <= 24 * 24)
+                            {
+                                ((Enemy)entity).damage(25);
                             }
                         }
                     }
