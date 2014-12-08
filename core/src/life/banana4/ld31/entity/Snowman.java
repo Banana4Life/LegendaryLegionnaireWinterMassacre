@@ -1,14 +1,18 @@
 package life.banana4.ld31.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
+import life.banana4.ld31.entity.collision.CollisionSource;
+import life.banana4.ld31.entity.collision.CollisionTarget;
+import life.banana4.ld31.entity.projectile.ShipLaser;
 
-public class Snowman extends LivingEntity
+public class Snowman extends LivingEntity implements CollisionTarget
 {
     public Snowman()
     {
-        super(0, 0);
-        setPosition(460, 435);
+        super(64, 64);
+        setPosition(492, 467);
     }
 
     @Override
@@ -18,7 +22,19 @@ public class Snowman extends LivingEntity
 
         final SpriteBatch spriteBatch = ctx.getSpriteBatch();
         spriteBatch.begin();
-        spriteBatch.draw(ctx.resources.textures.snowman, getX(), getY());
+        spriteBatch.draw(ctx.resources.textures.snowman, getX() - 32, getY() - 32);
         spriteBatch.end();
+    }
+
+    @Override
+    public void onCollide(CollisionSource source, Vector2 mtv)
+    {
+        kill();
+    }
+
+    @Override
+    public boolean acceptsCollisionsFrom(CollisionSource source)
+    {
+        return source instanceof ShipLaser;
     }
 }

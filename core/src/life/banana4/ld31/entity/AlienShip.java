@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
+import life.banana4.ld31.entity.projectile.ShipLaser;
 import life.banana4.ld31.resource.Sounds;
 
 public class AlienShip extends LivingEntity
@@ -12,10 +13,14 @@ public class AlienShip extends LivingEntity
 
     private static final float SCALE = 2;
     private static final float ANGULAR_VELOCITY = 16;
+    private final Snowman snowman;
 
-    public AlienShip()
+    private boolean laserShot = false;
+
+    public AlienShip(Snowman snowman)
     {
         super(128 * SCALE, 128 * SCALE);
+        this.snowman = snowman;
         setDepth(200);
         setPosition(-getWidth(), 25);
         setVelocity(130, 0);
@@ -25,6 +30,13 @@ public class AlienShip extends LivingEntity
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);
+
+        if (getX() > 500 && !laserShot)
+        {
+            System.out.println("Shot!");
+            this.laserShot = true;
+            shoot(new ShipLaser(this), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(), getMidY());
+        }
 
         setRotation(getRotation() + delta * ANGULAR_VELOCITY);
     }

@@ -96,7 +96,7 @@ public class Level
         spawnPlayer();
         this.cursor = addEntity(new Cursor());
         this.snowman = addEntity(new Snowman());
-        this.alienShip = addEntity(new AlienShip());
+        this.alienShip = addEntity(new AlienShip(snowman));
     }
 
     private void spawnPlayer()
