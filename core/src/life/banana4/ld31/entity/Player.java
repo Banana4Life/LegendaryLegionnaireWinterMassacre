@@ -358,6 +358,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                         dir.setAngle(getRotation() + i);
                         shoot(new FireProjectile(this, 5, 5, getLevel().getGame().getDrawContext().resources.particles.fire), dir.x, dir.y).move(this.getMidX() + random.nextInt(20) - 10, this.getMidY() + random.nextInt(20) - 10);
                     }
+                    this.addBombs(-1);
                     waits.put(t, 0f);
                     break;
             }
