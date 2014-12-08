@@ -66,6 +66,12 @@ public class Cursor extends Entity
     {
         super.draw(ctx, delta);
 
+        Texture t = ctx.resources.textures.cursor;
+        SpriteBatch b = ctx.getSpriteBatch();
+        b.begin();
+        b.draw(t, getX() - (t.getWidth() / 2f), getY() - (t.getHeight() / 2f));
+        b.end();
+
         if (Ld31.isDebug())
         {
             ShapeRenderer r = ctx.getShapeRenderer();
@@ -78,11 +84,5 @@ public class Cursor extends Entity
             r.circle(getX(), getY(), 12);
             r.end();
         }
-
-        Texture t = ctx.resources.textures.cursor;
-        SpriteBatch b = ctx.getSpriteBatch();
-        b.begin();
-        b.draw(t, getX() - (t.getWidth() / 2f), getY() - (t.getHeight() / 2f));
-        b.end();
     }
 }
