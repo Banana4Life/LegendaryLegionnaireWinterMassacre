@@ -119,11 +119,15 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     {
         if (target instanceof Player && melee <= 0)
         {
-            ((Player)target).damage(1);
-            melee = 0.5f;
+            this.melee((LivingEntity)target);
         }
     }
 
+    public void melee(LivingEntity target)
+    {
+        target.damage(1);
+        melee = 0.5f;
+    }
 
     @Override
     public boolean mayCollideWith(CollisionTarget target)

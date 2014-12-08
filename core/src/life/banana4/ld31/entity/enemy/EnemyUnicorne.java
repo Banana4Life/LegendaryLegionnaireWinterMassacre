@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
+import life.banana4.ld31.entity.LivingEntity;
 
 public class EnemyUnicorne extends Enemy
 {
@@ -46,5 +47,12 @@ public class EnemyUnicorne extends Enemy
     {
         super.onDeath();
         this.getLevel().addEntity(new EnemyWalker().move(getX(),getY()));
+    }
+
+    @Override
+    public void melee(LivingEntity target)
+    {
+        super.melee(target);
+        target.damage(4);
     }
 }
