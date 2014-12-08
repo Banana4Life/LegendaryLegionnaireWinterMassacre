@@ -20,7 +20,8 @@ import life.banana4.ld31.ai.TiledManhattenDistance;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
-import life.banana4.ld31.entity.Pickup;
+import life.banana4.ld31.entity.pickup.HealthPickup;
+import life.banana4.ld31.entity.pickup.Pickup;
 import life.banana4.ld31.entity.AlienShip;
 import life.banana4.ld31.entity.BossEnemy;
 import life.banana4.ld31.entity.Cursor;
@@ -216,7 +217,7 @@ public class Level
 
         List<TiledNode> nodes = this.tiledGraph.getWalkableNodes();
         TiledNode target = nodes.get(random.nextInt(nodes.size()));
-        addEntity(new Pickup()).move(target.x * TILE_WIDTH, target.y * TILE_WIDTH);
+        addEntity(new HealthPickup()).move(target.x * TILE_WIDTH, target.y * TILE_WIDTH);
     }
 
     private int waveSpawn = 1;
