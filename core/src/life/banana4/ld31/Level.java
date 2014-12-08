@@ -94,15 +94,16 @@ public class Level
         this.uiCamera.setToOrtho(false);
 
         spawnPlayer();
-        this.cursor = addEntity(new Cursor());
         this.snowman = addEntity(new Snowman());
+        this.cursor = addEntity(new Cursor());
         this.alienShip = addEntity(new AlienShip(snowman));
+        this.cursor.move(snowman.getMidX(), snowman.getMidY());
     }
 
     private void spawnPlayer()
     {
         player = new Player();
-        addEntity(player).move(550, 300);
+        addEntity(player).move(800, 90);
     }
 
     public Player getPlayer()

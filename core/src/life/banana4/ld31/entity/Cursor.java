@@ -31,7 +31,6 @@ public class Cursor extends Entity
     public void onSpawn()
     {
         super.onSpawn();
-        setPosition(lastX, lastY);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class AlienShip extends LivingEntity
         this.snowman = snowman;
         setDepth(200);
         setPosition(-getWidth(), 25);
-        setVelocity(130, 0);
+        setVelocity(180, 0);
     }
 
     @Override
@@ -30,9 +30,8 @@ public class AlienShip extends LivingEntity
     {
         super.update(camera, delta);
 
-        if (getX() > 500 && !laserShot)
+        if (getMidX() + 100 >= snowman.getMidX() && !laserShot)
         {
-            System.out.println("Shot!");
             this.laserShot = true;
             shoot(new ShipLaser(this, snowman), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(),
                                                                                                           getMidY());
@@ -63,7 +62,6 @@ public class AlienShip extends LivingEntity
         if (getX() > 0)
         {
             super.onOutsideWorld();
-            System.out.println("Bye bye!");
         }
     }
 }
