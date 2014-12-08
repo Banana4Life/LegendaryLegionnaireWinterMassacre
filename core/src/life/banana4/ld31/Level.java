@@ -242,7 +242,7 @@ public class Level
         TiledNode target = nodes.get(random.nextInt(nodes.size()));
         addEntity(new HealthPickup()).move(target.x * TILE_WIDTH, target.y * TILE_WIDTH);
 
-        if (random.nextInt(10) == 0)
+        if (random.nextInt(5) == 0)
         {
             target = nodes.get(random.nextInt(nodes.size()));
             addEntity(new ScrollPickup().move(target.x * TILE_WIDTH, target.y * TILE_WIDTH));
