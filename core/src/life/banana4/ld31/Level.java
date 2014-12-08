@@ -240,6 +240,20 @@ public class Level
         //if (true) return;
         if (waveSpawn > 0 && curEnemyCount < 250)
         {
+            Enemy enemy;
+            int bossChance = 50 - waveCount;
+            if (bossChance <= 1)
+            {
+                bossChance = 1;
+            }
+            if (random.nextInt(bossChance) == 0)
+            {
+                enemy = new BossEnemy();
+            }
+            else
+            {
+                enemy = new PointEnemy();
+            }
             do
             {
                 float rX, rY;
@@ -249,21 +263,12 @@ public class Level
 
                 if (playerV.dst2(rX, rY) > SPAWN_DISTANCE * SPAWN_DISTANCE)
                 {
-                    if (this.nodeAt(rX, rY).type != TileType.WALL)
+                    if (this.nodeAt(rX, rY).type != TileType.WALL
+                     && this.nodeAt(rX + enemy.getWidth(), rY + enemy.getHeight()).type != TileType.WALL
+                     && this.nodeAt(rX + enemy.getWidth(), rY).type != TileType.WALL
+                     && this.nodeAt(rX, rY + enemy.getHeight()).type != TileType.WALL)
                     {
-                        int bossChance = 50 - waveCount;
-                        if (bossChance <= 1)
-                        {
-                            bossChance = 1;
-                        }
-                        if (random.nextInt(bossChance) == 0)
-                        {
-                            addEntity(new BossEnemy().move(rX, rY));
-                        }
-                        else
-                        {
-                            addEntity(new PointEnemy().move(rX, rY));
-                        }
+                        this.addEntity(enemy.move(rX, rY));
                         waveSpawn--;
                         return;
                     }
