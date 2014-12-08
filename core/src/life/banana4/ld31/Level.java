@@ -321,7 +321,7 @@ public class Level
         spriteBatch.setProjectionMatrix(this.uiCamera.combined);
         bitmapFont.draw(spriteBatch, "" + scoreValue, 480, 38);
         bitmapFont.draw(spriteBatch, multiplier + "x", 805, 38);
-        bitmapFont.draw(spriteBatch, waveCount + "/50", 805, 22);
+        bitmapFont.draw(spriteBatch, waveNumber + "/" + MAX_WAVE, 805, 22);
 
         spriteBatch.end();
     }
