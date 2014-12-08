@@ -15,6 +15,7 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
 {
     private TiledSmoothableGraphPath path = new TiledSmoothableGraphPath();
     private float waitedFor = 0;
+    private float melee = 0;
 
     private static final float ATTACK_RANGE = 300;
     private static final float SHOT_DELAY = 0.65f;
@@ -56,6 +57,8 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
         this.setVelocity(x * getSpeed(), y * getSpeed());
 
         attack(delta);
+
+        melee -= delta;
     }
 
     protected void attack(float delta)
@@ -103,7 +106,11 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     @Override
     public void onCollide(CollisionTarget target, Vector2 mtv)
     {
-
+        if (target instanceof Player && melee <= 0)
+        {
+            ((Player)target).damage(1);
+            melee = 0.5f;
+        }
     }
 
 

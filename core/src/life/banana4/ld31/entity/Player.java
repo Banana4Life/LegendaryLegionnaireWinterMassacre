@@ -338,10 +338,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         {
             move(mtv.x, mtv.y);
         }
-        else if (target instanceof Enemy)
-        {
-            this.damage(1);
-        }
     }
 
     @Override
