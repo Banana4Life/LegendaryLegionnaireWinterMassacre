@@ -3,7 +3,6 @@ package life.banana4.ld31.entity;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,9 +16,11 @@ import life.banana4.ld31.Entity;
 import life.banana4.ld31.Ld31;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
+import life.banana4.ld31.entity.enemy.Enemy;
 import life.banana4.ld31.entity.projectile.Bolt;
 import life.banana4.ld31.entity.projectile.FireProjectile;
-import life.banana4.ld31.entity.projectile.ShipLaser;
+import life.banana4.ld31.entity.projectile.Projectile;
+import life.banana4.ld31.entity.projectile.ShipRocket;
 import life.banana4.ld31.input.AllThemInputAdapter;
 import life.banana4.ld31.input.AllThemInputProcessor;
 import life.banana4.ld31.input.ControllerIntentionDetector;
@@ -145,7 +146,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             }
             for (Entity entity : this.getLevel().getEntities())
             {
-                if (entity instanceof Enemy || entity instanceof ShipLaser)
+                if (entity instanceof Enemy || entity instanceof ShipRocket)
                 {
                     float vX = entity.getMidX() - this.getMidX();
                     float vY = entity.getMidY() - this.getMidY();

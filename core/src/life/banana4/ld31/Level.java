@@ -23,16 +23,15 @@ import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.pickup.HealthPickup;
 import life.banana4.ld31.entity.AlienShip;
-import life.banana4.ld31.entity.BossEnemy;
+import life.banana4.ld31.entity.enemy.EnemyUnicorne;
 import life.banana4.ld31.entity.Cursor;
-import life.banana4.ld31.entity.Enemy;
+import life.banana4.ld31.entity.enemy.Enemy;
 import life.banana4.ld31.entity.Player;
-import life.banana4.ld31.entity.PointEnemy;
+import life.banana4.ld31.entity.enemy.EnemyWalker;
 import life.banana4.ld31.entity.Snowman;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.pickup.ScrollPickup;
-import life.banana4.ld31.entity.projectile.Bolt;
 import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
 import life.banana4.ld31.input.Intention.Type;
@@ -269,11 +268,11 @@ public class Level
             }
             if (random.nextInt(bossChance) == 0)
             {
-                enemy = new BossEnemy();
+                enemy = new EnemyUnicorne();
             }
             else
             {
-                enemy = new PointEnemy();
+                enemy = new EnemyWalker();
             }
             do
             {

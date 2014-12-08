@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
-import life.banana4.ld31.entity.Projectile;
 
 public class AlienLaser extends Projectile
 {

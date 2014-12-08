@@ -3,6 +3,7 @@ package life.banana4.ld31.entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.Entity;
+import life.banana4.ld31.entity.projectile.Projectile;
 
 public abstract class LivingEntity extends Entity
 {

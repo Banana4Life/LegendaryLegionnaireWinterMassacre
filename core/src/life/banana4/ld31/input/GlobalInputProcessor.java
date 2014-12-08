@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.Ld31;
-import life.banana4.ld31.entity.Enemy;
+import life.banana4.ld31.entity.enemy.Enemy;
 
 /**
  * This is the global input processor which acts as the fallback of the input multiplexer.

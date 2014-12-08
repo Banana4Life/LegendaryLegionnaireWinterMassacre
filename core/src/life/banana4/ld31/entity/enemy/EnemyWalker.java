@@ -1,20 +1,20 @@
-package life.banana4.ld31.entity;
+package life.banana4.ld31.entity.enemy;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 
-public class PointEnemy extends Enemy
+public class EnemyWalker extends Enemy
 {
     private float stateTime = 0;
 
-    public PointEnemy()
+    public EnemyWalker()
     {
         super(25, 25);
     }
 
-    public PointEnemy(float damageDelay)
+    public EnemyWalker(float damageDelay)
     {
         super(25, 25, damageDelay);
     }

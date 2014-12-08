@@ -1,15 +1,15 @@
-package life.banana4.ld31.entity;
+package life.banana4.ld31.entity.enemy;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 
-public class BossEnemy extends Enemy
+public class EnemyUnicorne extends Enemy
 {
     private float stateTime = 0f;
 
-    public BossEnemy()
+    public EnemyUnicorne()
     {
         super(45, 45);
         this.setHealth(15);
@@ -45,6 +45,6 @@ public class BossEnemy extends Enemy
     public void onDeath()
     {
         super.onDeath();
-        this.getLevel().addEntity(new PointEnemy().move(getX(),getY()));
+        this.getLevel().addEntity(new EnemyWalker().move(getX(),getY()));
     }
 }

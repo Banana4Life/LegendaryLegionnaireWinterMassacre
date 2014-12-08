@@ -1,13 +1,16 @@
-package life.banana4.ld31.entity;
+package life.banana4.ld31.entity.enemy;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.ai.TiledNode;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
+import life.banana4.ld31.entity.LivingEntity;
+import life.banana4.ld31.entity.Particle;
+import life.banana4.ld31.entity.Player;
+import life.banana4.ld31.entity.projectile.Projectile;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.projectile.AlienLaser;
-import life.banana4.ld31.entity.projectile.Bolt;
 
 import static life.banana4.ld31.resource.LevelLoader.TILE_WIDTH;
 import static life.banana4.ld31.resource.LevelLoader.TILE_WIDTH_2;

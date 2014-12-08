@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
-import life.banana4.ld31.entity.projectile.ShipLaser;
+import life.banana4.ld31.entity.projectile.ShipRocket;
 
 public class Snowman extends LivingEntity implements CollisionTarget
 {
@@ -45,6 +45,6 @@ public class Snowman extends LivingEntity implements CollisionTarget
     @Override
     public boolean acceptsCollisionsFrom(CollisionSource source)
     {
-        return source instanceof ShipLaser;
+        return source instanceof ShipRocket;
     }
 }

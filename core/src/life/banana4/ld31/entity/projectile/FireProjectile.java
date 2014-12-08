@@ -1,17 +1,13 @@
 package life.banana4.ld31.entity.projectile;
 
-import java.util.Random;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
-import life.banana4.ld31.entity.Player;
-import life.banana4.ld31.entity.Projectile;
+import life.banana4.ld31.entity.AlienShip;
+import life.banana4.ld31.entity.collision.CollisionTarget;
 
 public class FireProjectile extends Projectile
 {
@@ -60,5 +56,11 @@ public class FireProjectile extends Projectile
     public float getSpeed()
     {
         return 400;
+    }
+
+    @Override
+    public boolean mayCollideWith(CollisionTarget target)
+    {
+        return !(target instanceof AlienShip) && super.mayCollideWith(target);
     }
 }

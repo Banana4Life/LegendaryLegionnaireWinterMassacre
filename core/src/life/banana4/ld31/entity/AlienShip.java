@@ -7,9 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
+import life.banana4.ld31.entity.enemy.EnemyWalker;
 import life.banana4.ld31.entity.projectile.Bolt;
 import life.banana4.ld31.entity.projectile.FireProjectile;
-import life.banana4.ld31.entity.projectile.ShipLaser;
+import life.banana4.ld31.entity.projectile.Projectile;
+import life.banana4.ld31.entity.projectile.ShipRocket;
 
 public class AlienShip extends LivingEntity implements CollisionTarget
 {
@@ -54,7 +56,7 @@ public class AlienShip extends LivingEntity implements CollisionTarget
         if (getMidX() + 100 >= snowman.getMidX() && !laserShot)
         {
             this.laserShot = true;
-            shoot(new ShipLaser(this, snowman), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(),
+            shoot(new ShipRocket(this, snowman), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(),
                                                                                                           getMidY());
         }
 
@@ -73,12 +75,12 @@ public class AlienShip extends LivingEntity implements CollisionTarget
                     if (waitedSpawn >= SPAWN_DELAY)
                     {
                         waitedSpawn = 0;
-                        getLevel().addEntity(new PointEnemy(0).move(getMidX(), getMidY()));
+                        getLevel().addEntity(new EnemyWalker(0).move(getMidX(), getMidY()));
                     }
                     if (waitedRocket >= ROCKET_DELAY)
                     {
                         waitedRocket = 0;
-                        ShipLaser rocket = shoot(new ShipLaser(this, p), 0, 0);
+                        ShipRocket rocket = shoot(new ShipRocket(this, p), 0, 0);
                         rocket.move(getMidX(), getMidY());
                         rocket.setSpeed(p.getMidX() - getMidX(), p.getMidY() - getMidY(), 300);
                     }

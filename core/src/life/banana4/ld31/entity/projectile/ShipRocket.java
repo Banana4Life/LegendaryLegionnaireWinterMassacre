@@ -7,19 +7,17 @@ import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.AlienShip;
-import life.banana4.ld31.entity.LivingEntity;
 import life.banana4.ld31.entity.Particle;
 import life.banana4.ld31.entity.Player;
-import life.banana4.ld31.entity.Projectile;
 import life.banana4.ld31.entity.Snowman;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 
-public class ShipLaser extends Projectile implements CollisionTarget
+public class ShipRocket extends Projectile implements CollisionTarget
 {
     private Entity target;
 
-    public ShipLaser(AlienShip ship, Entity target)
+    public ShipRocket(AlienShip ship, Entity target)
     {
         super(ship, 30, 10, 10);
         this.target = target;
