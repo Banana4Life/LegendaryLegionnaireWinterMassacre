@@ -33,9 +33,9 @@ public class AlienLaser extends Projectile
         SpriteBatch b = ctx.getSpriteBatch();
 
         Texture tex = this.getLevel().getGame().getDrawContext().resources.textures.alienprojectile;
-        Vector2 rot = new Vector2(-4, -4).rotate(getRotation() - 45);
+        Vector2 rot = new Vector2(4, -4).rotate(getRotation() -90);
         b.begin();
-        b.draw(tex, getX() + getWidth() / 2 + rot.x, getY() + getHeight() / 2 + rot.y, 0, 0, 8, 16, 1, 1,
+        b.draw(tex, getMidX() + rot.x, getMidY() + rot.y, 0, 0, 8, 16, 1, 1,
                getRotation() + 90, 0, 0, 8, 16, false, false);
         b.end();
     }

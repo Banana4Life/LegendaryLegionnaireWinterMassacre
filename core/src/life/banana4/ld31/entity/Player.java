@@ -3,6 +3,7 @@ package life.banana4.ld31.entity;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.Entity;
+import life.banana4.ld31.Ld31;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.projectile.Bolt;
@@ -89,7 +91,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     @Override
     public int getMaxHealth()
     {
-        return 100;
+        return Ld31.isDebug() ? Integer.MAX_VALUE : 100;
     }
 
     @Override
@@ -364,8 +366,8 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         if (source instanceof Projectile && ((Projectile)source).getShooter() instanceof Enemy)
         {
             ((Projectile)source).dealDamage(this);
-            getLevel().addEntity(new Particle(
-                getLevel().getGame().getDrawContext().resources.particles.blood).move(getMidX(), getMidY()));
+            getLevel().addEntity(new Particle(getLevel().getGame().getDrawContext().resources.particles.blood).move(
+                getMidX(), getMidY()));
         }
     }
 
