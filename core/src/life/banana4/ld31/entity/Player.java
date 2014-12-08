@@ -334,6 +334,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     bolt.move(this.getMidX() + rotate.x, this.getMidY() + rotate.y);
                     shoot(bolt, dir.x, dir.y);
                     getLevel().getGame().shakeScreen(-dir.x, -dir.y, .1f, 200);
+                    getLevel().getGame().getDrawContext().resources.sounds.crossbow.play(.1f);
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
