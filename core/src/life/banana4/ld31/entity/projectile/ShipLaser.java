@@ -19,7 +19,7 @@ public class ShipLaser extends Projectile implements CollisionSource
 
     public ShipLaser(AlienShip ship, Entity target)
     {
-        super(ship, 1, 10, 10);
+        super(ship, 100, 10, 10);
         this.target = target;
     }
 

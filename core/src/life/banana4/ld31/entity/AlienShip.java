@@ -34,7 +34,7 @@ public class AlienShip extends LivingEntity
         {
             System.out.println("Shot!");
             this.laserShot = true;
-            shoot(new ShipLaser(this, getLevel().getPlayer()), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(),
+            shoot(new ShipLaser(this, snowman), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(),
                                                                                                           getMidY());
         }
 
