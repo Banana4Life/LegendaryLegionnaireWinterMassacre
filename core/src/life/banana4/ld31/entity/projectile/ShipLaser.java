@@ -1,6 +1,8 @@
 package life.banana4.ld31.entity.projectile;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -23,11 +25,13 @@ public class ShipLaser extends Projectile implements CollisionSource
     {
         super.draw(ctx, delta);
 
-        ShapeRenderer r = ctx.getShapeRenderer();
-        r.begin(ShapeType.Filled);
-        r.setColor(Color.RED);
-        r.rect(getX(), getY(), 10, 10);
-        r.end();
+        SpriteBatch batch = ctx.getSpriteBatch();
+        Texture tex = this.getLevel().getGame().getDrawContext().resources.textures.shipprojectile;
+        Vector2 rotate = new Vector2(-24, -8).rotate(getRotation() + 90);
+        batch.begin();
+        batch.draw(tex, getX() + getWidth() / 2 + rotate.x, getY() + getHeight() / 2 + rotate.y, 0, 0, 16, 48, 1, 1,
+               getRotation() + 90, 0, 0, 16, 48, false, false);
+        batch.end();
     }
 
     @Override

@@ -362,6 +362,8 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         if (source instanceof Projectile && ((Projectile)source).getShooter() instanceof Enemy)
         {
             ((Projectile)source).dealDamage(this);
+            getLevel().addEntity(new Particle(
+                getLevel().getGame().getDrawContext().resources.particles.blood).move(getMidX(), getMidY()));
         }
     }
 
