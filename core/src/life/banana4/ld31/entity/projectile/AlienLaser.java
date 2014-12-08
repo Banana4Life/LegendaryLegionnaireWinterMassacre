@@ -12,8 +12,7 @@ public class AlienLaser extends Projectile
 {
     public AlienLaser(Entity shooter)
     {
-        super(shooter, 8, 8);
-        this.damagePotential = 1;
+        super(shooter, 1, 8, 8);
     }
 
     @Override

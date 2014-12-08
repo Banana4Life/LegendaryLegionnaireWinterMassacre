@@ -13,7 +13,7 @@ public class Bolt extends Projectile
 {
     public Bolt(Entity shooter)
     {
-        super(shooter, 4, 4);
+        super(shooter, 5, 4, 4);
     }
 
     @Override
@@ -29,7 +29,6 @@ public class Bolt extends Projectile
         b.draw(tex, getX() + getWidth() / 2 + rotate.x, getY() + getHeight() / 2 + rotate.y, 0, 0, 32, 32, 1, 1,
                getRotation() + 90, 0, 0, 32, 32, false, false);
         b.end();
-        this.damagePotential = 5;
     }
 
     @Override

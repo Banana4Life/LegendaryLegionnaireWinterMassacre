@@ -17,7 +17,7 @@ public class ShipLaser extends Projectile implements CollisionSource
 {
     public ShipLaser(AlienShip ship)
     {
-        super(ship, 10, 10);
+        super(ship, 0, 10, 10);
     }
 
     @Override

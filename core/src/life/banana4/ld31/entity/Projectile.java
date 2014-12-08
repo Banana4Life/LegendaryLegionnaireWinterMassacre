@@ -8,13 +8,14 @@ import life.banana4.ld31.entity.collision.CollisionTarget;
 
 public abstract class Projectile extends LivingEntity implements CollisionSource
 {
-    protected int damagePotential = 3;
+    private int damagePotential;
     private final Entity shooter;
 
-    protected Projectile(Entity shooter, float width, float height)
+    protected Projectile(Entity shooter, int damagePotential, float width, float height)
     {
         super(width, height);
         this.shooter = shooter;
+        this.damagePotential = damagePotential;
     }
 
     @Override
@@ -39,12 +40,6 @@ public abstract class Projectile extends LivingEntity implements CollisionSource
     public Entity getShooter()
     {
         return shooter;
-    }
-
-
-    public int getDamagePotential()
-    {
-        return damagePotential;
     }
 
     public void dealDamage(LivingEntity e)

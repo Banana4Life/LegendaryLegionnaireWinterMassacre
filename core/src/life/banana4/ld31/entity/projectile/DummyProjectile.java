@@ -12,8 +12,7 @@ public class DummyProjectile extends Projectile
 {
     public DummyProjectile(Entity shooter, float width, float height)
     {
-        super(shooter, width, height);
-        this.damagePotential = 250;
+        super(shooter, 250, width, height);
     }
 
     @Override
