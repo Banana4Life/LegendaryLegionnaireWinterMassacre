@@ -60,10 +60,6 @@ public abstract class LivingEntity extends Entity
             this.viewingAngle = V.set(vx, vy).angle();
             this.move(vx * delta, vy * delta);
         }
-        if (getHealth() <= 0)
-        {
-            this.kill();
-        }
     }
 
     public <T extends Projectile> T shoot(T p, float x, float y)
@@ -82,6 +78,10 @@ public abstract class LivingEntity extends Entity
     public void setHealth(int health)
     {
         this.health = health;
+        if (this.health == 0)
+        {
+            kill();
+        }
     }
 
     public int getMaxHealth()
@@ -91,7 +91,6 @@ public abstract class LivingEntity extends Entity
 
     public int damage(int damage)
     {
-
         int newHealth = Math.max(0, getHealth() - damage);
         int damageDealt = getHealth() - newHealth;
         setHealth(newHealth);

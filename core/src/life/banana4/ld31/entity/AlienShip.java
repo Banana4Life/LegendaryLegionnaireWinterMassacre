@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
-import life.banana4.ld31.entity.enemy.EnemyUnicorne;
+import life.banana4.ld31.entity.enemy.Unicorn;
 import life.banana4.ld31.entity.enemy.EnemyWalker;
 import life.banana4.ld31.entity.projectile.Bolt;
 import life.banana4.ld31.entity.projectile.FireProjectile;
@@ -94,7 +94,7 @@ public class AlienShip extends LivingEntity implements CollisionTarget
 
                         if (endFight2)
                         {
-                            getLevel().addEntity(new EnemyUnicorne().move(getMidX(), getMidY()));
+                            getLevel().addEntity(new Unicorn().move(getMidX(), getMidY()));
                         }
                         else
                         {

@@ -6,11 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.LivingEntity;
 
-public class EnemyUnicorne extends Enemy
+public class Unicorn extends Enemy
 {
     private float stateTime = 0f;
 
-    public EnemyUnicorne()
+    public Unicorn()
     {
         super(45, 45);
         this.setHealth(15);
@@ -46,7 +46,10 @@ public class EnemyUnicorne extends Enemy
     public void onDeath()
     {
         super.onDeath();
-        this.getLevel().addEntity(new EnemyWalker().move(getX(),getY()));
+        if (!getLevel().getPlayer().isDead())
+        {
+            this.getLevel().addEntity(new EnemyWalker().move(getX(), getY()));
+        }
     }
 
     @Override

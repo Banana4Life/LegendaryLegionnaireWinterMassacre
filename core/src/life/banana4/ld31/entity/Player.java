@@ -347,10 +347,11 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     //radius -= 15 * delta;
                     break;
                 case TERTIARY_ATTACK:
-                    if (waits.get(t) <= TERTIARY_COOLDOWN || bombs <= 0)
+                    if (waits.get(t) <= TERTIARY_COOLDOWN || (bombs <= 0 && !isDebug()))
                     {
                         break;
                     }
+                    this.bombs--;
                     Random random = new Random(System.currentTimeMillis());
                     for (float i = 0; i < 360; i += 1.5f)
                     {

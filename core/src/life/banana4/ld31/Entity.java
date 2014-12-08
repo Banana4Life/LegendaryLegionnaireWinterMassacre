@@ -57,9 +57,12 @@ public abstract class Entity
 
     public void kill()
     {
-        getLevel().remove(this);
-        this.onDeath();
-        this.dead = true;
+        if (!this.dead)
+        {
+            getLevel().remove(this);
+            this.dead = true;
+            this.onDeath();
+        }
     }
 
     public boolean isDead()

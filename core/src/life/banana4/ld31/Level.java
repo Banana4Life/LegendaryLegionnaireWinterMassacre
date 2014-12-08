@@ -23,7 +23,7 @@ import life.banana4.ld31.ai.TiledRaycastCollisionDetector;
 import life.banana4.ld31.ai.TiledSmoothableGraphPath;
 import life.banana4.ld31.entity.pickup.HealthPickup;
 import life.banana4.ld31.entity.AlienShip;
-import life.banana4.ld31.entity.enemy.EnemyUnicorne;
+import life.banana4.ld31.entity.enemy.Unicorn;
 import life.banana4.ld31.entity.Cursor;
 import life.banana4.ld31.entity.enemy.Enemy;
 import life.banana4.ld31.entity.Player;
@@ -46,7 +46,7 @@ import static life.banana4.ld31.resource.LevelLoader.TILE_WIDTH_2;
 
 public class Level
 {
-    private static final int MAX_WAVE = 2;
+    private static final int MAX_WAVE = 20;
     private static final DepthComparator BY_DEPTH_ORDER = new DepthComparator();
     public static final int SPAWN_DISTANCE = 400;
     private final List<Entity> entities;
@@ -268,7 +268,7 @@ public class Level
             }
             if (random.nextInt(bossChance) == 0)
             {
-                enemy = new EnemyUnicorne();
+                enemy = new Unicorn();
             }
             else
             {
