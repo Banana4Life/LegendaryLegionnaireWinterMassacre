@@ -112,6 +112,40 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         {
             primaryStateTime += delta;
         }
+        else
+        {
+            Vector2 tmp = new Vector2();
+
+            float rotation = this.getRotation();
+            float min = rotation - 75;
+            float max = rotation + 75;
+            if (max < min)
+            {
+                max += min;
+                min = max - min;
+                max -= min;
+            }
+            for (Entity entity : this.getLevel().getEntities())
+            {
+                if (entity instanceof Enemy)
+                {
+                    float vX = entity.getMidX() - this.getMidX();
+                    float vY = entity.getMidY() - this.getMidY();
+                    if (vX * vX + vY * vY <= SECONDARY_RADIUS * SECONDARY_RADIUS)
+                    {
+                        tmp.set(vX, vY);
+                        float angle = tmp.angle();
+                        if (min < angle && max > angle)
+                        {
+                            ((Enemy)entity).damage(25);
+                        }
+                    } else if (vX * vX + vY * vY <= 24 * 24)
+                    {
+                        ((Enemy)entity).damage(25);
+                    }
+                }
+            }
+        }
 
         for (Type type : waits.keySet())
         {
@@ -285,37 +319,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     }
                     secondaryStateTime = 0;
                     waits.put(t, 0f);
-                    Vector2 tmp = new Vector2();
 
-                    float rotation = this.getRotation();
-                    float min = rotation - 75;
-                    float max = rotation + 75;
-                    if (max < min)
-                    {
-                        max += min;
-                        min = max - min;
-                        max -= min;
-                    }
-                    for (Entity entity : this.getLevel().getEntities())
-                    {
-                        if (entity instanceof Enemy)
-                        {
-                            float vX = entity.getMidX() - this.getMidX();
-                            float vY = entity.getMidY() - this.getMidY();
-                            if (vX * vX + vY * vY <= SECONDARY_RADIUS * SECONDARY_RADIUS)
-                            {
-                                tmp.set(vX, vY);
-                                float angle = tmp.angle();
-                                if (min < angle && max > angle)
-                                {
-                                    ((Enemy)entity).damage(25);
-                                }
-                            } else if (vX * vX + vY * vY <= 24 * 24)
-                            {
-                                ((Enemy)entity).damage(25);
-                            }
-                        }
-                    }
 
                     //radius -= 15 * delta;
                     break;
