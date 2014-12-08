@@ -21,6 +21,10 @@ public class Textures extends ResourceBag<Texture>
     public Texture uibar;
     public Texture healthbar;
     public Texture staminabar;
+    public Texture won;
+    public Texture lost;
+    public Texture bosshealthbar;
+    public Texture bosshealth;
 
     @Override
     protected Texture load(FileRef basedir, Field field)

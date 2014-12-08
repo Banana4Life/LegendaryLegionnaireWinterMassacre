@@ -322,6 +322,15 @@ public class Level
         bitmapFont.draw(spriteBatch, multiplier + "x", 805, 38);
         bitmapFont.draw(spriteBatch, waveNumber + "/" + MAX_WAVE, 805, 22);
 
+        if (alienShip.isDead()) {
+            spriteBatch.draw(ctx.resources.textures.won, 853, 4);
+        } else if (player.isDead()) {
+            spriteBatch.draw(ctx.resources.textures.lost, 853, 4);
+        } else if (waveNumber >= MAX_WAVE) {
+            spriteBatch.draw(ctx.resources.textures.bosshealthbar, 853, 4);
+            spriteBatch.draw(ctx.resources.textures.bosshealth, 958, 12, 311 * alienShip.getHealth() / alienShip.getMaxHealth(), 24, 0, 0, 1, 24, false, false);
+        }
+
         spriteBatch.end();
     }
 
