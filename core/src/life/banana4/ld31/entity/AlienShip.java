@@ -1,5 +1,6 @@
 package life.banana4.ld31.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,11 +34,17 @@ public class AlienShip extends LivingEntity implements CollisionTarget
 
     public AlienShip(Snowman snowman)
     {
-        super(128 * SCALE, 128 * SCALE);
+        super(size(128 * SCALE), size(128 * SCALE));
         this.snowman = snowman;
         setDepth(200);
-        setPosition(-getWidth(), 25);
+        setPosition(-getWidth(), 25 * SCALE);
         setVelocity(180, 0);
+    }
+
+    private static float size(float d)
+    {
+        final float r = d / 2f;
+        return 2 * (float)Math.sqrt((r * r) / 2f);
     }
 
     @Override
@@ -125,7 +132,7 @@ public class AlienShip extends LivingEntity implements CollisionTarget
     @Override
     public void onOutsideWorld()
     {
-        if (getX() > 0 && !endFight)
+        if (getX() > Gdx.graphics.getWidth() + 20 * SCALE && !endFight)
         {
             this.passed = true;
             setVelocity(0, 0);
