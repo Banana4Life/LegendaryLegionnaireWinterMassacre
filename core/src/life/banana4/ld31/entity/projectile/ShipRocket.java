@@ -83,7 +83,7 @@ public class ShipRocket extends Projectile implements CollisionTarget
     @Override
     public void onCollide(CollisionSource source, Vector2 mtv)
     {
-        if (source instanceof Bolt)
+        if (source instanceof Bolt || source instanceof FireProjectile)
         {
             this.kill();
         }
@@ -92,6 +92,6 @@ public class ShipRocket extends Projectile implements CollisionTarget
     @Override
     public boolean acceptsCollisionsFrom(CollisionSource source)
     {
-        return source instanceof Bolt;
+        return source instanceof Bolt || source instanceof FireProjectile;
     }
 }
