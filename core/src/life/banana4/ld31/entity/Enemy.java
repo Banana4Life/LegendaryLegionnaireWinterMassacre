@@ -20,6 +20,8 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     private static final float ATTACK_RANGE = 300;
     private static final float SHOT_DELAY = 0.65f;
 
+    private float damageable = 0;
+
 
     public Enemy(float width, float height)
     {
@@ -30,7 +32,7 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);
-
+        damageable -= delta;
         this.getLevel().calculatePath(path, this);
         if (path.getCount() == 0)
         {
@@ -77,8 +79,8 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     @Override
     public void onDeath()
     {
-        getLevel().addEntity(new Particle(
-            getLevel().getGame().getDrawContext().resources.particles.explosion.obtain()).move(getMidX(), getMidY()));
+        getLevel().addEntity(new Particle(getLevel().getGame().getDrawContext().resources.particles.explosion).move(
+            getMidX(), getMidY()));
         this.getLevel().addScore(getPoints());
     }
 
@@ -124,5 +126,16 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
     public boolean acceptsCollisionsFrom(CollisionSource source)
     {
         return true;
+    }
+
+    @Override
+    public int damage(int damage)
+    {
+        if (damageable < 0)
+        {
+            damageable = Player.SECONDARY_COOLDOWN;
+            return super.damage(damage);
+        }
+        return 0;
     }
 }

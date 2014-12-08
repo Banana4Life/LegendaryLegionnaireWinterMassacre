@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.projectile.ShipLaser;
-import life.banana4.ld31.resource.Sounds;
 
 public class AlienShip extends LivingEntity
 {
@@ -35,7 +34,8 @@ public class AlienShip extends LivingEntity
         {
             System.out.println("Shot!");
             this.laserShot = true;
-            shoot(new ShipLaser(this), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(), getMidY());
+            shoot(new ShipLaser(this), snowman.getMidX() - getMidX(), snowman.getMidY() - getMidY()).move(getMidX(),
+                                                                                                          getMidY());
         }
 
         setRotation(getRotation() + delta * ANGULAR_VELOCITY);

@@ -1,6 +1,7 @@
 package life.banana4.ld31.entity;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import life.banana4.ld31.DrawContext;
@@ -9,11 +10,13 @@ import life.banana4.ld31.Entity;
 public class Particle extends Entity
 {
     private final PooledEffect effect;
+    private final ParticleEffectPool effectPool;
 
-    public Particle(PooledEffect effect)
+    public Particle(ParticleEffectPool effectPool)
     {
         super(0, 0);
-        this.effect = effect;
+        this.effectPool = effectPool;
+        this.effect = effectPool.obtain();
     }
 
     @Override
@@ -29,7 +32,7 @@ public class Particle extends Entity
         if (effect.isComplete())
         {
             kill();
-            this.getLevel().getGame().getDrawContext().resources.particles.explosion.free(effect);
+            effectPool.free(effect);
         }
     }
 

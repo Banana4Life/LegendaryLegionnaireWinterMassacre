@@ -29,8 +29,8 @@ import static life.banana4.ld31.Ld31.isDebug;
 
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget
 {
-    private static final float PRIMARY_COOLDOWN = 0.9f;
-    private static final float SECONDARY_COOLDOWN = 0.45f;
+    public static final float PRIMARY_COOLDOWN = 0.9f;
+    public static final float SECONDARY_COOLDOWN = 0.45f;
     public static final float SPEED = 180f;
     public static final float SECONDARY_RADIUS = 72f;
     private boolean isMouseControlled = false;
@@ -145,11 +145,12 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                         float angle = tmp.angle();
                         if (min < angle && max > angle)
                         {
-                            ((Enemy)entity).damage(25);
+                            ((Enemy)entity).damage(5);
                         }
-                    } else if (vX * vX + vY * vY <= 24 * 24)
+                    }
+                    else if (vX * vX + vY * vY <= 24 * 24)
                     {
-                        ((Enemy)entity).damage(25);
+                        ((Enemy)entity).damage(5);
                     }
                 }
             }
@@ -327,7 +328,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     }
                     secondaryStateTime = 0;
                     waits.put(t, 0f);
-
 
                     //radius -= 15 * delta;
                     break;
