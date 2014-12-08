@@ -17,7 +17,7 @@ public class ShipLaser extends Projectile implements CollisionSource
 {
     public ShipLaser(AlienShip ship)
     {
-        super(ship, 0, 10, 10);
+        super(ship, 1, 10, 10);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ShipLaser extends Projectile implements CollisionSource
         Vector2 rotate = new Vector2(-24, -8).rotate(getRotation() + 90);
         batch.begin();
         batch.draw(tex, getX() + getWidth() / 2 + rotate.x, getY() + getHeight() / 2 + rotate.y, 0, 0, 16, 48, 1, 1,
-               getRotation() + 90, 0, 0, 16, 48, false, false);
+                   getRotation() + 90, 0, 0, 16, 48, false, false);
         batch.end();
     }
 

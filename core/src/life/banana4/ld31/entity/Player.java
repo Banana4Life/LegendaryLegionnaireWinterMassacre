@@ -88,7 +88,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
     @Override
     public int getMaxHealth()
     {
-        return 100000000;
+        return 100;
     }
 
     @Override
