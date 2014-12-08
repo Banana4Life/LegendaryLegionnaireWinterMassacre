@@ -5,11 +5,12 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import life.banana4.ld31.Ld31;
 
 public class DesktopLauncher {
+
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1280;
-		config.height = 720;
-		config.samples = 8;
+		config.width = Ld31.SCREEN_WIDTH;
+		config.height = Ld31.SCREEN_HEIGHT;
+		config.samples = 4;
 		new LwjglApplication(new Ld31(), config);
 	}
 }

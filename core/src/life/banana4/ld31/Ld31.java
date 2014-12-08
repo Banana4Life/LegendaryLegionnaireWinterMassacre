@@ -15,6 +15,8 @@ import life.banana4.ld31.resource.LevelLoader;
 
 public class Ld31 extends ApplicationAdapter
 {
+    public static final int SCREEN_WIDTH = 1280;
+    public static final int SCREEN_HEIGHT = 720;
     private static boolean DEBUG = System.getProperties().containsKey("debug");
 
     private Level level;

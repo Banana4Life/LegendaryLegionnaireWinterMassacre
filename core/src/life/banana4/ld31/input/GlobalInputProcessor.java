@@ -37,6 +37,7 @@ public class GlobalInputProcessor extends AllThemInputAdapter
         {
             System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
             System.out.println("Living entities: " + game.getLevel().getEntities().size());
+            return true;
         }
         else if (keycode == Keys.K)
         {
@@ -46,6 +47,15 @@ public class GlobalInputProcessor extends AllThemInputAdapter
                 {
                     entity.kill();
                 }
+            }
+            return true;
+        }
+        else if (keycode == Keys.ENTER && (Gdx.input.isKeyPressed(Keys.ALT_LEFT) | Gdx.input.isKeyPressed(Keys.ALT_RIGHT)))
+        {
+            if (Gdx.graphics.supportsDisplayModeChange())
+            {
+                Gdx.graphics.setDisplayMode(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), !Gdx.graphics.isFullscreen());
+                return true;
             }
         }
         return false;
