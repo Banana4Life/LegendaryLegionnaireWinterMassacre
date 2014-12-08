@@ -230,7 +230,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     fireProjectiles++;
                 }
             }
-            System.out.println(fireProjectiles);
             if (fireProjectiles == 0 && !fireballStarted)
             {
                 fireballStarted = true;

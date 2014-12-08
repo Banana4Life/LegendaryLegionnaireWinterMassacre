@@ -10,6 +10,8 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = Ld31.SCREEN_WIDTH;
 		config.height = Ld31.SCREEN_HEIGHT;
+		config.foregroundFPS = 144;
+		config.vSyncEnabled = true;
 		new LwjglApplication(new Ld31(), config);
 	}
 }

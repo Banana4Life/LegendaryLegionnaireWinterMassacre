@@ -197,6 +197,21 @@ public class Level
         {
             e.draw(ctx, delta);
         }
+
+        this.drawFps();
+    }
+
+    private void drawFps()
+    {
+        if (Ld31.isDebug())
+        {
+            SpriteBatch b = getGame().getDrawContext().getSpriteBatch();
+            b.setProjectionMatrix(this.uiCamera.combined);
+            b.begin();
+            this.bitmapFont.setColor(Color.RED);
+            this.bitmapFont.draw(b, "FPS: " + Gdx.graphics.getFramesPerSecond(), 100, 100);
+            b.end();
+        }
     }
 
     private void filterIntentions(Set<Intention> intentions)
@@ -332,6 +347,7 @@ public class Level
         }
 
         spriteBatch.setProjectionMatrix(this.uiCamera.combined);
+        bitmapFont.setColor(Color.WHITE);
         bitmapFont.draw(spriteBatch, "" + scoreValue, 480, 38);
         bitmapFont.draw(spriteBatch, multiplier + "x", 805, 38);
         bitmapFont.draw(spriteBatch, waveNumber + "/" + MAX_WAVE, 805, 22);
