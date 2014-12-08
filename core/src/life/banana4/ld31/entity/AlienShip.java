@@ -1,6 +1,7 @@
 package life.banana4.ld31.entity;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,6 +32,7 @@ public class AlienShip extends LivingEntity implements CollisionTarget
 
     private float waitedSpawn = SPAWN_DELAY;
     private float waitedRocket = ROCKET_DELAY;
+    private boolean damaged = false;
 
     public AlienShip(Snowman snowman)
     {
@@ -122,10 +124,18 @@ public class AlienShip extends LivingEntity implements CollisionTarget
 
         Texture t = ctx.resources.textures.ship;
         batch.begin();
+
+
         Vector2 pos = new Vector2(t.getWidth() * SCALE / 2, t.getHeight() * SCALE / 2);
         pos.rotate(getRotation());
+        if (damaged)
+        {
+            damaged = false;
+            batch.setColor(Color.RED);
+        }
         batch.draw(t, getMidX() - pos.x, getMidY() - pos.y, 0, 0, 128, 128, SCALE, SCALE, getRotation(), 0, 0, 128, 128,
                    false, true);
+        batch.setColor(Color.WHITE);
         batch.end();
     }
 
@@ -161,5 +171,12 @@ public class AlienShip extends LivingEntity implements CollisionTarget
     public boolean acceptsCollisionsFrom(CollisionSource source)
     {
         return source instanceof Bolt || source instanceof FireProjectile;
+    }
+
+    @Override
+    public int damage(int damage)
+    {
+        this.damaged = true;
+        return super.damage(damage);
     }
 }

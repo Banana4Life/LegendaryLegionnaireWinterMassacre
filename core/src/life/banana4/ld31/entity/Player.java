@@ -336,7 +336,7 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     waits.put(t, 0f);
                     break;
                 case SECONDARY_ATTACK:
-                    if (waits.get(t) <= SECONDARY_COOLDOWN || exhausted)
+                    if (waits.get(t) <= SECONDARY_COOLDOWN || exhausted || stamina + 0.2 > 1)
                     {
                         break;
                     }
