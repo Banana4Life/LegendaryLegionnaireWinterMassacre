@@ -291,10 +291,11 @@ public class Level
         }
 
         spriteBatch.draw(ctx.resources.textures.uibar, 0, Gdx.graphics.getHeight() - 48, 1280, 48, 0, 0, 1280, 48, false, true);
+        spriteBatch.draw(ctx.resources.textures.healthbar, 8, Gdx.graphics.getHeight() - 40, 87 * player.getHealth() / player.getMaxHealth(), 13, 0, 0, 1, 13, false, true);
+        spriteBatch.draw(ctx.resources.textures.staminabar, 8, Gdx.graphics.getHeight() - 21, 87 * Math.max(1 - player.getStamina(), 0), 13, 0, 0, 1, 13, false, true);
 
         String t = "Score: " + scoreValue;
         t += "  Multiplier: " + multiplier + "x";
-        t += "  Health: " + player.getHealth() + "/"+ player.getMaxHealth();
         t += "  Wave " + waveCount + "/50";
         spriteBatch.setProjectionMatrix(this.uiCamera.combined);
         bitmapFont.draw(spriteBatch, t, 10, 20);

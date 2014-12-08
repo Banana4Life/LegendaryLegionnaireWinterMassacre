@@ -96,9 +96,14 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
         return Ld31.isDebug() ? 999999999 : 100;
     }
 
+    public float getStamina() {
+        return sprintTime;
+    }
+
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
+        exhausted = false;
         if (sprintTime >= 1)
         {
             exhausted = true;
@@ -114,7 +119,6 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
             if (sprintTime < 0)
             {
                 sprintTime = 0;
-                exhausted = false;
             }
         }
 

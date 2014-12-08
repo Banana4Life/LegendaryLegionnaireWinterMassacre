@@ -19,6 +19,8 @@ public class Textures extends ResourceBag<Texture>
     public Texture footstep;
     public Texture ship;
     public Texture uibar;
+    public Texture healthbar;
+    public Texture staminabar;
 
     @Override
     protected Texture load(FileRef basedir, Field field)
