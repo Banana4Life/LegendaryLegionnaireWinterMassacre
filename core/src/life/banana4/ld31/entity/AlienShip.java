@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
+import life.banana4.ld31.entity.enemy.EnemyUnicorne;
 import life.banana4.ld31.entity.enemy.EnemyWalker;
 import life.banana4.ld31.entity.projectile.Bolt;
 import life.banana4.ld31.entity.projectile.FireProjectile;
@@ -17,14 +18,16 @@ public class AlienShip extends LivingEntity implements CollisionTarget
 {
     private static final float SCALE = 2;
     private static final float ANGULAR_VELOCITY = 16;
-    private static final float SPAWN_DELAY = 1f;
-    private static final float ROCKET_DELAY = 5f;
+    private float SPAWN_DELAY = 1f;
+    private float ROCKET_DELAY = 5f;
     private final Snowman snowman;
     private static final Vector2 TARGET = new Vector2(540, 100);
 
     private boolean laserShot = false;
     private boolean passed = false;
     private boolean endFight = false;
+    private boolean endFight2 = false;
+
     private float waitedSpawn = SPAWN_DELAY;
     private float waitedRocket = ROCKET_DELAY;
 
@@ -70,12 +73,26 @@ public class AlienShip extends LivingEntity implements CollisionTarget
                 Player p = getLevel().getPlayer();
                 if (!p.isDead())
                 {
+                    if (getHealth()*1f / getMaxHealth() < 0.2 && !endFight2)
+                    {
+                        System.out.println(getHealth());
+                        endFight2 = true;
+                        ROCKET_DELAY = 3f;
+                    }
                     waitedRocket += delta;
                     waitedSpawn += delta;
                     if (waitedSpawn >= SPAWN_DELAY)
                     {
                         waitedSpawn = 0;
-                        getLevel().addEntity(new EnemyWalker(0).move(getMidX(), getMidY()));
+
+                        if (endFight2)
+                        {
+                            getLevel().addEntity(new EnemyUnicorne().move(getMidX(), getMidY()));
+                        }
+                        else
+                        {
+                            getLevel().addEntity(new EnemyWalker(0).move(getMidX(), getMidY()));
+                        }
                     }
                     if (waitedRocket >= ROCKET_DELAY)
                     {

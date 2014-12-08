@@ -55,4 +55,10 @@ public class EnemyUnicorne extends Enemy
         super.melee(target);
         target.damage(4);
     }
+
+    @Override
+    public float getSpeed()
+    {
+        return 160;
+    }
 }

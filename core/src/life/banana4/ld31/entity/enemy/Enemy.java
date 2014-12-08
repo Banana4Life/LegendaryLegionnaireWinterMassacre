@@ -100,7 +100,7 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
 
     public float getSpeed()
     {
-        return 130f;
+        return 110;
     }
 
 
