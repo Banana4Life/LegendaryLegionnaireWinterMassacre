@@ -2,6 +2,7 @@ package life.banana4.ld31;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -37,6 +38,14 @@ public class Ld31 extends ApplicationAdapter
 
         Pixmap cursor = new Pixmap(Gdx.files.internal("textures/cursor.png"));
         Gdx.input.setCursorImage(cursor, cursor.getWidth() / 2, cursor.getHeight() / 2);
+
+        if (!isDebug())
+        {
+            Music song = resources.songs.main;
+            song.setLooping(true);
+            song.setVolume(.1f);
+            song.play();
+        }
     }
 
     @Override
