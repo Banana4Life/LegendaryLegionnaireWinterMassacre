@@ -34,7 +34,7 @@ public class Animations extends ResourceBag<Animation>
         switch (id)
         {
             case "charswordswing":
-                speed = 0.05f;
+                speed = 0.025f;
                 break;
             case "legs":
                 speed = 0.05f;

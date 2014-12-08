@@ -33,7 +33,7 @@ import static life.banana4.ld31.Ld31.isDebug;
 public class Player extends LivingEntity implements CollisionSource, CollisionTarget
 {
     public static final float PRIMARY_COOLDOWN = 0.9f;
-    public static final float SECONDARY_COOLDOWN = 0.45f;
+    public static final float SECONDARY_COOLDOWN = 0.3f;
     public static final float TERTIARY_COOLDOWN = 2f;
     public static final float SPEED = 180f;
     public static final float SECONDARY_RADIUS = 72f;

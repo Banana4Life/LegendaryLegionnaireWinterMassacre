@@ -60,13 +60,13 @@ scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Scale - 
-lowMin: 0.0
-lowMax: 0.0
-highMin: 8.0
-highMax: 16.0
+lowMin: 2.0
+lowMax: 2.0
+highMin: 14.0
+highMax: 22.0
 relative: false
 scalingCount: 3
-scaling0: 0.50980395
+scaling0: 1.0
 scaling1: 0.25490198
 scaling2: 1.0
 timelineCount: 3
@@ -132,13 +132,13 @@ highMax: 1.0
 relative: false
 scalingCount: 4
 scaling0: 1.0
-scaling1: 0.7368421
-scaling2: 0.49122807
-scaling3: 0.2631579
+scaling1: 0.75438595
+scaling2: 0.2982456
+scaling3: 0.15789473
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.5
-timeline2: 0.70547944
+timeline1: 0.39726028
+timeline2: 0.6917808
 timeline3: 1.0
 - Options - 
 attached: false
