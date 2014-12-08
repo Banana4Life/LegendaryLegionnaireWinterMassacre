@@ -8,6 +8,7 @@ public class Snowman extends LivingEntity
     public Snowman()
     {
         super(0, 0);
+        setPosition(460, 435);
     }
 
     @Override

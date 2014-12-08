@@ -5,19 +5,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import life.banana4.ld31.DrawContext;
+import life.banana4.ld31.resource.Sounds;
 
 public class AlienShip extends LivingEntity
 {
 
     private static final float SCALE = 2;
-    private static final float ANGULAR_VELOCITY = 8;
+    private static final float ANGULAR_VELOCITY = 16;
 
     public AlienShip()
     {
         super(128 * SCALE, 128 * SCALE);
         setDepth(200);
-        setPosition(100, 100);
-        setVelocity(10, 10);
+        setPosition(-getWidth(), 25);
+        setVelocity(130, 0);
     }
 
     @Override
@@ -42,5 +43,15 @@ public class AlienShip extends LivingEntity
         batch.draw(t, getMidX() - pos.x, getMidY() - pos.y, 0, 0, 128, 128, SCALE, SCALE, getRotation(), 0, 0, 128, 128,
                    false, true);
         batch.end();
+    }
+
+    @Override
+    public void onOutsideWorld()
+    {
+        if (getX() > 0)
+        {
+            super.onOutsideWorld();
+            System.out.println("Bye bye!");
+        }
     }
 }

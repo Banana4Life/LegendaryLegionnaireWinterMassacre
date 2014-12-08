@@ -97,7 +97,6 @@ public class Level
         this.cursor = addEntity(new Cursor());
         this.snowman = addEntity(new Snowman());
         this.alienShip = addEntity(new AlienShip());
-        this.snowman.move(540, 285);
     }
 
     private void spawnPlayer()
@@ -171,6 +170,7 @@ public class Level
                 e.reactTo(intention, delta);
             }
             e.update(ctx.camera, delta);
+            e.checkInWorld();
         }
 
         detectCollisions();

@@ -83,11 +83,20 @@ public abstract class Entity
         this.x += x;
         this.y += y;
 
+        return this;
+    }
+
+    final void checkInWorld()
+    {
         if (this.x < 0 || this.y < 0 || this.x > Gdx.graphics.getWidth() || this.y > Gdx.graphics.getHeight())
         {
-            this.kill();
+            onOutsideWorld();
         }
-        return this;
+    }
+
+    public void onOutsideWorld()
+    {
+        kill();
     }
 
     public float getX()
