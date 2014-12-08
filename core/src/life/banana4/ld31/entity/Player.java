@@ -2,6 +2,7 @@ package life.banana4.ld31.entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,7 +16,7 @@ import life.banana4.ld31.Entity;
 import life.banana4.ld31.entity.collision.CollisionSource;
 import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.projectile.Bolt;
-import life.banana4.ld31.entity.projectile.DummyProjectile;
+import life.banana4.ld31.entity.projectile.FireProjectile;
 import life.banana4.ld31.input.AllThemInputAdapter;
 import life.banana4.ld31.input.AllThemInputProcessor;
 import life.banana4.ld31.input.ControllerIntentionDetector;
@@ -336,10 +337,11 @@ public class Player extends LivingEntity implements CollisionSource, CollisionTa
                     {
                         break;
                     }
-                    for (float i = 0; i < 360; i += 3)
+                    Random random = new Random(System.currentTimeMillis());
+                    for (float i = 0; i < 360; i += 1.5f)
                     {
                         dir.setAngle(getRotation() + i);
-                        shoot(new DummyProjectile(this, 5, 5), dir.x, dir.y).move(this.getMidX(), this.getMidY());
+                        shoot(new FireProjectile(this, 5, 5, getLevel().getGame().getDrawContext().resources.particles.fire), dir.x, dir.y).move(this.getMidX() + random.nextInt(20) - 10, this.getMidY() + random.nextInt(20) - 10);
                     }
                     waits.put(t, 0f);
                     break;

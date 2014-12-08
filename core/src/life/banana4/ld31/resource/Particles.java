@@ -13,6 +13,7 @@ public class Particles extends ResourceBag<ParticleEffectPool>
     public ParticleEffectPool snowmanexplosion;
     public ParticleEffectPool blood;
     public ParticleEffectPool heal;
+    public ParticleEffectPool fire;
 
     @Override
     protected ParticleEffectPool load(FileRef basedir, Field field)
