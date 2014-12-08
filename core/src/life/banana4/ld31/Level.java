@@ -3,6 +3,7 @@ package life.banana4.ld31;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -34,6 +35,7 @@ import life.banana4.ld31.entity.collision.CollisionTarget;
 import life.banana4.ld31.entity.pickup.ScrollPickup;
 import life.banana4.ld31.input.ControllerIntentionDetector;
 import life.banana4.ld31.input.Intention;
+import life.banana4.ld31.input.Intention.Type;
 import life.banana4.ld31.input.IntentionDetector;
 import life.banana4.ld31.input.KeyboardIntentionDetector;
 import life.banana4.ld31.util.TileType;
@@ -166,6 +168,17 @@ public class Level
         Collections.sort(this.entities, BY_DEPTH_ORDER);
 
         Set<Intention> intentions = scanIntentions();
+
+        if (!alienShip.hasPassed())
+        {
+            for (Iterator<Intention> it = intentions.iterator(); it.hasNext(); )
+            {
+                if (it.next().getType() != Type.EXIT_GAME)
+                {
+                    it.remove();
+                }
+            }
+        }
 
         for (Intention intention : intentions)
         {
@@ -443,10 +456,6 @@ public class Level
 
     private Set<Intention> scanIntentions()
     {
-        if (!alienShip.hasPassed())
-        {
-            return NO_INTENTIONS;
-        }
         for (final IntentionDetector detector : INTENTION_DETECTORS)
         {
             Set<Intention> intentions = detector.detect();
