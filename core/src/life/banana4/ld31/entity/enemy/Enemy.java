@@ -80,7 +80,8 @@ public abstract class Enemy extends LivingEntity implements CollisionSource, Col
         waitedFor += delta;
         if (dx * dx + dy * dy < ATTACK_RANGE * ATTACK_RANGE && waitedFor > SHOT_DELAY && (path.getCount() == 2 || path.getCount() == 3))
         {
-            shoot(new AlienLaser(this), dx, dy).move(this.getMidX() - 2, this.getMidY() - 2);
+            Vector2 rotate = new Vector2(35, 0).rotate(getViewingAngle());
+            shoot(new AlienLaser(this), dx, dy).move(this.getMidX() - 2 + rotate.x, this.getMidY() - 2 + rotate.y);
             waitedFor = 0;
         }
     }
