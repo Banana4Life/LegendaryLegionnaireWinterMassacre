@@ -15,6 +15,14 @@ public class AlienLaser extends Projectile
     }
 
     @Override
+    public void onSpawn()
+    {
+        super.onSpawn();
+
+        getLevel().getGame().getDrawContext().resources.sounds.laser.play(.2f);
+    }
+
+    @Override
     public void update(OrthographicCamera camera, float delta)
     {
         super.update(camera, delta);

@@ -53,7 +53,7 @@ public class Ld31 extends ApplicationAdapter
         {
             Music song = resources.songs.main;
             song.setLooping(true);
-            song.setVolume(.1f);
+            song.setVolume(.3f);
             song.play();
         }
     }
