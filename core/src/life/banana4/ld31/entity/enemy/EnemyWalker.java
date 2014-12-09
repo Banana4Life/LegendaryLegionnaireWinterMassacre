@@ -19,6 +19,12 @@ public class EnemyWalker extends Enemy
         super(25, 25, damageDelay);
     }
 
+    public EnemyWalker setStateTime(float stateTime)
+    {
+        this.stateTime = stateTime;
+        return this;
+    }
+
     @Override
     public void update(OrthographicCamera camera, float delta)
     {
@@ -42,7 +48,7 @@ public class EnemyWalker extends Enemy
         SpriteBatch b = ctx.getSpriteBatch();
         b.begin();
         Vector2 v = new Vector2(64, -64).rotate(getViewingAngle());
-        b.draw(ctx.resources.animations.alien.getKeyFrame(stateTime, true), getMidX() + v.x, getMidY() + v.y, 0, 0, 128,
+        b.draw(ctx.resources.animations.alien.getKeyFrame(stateTime), getMidX() + v.x, getMidY() + v.y, 0, 0, 128,
                128, 1, 1, getViewingAngle() + 90);
         b.end();
     }

@@ -33,6 +33,7 @@ public class Textures extends ResourceBag<Texture>
     public Texture tertiarybuttoncont;
     public Texture walkbutton;
     public Texture runbutton;
+    public Texture darkoverlay;
 
     @Override
     protected Texture load(FileRef basedir, Field field)

@@ -39,7 +39,7 @@ public class Unicorn extends Enemy
             damaged = false;
             b.setColor(Color.RED);
         }
-        b.draw(ctx.resources.animations.unicornalien.getKeyFrame(stateTime, true), getMidX() + v.x, getMidY() + v.y,
+        b.draw(ctx.resources.animations.unicornalien.getKeyFrame(stateTime), getMidX() + v.x, getMidY() + v.y,
                    0, 0, 128, 128, 1, 1, getViewingAngle() + 90);
         b.setColor(Color.WHITE);
         b.end();
@@ -59,7 +59,7 @@ public class Unicorn extends Enemy
         {
             if (getLevel().nodeAt(getX(), getY()).type != TileType.WALL)
             {
-                this.getLevel().addEntity(new EnemyWalker().move(getX(), getY()));
+                this.getLevel().addEntity(new EnemyWalker().setStateTime(1f).move(getX(), getY()));
             }
         }
         getLevel().getGame().getDrawContext().resources.sounds.unicorndeath.play();
