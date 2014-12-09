@@ -8,6 +8,7 @@ public class DesktopLauncher {
 
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = "Legendary Legionnaire Winter Massacre";
 		config.width = Ld31.SCREEN_WIDTH;
 		config.height = Ld31.SCREEN_HEIGHT;
 		config.foregroundFPS = 144;
