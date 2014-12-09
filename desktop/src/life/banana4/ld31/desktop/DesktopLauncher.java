@@ -1,5 +1,6 @@
 package life.banana4.ld31.desktop;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import life.banana4.ld31.Ld31;
@@ -13,6 +14,9 @@ public class DesktopLauncher {
 		config.height = Ld31.SCREEN_HEIGHT;
 		config.foregroundFPS = 144;
 		config.vSyncEnabled = true;
+		config.addIcon("icon_16.ico", FileType.Internal);
+		config.addIcon("icon_32.ico", FileType.Internal);
+		config.addIcon("icon_128.ico", FileType.Internal);
 		new LwjglApplication(new Ld31(), config);
 	}
 }
