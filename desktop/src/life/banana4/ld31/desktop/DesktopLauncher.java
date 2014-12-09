@@ -14,9 +14,9 @@ public class DesktopLauncher {
 		config.height = Ld31.SCREEN_HEIGHT;
 		config.foregroundFPS = 144;
 		config.vSyncEnabled = true;
-		config.addIcon("icon_16.ico", FileType.Internal);
-		config.addIcon("icon_32.ico", FileType.Internal);
-		config.addIcon("icon_128.ico", FileType.Internal);
+		config.addIcon("icons/icon_16.png", FileType.Internal);
+		config.addIcon("icons/icon_32.png", FileType.Internal);
+		config.addIcon("icons/icon_128.png", FileType.Internal);
 		new LwjglApplication(new Ld31(), config);
 	}
 }
