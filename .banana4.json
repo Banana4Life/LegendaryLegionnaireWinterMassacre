@@ -1,0 +1,10 @@
+{
+  "name": "Legendary Legionnaire Winter Massacre",
+  "description": "A legionnaire had build a snowman. Suddenly aliens destroy it. Take your revenge!",
+  "ludumdare": {
+    "number": 31,
+    "theme": "Entire game on one screen",
+    "comments": []
+  },
+  "authors": ["Jonas Dann", "Phillip Schichtel", "Anselm Brehme", "Katharina Spinner"],
+}
