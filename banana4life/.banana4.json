@@ -1,0 +1,13 @@
+{
+  "name": "Legendary Legionnaire Winter Massacre",
+  "description": "A legionnaire had build a snowman. Suddenly aliens destroy it. Take your revenge!",
+  "jam": {
+    "name": "Ludum Dare",
+    "number": 31,
+    "theme": "Entire game on one screen",
+    "site": "http://ludumdare.com/compo/ludum-dare-31/?action=preview&uid=41477",
+    "comments": []
+  },
+  "authors": ["Jonas Dann", "Phillip Schichtel", "Anselm Brehme", "Katharina Spinner"],
+  "soundtrack": "https://soundcloud.com/rahtainka/legendary-legionnaire-winter"
+}
